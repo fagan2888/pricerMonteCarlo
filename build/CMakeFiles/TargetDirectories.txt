@@ -1,2 +1,0 @@
-/user/2/margueed/pricerMonteCarlo/build/CMakeFiles/mc-example.dir
-/user/2/margueed/pricerMonteCarlo/build/CMakeFiles/parser-test.dir
