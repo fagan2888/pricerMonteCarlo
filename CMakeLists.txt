@@ -46,6 +46,8 @@ target_link_libraries(mc-example ${LIBS})
 # Unit test
 add_executable(globalTest test/TestOption.cpp src/OptionBasket.cpp src/Option.cpp)
 target_link_libraries(globalTest ${LIBS})
+add_executable(blackTest src/BlackScholesModel.cpp src/parser.cpp test/TestBlackScholes.cpp)
+target_link_libraries(blackTest ${LIBS})
 
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)
 # target_link_libraries(mc-pricer ${LIBS})
