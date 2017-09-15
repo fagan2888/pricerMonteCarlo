@@ -39,3 +39,7 @@
 
 # CMake file
 CMakeCache.txt
+
+# IDE
+.idea/
+cmake-build-debug/
