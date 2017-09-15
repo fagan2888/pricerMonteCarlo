@@ -7,6 +7,7 @@
 class Option {
 public:
     Option(double T_, int nbTimeSteps_, int size_);
+
     /**
      * Calcule la valeur du payoff sur la trajectoire
      *
@@ -16,6 +17,12 @@ public:
      * @return phi(trajectoire)
      */
     virtual double payoff(const PnlMat *path) = 0;
+
+    double maturity();
+
+    int nbTimeSteps();
+
+    int size();
 
 protected:
     double T_; /// maturité

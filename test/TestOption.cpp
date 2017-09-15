@@ -1,6 +1,7 @@
 #include "../src/OptionBasket.hpp"
+#include <iostream>
 
-using  namespace std;
+using namespace std;
 
 int main(int argc, char **argv) {
 
@@ -8,7 +9,10 @@ int main(int argc, char **argv) {
     int nbTimeSteps = 1;
     int size = 1;
     double strike = 10;
-    //OptionBasket optionBasket(maturity, nbTimeSteps, size, strike);
+
+    /// Test sur OptionBasket
+    OptionBasket optionBasket(maturity, nbTimeSteps, size, strike);
+    cout << (optionBasket.strike() == 10) << endl;
 
     return 0;
 }

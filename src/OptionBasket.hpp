@@ -6,10 +6,12 @@
 class OptionBasket : public Option {
 public:
     OptionBasket(double T_, int nbTimeSteps_, int size_, double strike);
+
     virtual double payoff(const PnlMat *path);
+    double strike();
 
 protected:
-    double strike;
+    double strike_;
 };
 
 #endif //MC_PRICER_OPTIONBASKET_HPP
