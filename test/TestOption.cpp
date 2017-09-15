@@ -11,11 +11,13 @@ int main(int argc, char **argv) {
     int nbTimeSteps = 1;
     int size = 1;
     double strike = 10;
-    PnlVect *payoffCoeff = pnl_vect_create(size);
+    PnlVect *payoffCoeff = pnl_vect_create_from_scalar(size,2);
 
     /// Test sur OptionBasket
     OptionBasket optionBasket(maturity, nbTimeSteps, size, payoffCoeff, strike);
-    cout << (optionBasket.strike() == 10) << endl;
+    //cout << (optionBasket.strike() == 10) << endl;
+
+    cout << optionBasket.payoffCoeff(0) << endl;
 
     return 0;
 }

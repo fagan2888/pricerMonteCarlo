@@ -26,6 +26,8 @@ public:
 
     PnlVect payoffCoeff();
 
+    double payoffCoeff(int i);
+
 protected:
     double T_; /// maturité
     int nbTimeSteps_; /// nombre de pas de temps de discrétisation

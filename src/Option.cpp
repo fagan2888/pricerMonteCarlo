@@ -17,3 +17,6 @@ int Option::size() {
 PnlVect Option::payoffCoeff() {
     return *(this->payoffCoeff_);
 }
+double Option::payoffCoeff(int i) {
+    return GET(this->payoffCoeff_,i);
+}
