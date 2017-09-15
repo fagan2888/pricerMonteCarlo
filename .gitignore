@@ -30,3 +30,16 @@
 *.exe
 *.out
 *.app
+
+# Build directory
+/build
+
+# Debug message
+*.log
+
+# CMake file
+CMakeCache.txt
+
+# IDE
+.idea/
+cmake-build-debug/
