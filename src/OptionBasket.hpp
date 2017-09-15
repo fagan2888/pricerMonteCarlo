@@ -5,7 +5,7 @@
 
 class OptionBasket : public Option {
 public:
-    OptionBasket(double T_, int nbTimeSteps_, int size_, double strike);
+    OptionBasket(double T_, int nbTimeSteps_, int size_, PnlVect *payoffCoeff_, double strike_);
 
     virtual double payoff(const PnlMat *path);
     double strike();

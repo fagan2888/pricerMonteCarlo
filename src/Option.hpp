@@ -6,7 +6,7 @@
 /// \brief Classe Option abstraite
 class Option {
 public:
-    Option(double T_, int nbTimeSteps_, int size_);
+    Option(double T_, int nbTimeSteps_, int size_, PnlVect *payoffCoeff_);
 
     /**
      * Calcule la valeur du payoff sur la trajectoire
@@ -24,10 +24,13 @@ public:
 
     int size();
 
+    PnlVect payoffCoeff();
+
 protected:
     double T_; /// maturité
     int nbTimeSteps_; /// nombre de pas de temps de discrétisation
     int size_; /// dimension du modèle, redondant avec BlackScholesModel::size_
+    PnlVect *payoffCoeff_;
 };
 
 
