@@ -14,6 +14,7 @@ public:
     PnlVect *sigma_; /// vecteur de volatilités
     PnlVect *spot_; /// valeurs initiales du sous-jacent
 
+    BlackScholesModel(int, double, double, PnlVect *, PnlVect *);
     /**
      * Génère une trajectoire du modèle et la stocke dans path
      *
