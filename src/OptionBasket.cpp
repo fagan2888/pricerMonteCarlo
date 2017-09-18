@@ -5,8 +5,10 @@ OptionBasket::OptionBasket(double T_, int nbTimeSteps_, int size_, PnlVect *payo
 
 double OptionBasket::payoff(const PnlMat *path) {
     double payoff = 0;
-
-    for(int i = 0; i<2; i++) {
+    PnlVect* S_T=pnl_vect_create(size_);
+    pnl_mat_get_row(S_T,path,nbTimeSteps_);
+    for(int i = 0; i<size_; i++) {
+        payoff+=pnl_vect_get(payoffCoeff_,i)*pnl_vect_get(S_T,i)-strike_;
         //payoff += path.array[path.m,i] * payoffCoeff()
     }
 
