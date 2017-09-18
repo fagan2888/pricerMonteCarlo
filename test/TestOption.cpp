@@ -10,14 +10,16 @@ int main(int argc, char **argv) {
     double maturity = 4;
     int nbTimeSteps = 1;
     int size = 1;
-    double strike = 10;
-    PnlVect *payoffCoeff = pnl_vect_create_from_scalar(size,2);
+    double strike = 5;
+    PnlVect *payoffCoeff = pnl_vect_create_from_scalar(size, 2);
+    PnlMat *path = pnl_mat_create_from_scalar(maturity / nbTimeSteps, size, 4);
 
     /// Test sur OptionBasket
     OptionBasket optionBasket(maturity, nbTimeSteps, size, payoffCoeff, strike);
-    //cout << (optionBasket.strike() == 10) << endl;
-
-    cout << optionBasket.payoffCoeff(0) << endl;
+    if (optionBasket.payoff(path) != 3) {
+        cout << "Erreur sur le calcul du payoff de la Basketoption" << endl;
+        return 1;
+    }
 
     return 0;
 }
