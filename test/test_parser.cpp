@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "parser.hpp"
+#include "../src/parser.hpp"
 
 using namespace std;
 
