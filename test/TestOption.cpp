@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
     int size = 1;
     double strike = 3;
     PnlVect *payoffCoeff = pnl_vect_create_from_scalar(size, 1.0 / size);
-    PnlMat *path = pnl_mat_create_from_scalar(nbTimeSteps, size, 4);
+    PnlMat *path = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 4);
 
     /// Test sur OptionBasket
     OptionBasket optionBasket(maturity, nbTimeSteps, size, payoffCoeff, strike);
