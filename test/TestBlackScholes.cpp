@@ -4,6 +4,10 @@
 
 #include "../src/BlackScholesModel.hpp"
 #include "../src/parser.hpp"
+#include "../src/OptionBasket.hpp"
+#include "../src/OptionAsian.hpp"
+#include "../src/OptionPerformance.hpp"
+#include "../src/MonteCarlo.hpp"
 #include <string>
 #include <iostream>
 
@@ -14,14 +18,13 @@ int main(int argc, char **argv) {
     double T, r, strike, rho;
     PnlVect *spot, *sigma, *divid;
     PnlMat* pnlMat;
-    string type;
-    int size,nbtt;
+    int size,nbTimeSteps;
     size_t n_samples;
+    PnlVect *payoffCoeff = pnl_vect_create_from_scalar(size, 1.0 / size);
 
     char *infile = argv[1];
     Param *P = new Parser(infile);
 
-    P->extract("option type", type);
     P->extract("maturity", T);
     P->extract("option size", size);
     P->extract("spot", spot, size);
@@ -48,12 +51,16 @@ int main(int argc, char **argv) {
     cout << "volatility ";
     pnl_vect_print_asrow(sigma);
     cout << "Number of samples " << n_samples << endl;
-    nbtt=11;
+    nbTimeSteps=11;
     PnlRng* rng=pnl_rng_create(PNL_RNG_KNUTH);
-    pnlMat=pnl_mat_create_from_zero(nbtt+1,size);
-    BlackScholesModel blackScholesModel(size, r, rho,sigma, spot);
-    blackScholesModel.asset(pnlMat,T,nbtt,rng);
-    pnl_mat_print(pnlMat);
+    pnlMat=pnl_mat_create_from_zero(nbTimeSteps+1,size);
+    BlackScholesModel* blackScholesModel = new BlackScholesModel(size, r, rho,sigma, spot);
+    blackScholesModel->asset(pnlMat,T,nbTimeSteps,rng);
+    OptionAsian* optionAsian = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
+    MonteCarlo monteCarlo(blackScholesModel, optionAsian, rng, 10.0, n_samples);
+    double prix = 0.0;
+    double ic = 0.0;
+    monteCarlo.price(prix, ic);    pnl_mat_print(pnlMat);
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);

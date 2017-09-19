@@ -43,3 +43,7 @@ void MonteCarlo::price(double &prix, double &ic)
 	auto estimateurVariance = exp(-2*(mod_->r_)*(opt_->maturity())) * (squareSum - pow(sum,2));
 	ic = sqrt(estimateurVariance);
 };
+
+void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
+    auto spotsMat=
+}
