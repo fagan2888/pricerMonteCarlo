@@ -38,7 +38,7 @@ endif()
 set(LIBS ${LIBS} m)
 
 # Testing the parser
-add_executable(parser-test src/parser.cpp src/test_parser.cpp)
+add_executable(parser-test src/parser.cpp test/test_parser.cpp)
 target_link_libraries(parser-test ${LIBS})
 add_executable(mc-example src/mc_example.cpp src/BlackScholesModel.cpp)
 target_link_libraries(mc-example ${LIBS})
