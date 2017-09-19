@@ -49,6 +49,10 @@ target_link_libraries(globalTest ${LIBS})
 add_executable(blackTest src/BlackScholesModel.cpp src/parser.cpp test/TestBlackScholes.cpp)
 target_link_libraries(blackTest ${LIBS})
 
+# Test MC
+add_executable(testMC src/parser.cpp test/test_parser_New.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
+target_link_libraries(testMC ${LIBS})
+
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)
 # target_link_libraries(mc-pricer ${LIBS})
 # install(TARGETS mc-pricer DESTINATION bin)
