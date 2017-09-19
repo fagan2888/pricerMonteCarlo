@@ -14,6 +14,17 @@ public:
     int nbSamples_; /*! nombre de tirages Monte Carlo */
 
     /**
+     * Constructeur de la classe
+     *
+     * @param[in] modele Black Scholes 
+     * @param[in] l'option
+     * @param[in] le générateur
+     * @param[in] pas de différence finie
+     * @param[in] nombre de tirages Monte Carlo
+     */ 
+	MonteCarlo(BlackScholesModel* mod, Option* opt, PnlRng* rng, double fdStep, int nbSamples);
+   
+	 /**
      * Calcule le prix de l'option à la date 0
      *
      * @param[out] prix valeur de l'estimateur Monte Carlo
