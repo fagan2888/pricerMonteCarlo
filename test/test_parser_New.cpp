@@ -10,6 +10,13 @@
 
 using namespace std;
 
+/*enum option_kind {
+  ASIAN, 
+  BASKET, 
+  PERF, 
+};*/
+
+
 int main(int argc, char **argv)
 {
     double T, r, strike, corr;
@@ -19,24 +26,8 @@ int main(int argc, char **argv)
     size_t n_samples; /* ATTENTION : type long donné en entrée ! */
 
     char *infile = argv[1];
-    Param *P = new Parser("../data/basket.dat");
-/*
-model type          <string>  bs
-option size         <int>     2
-strike              <float>   100
-spot                <vector>  100
-maturity            <float>   1.5
-volatility          <vector>  0.2
-interest rate       <float>   0.02
-correlation         <float>   0.0
-*/
-/*
-option type         <string>  asian
-payoff coefficients <vector>  0.5
+    Param *P = new Parser(infile);
 
-timestep number     <int>     150
-sample number       <long>    50000
-*/
     P->extract("option type", type);
     P->extract("maturity", T);
     P->extract("option size", size);
@@ -56,8 +47,33 @@ sample number       <long>    50000
 
     P->print();
 	
+	//enum option_kind para;	
+
 	/* Création de l'option en fonction du type */
-	OptionBasket * optA = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike); 	
+
+	Option * opt;
+
+	if(type.compare("asian") == 0)
+		opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
+	if(type.compare("basket") == 0)
+		opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
+	if(type.compare("performance") == 0)
+		opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff);
+
+	/*switch (para) {
+  		case ASIAN:            
+    		OptionAsian * opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike); 
+    		break;
+  		case BASKET:            
+    		OptionBasket * opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike); 
+   			break;
+  		case PERFORMANCE:            
+    		OptionPerformance * opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff, strike); 
+    		break;
+  		default:            
+    		cout<<"Error, bad option type, quitting\n";
+    		abort();
+  	}*/
 
 	BlackScholesModel* bsmod = new BlackScholesModel(size, r, corr, sigma, spot);
 
@@ -65,18 +81,16 @@ sample number       <long>    50000
     double fdStep = 1.0;
 	/* Générateur aléatoire */
 	PnlRng* rng = pnl_rng_create(PNL_RNG_KNUTH);
-	//pnl_rng_sseed(rng, 0);
+	pnl_rng_sseed(rng, 0);
 
-	//MonteCarlo * monte = new MonteCarlo(bsmod, optA, rng, fdStep, 50000); /* n_samples */
-
-	MonteCarlo monteCarlo(bsmod, optA, rng, fdStep, 50000);
+	MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, 50000); /* n_samples */
 
 	double prix;
 	double ic;
 	monteCarlo.price(prix, ic);
   	std::cout << prix << " | " << ic << std::endl;
 
-	//cout << "mc price " << prix << endl;#include "pnl/pnl_random.h"
+	//cout << "mc price " << prix << endl;
 
 	/*
     cout << endl;
