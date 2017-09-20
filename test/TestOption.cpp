@@ -13,7 +13,7 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-    bool  success = true;
+    bool success = true;
 
     double maturity = 4;
     int nbTimeSteps = 4;
@@ -31,15 +31,16 @@ int main(int argc, char **argv) {
     }
 
     /// Test sur OptionAsian
-    OptionAsian* optionAsian = new OptionAsian(maturity, nbTimeSteps, size, payoffCoeff, strike);
-	PnlRng* rng = pnl_rng_create(PNL_RNG_KNUTH);
-	pnl_rng_sseed(rng, 0);
-	BlackScholesModel* bsModel = new BlackScholesModel(1, 1.01, 1.0, pnl_vect_create_from_scalar(1, 0.4), pnl_vect_create_from_scalar(1, 10.0));
-	MonteCarlo monteCarlo(bsModel, optionAsian, rng, 10.0, 1000);
-	double prix = 0.0;
-	double ic = 0.0;
-	monteCarlo.price(prix, ic);
-  std::cout << prix << " | " << ic << std::endl;
+    OptionAsian *optionAsian = new OptionAsian(maturity, nbTimeSteps, size, payoffCoeff, strike);
+    PnlRng *rng = pnl_rng_create(PNL_RNG_KNUTH);
+    pnl_rng_sseed(rng, 0);
+    BlackScholesModel *bsModel = new BlackScholesModel(1, 1.01, 1.0, pnl_vect_create_from_scalar(1, 0.4),
+                                                       pnl_vect_create_from_scalar(1, 10.0));
+    MonteCarlo monteCarlo(bsModel, optionAsian, rng, 10.0, 50000);
+    double prix = 0.0;
+    double ic = 0.0;
+    monteCarlo.price(prix, ic);
+    cout << prix << " | " << ic << endl;
 
     /// Test sur OptionPerformance
     OptionPerformance optionPerformance(maturity, nbTimeSteps, size, payoffCoeff);
