@@ -21,8 +21,8 @@ void MonteCarlo::price(double &prix, double &ic)
 	auto spotsMat = pnl_mat_create (opt_->nbTimeSteps()+1, mod_->size_);
 	pnl_mat_set_all(spotsMat, 0.0);
 
-	double sum = 0.0;
-	double squareSum = 0.0;
+	long double sum = 0.0;
+	long double squareSum = 0.0;
 	for(int i = 0; i<  nbSamples_; i++)
 	{
 		mod_->asset(spotsMat, opt_->maturity(), opt_->nbTimeSteps(), rng_);
@@ -38,7 +38,7 @@ void MonteCarlo::price(double &prix, double &ic)
 	prix = exp(-(mod_->r_)*(opt_->maturity()))*sum;
 
     /* Intervalle de confiance */
-	double estimateurVariance = exp(-2*(mod_->r_)*(opt_->maturity())) * (squareSum - pow(sum,2));
+	long double estimateurVariance = exp(-2*(mod_->r_)*(opt_->maturity())) * (squareSum - pow(sum,2));
 	ic = 1.96*sqrt(estimateurVariance)/sqrt(nbSamples_);
 };
 
