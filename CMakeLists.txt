@@ -19,6 +19,9 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
 endif ()
 
+set(CMAKE_CTEST_COMMAND ctest -V) 
+include(CTest)
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
 
 # Detect Boost
 set(Boost_NO_BOOST_CMAKE ON)
@@ -44,10 +47,22 @@ add_executable(mc-example src/mc_example.cpp src/BlackScholesModel.cpp)
 target_link_libraries(mc-example ${LIBS})
 
 # Unit test
-add_executable(globalTest test/TestOption.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp src/OptionPerformance.hpp)
-target_link_libraries(globalTest ${LIBS})
-add_executable(blackTest src/BlackScholesModel.cpp src/parser.cpp test/TestBlackScholes.cpp)
-target_link_libraries(blackTest ${LIBS})
+add_executable(optionTest test/TestOption.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp src/OptionPerformance.hpp)
+target_link_libraries(optionTest ${LIBS})
+add_test(optionTest optionTest)
+
+add_executable(blackScholesTest src/MonteCarlo.cpp src/Option.cpp src/OptionPerformance.cpp src/OptionBasket.cpp src/OptionAsian.cpp src/BlackScholesModel.cpp src/parser.cpp test/TestBlackScholes.cpp)
+target_link_libraries(blackScholesTest ${LIBS})
+add_test(blackScholesTest blackScholesTest)
+
+# Test MC
+add_executable(testMC src/parser.cpp test/TestMC.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
+target_link_libraries(testMC ${LIBS})
+add_test(testMC_basket testMC ../data/basket.dat)
+add_test(testMC_basket_1 testMC ../data/basket_1.dat)
+add_test(testMC_basket_2 testMC ../data/basket_2.dat)
+add_test(testMC_asian testMC ../data/asian.dat)
+add_test(testMC_perf testMC ../data/perf.dat)
 
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)
 # target_link_libraries(mc-pricer ${LIBS})

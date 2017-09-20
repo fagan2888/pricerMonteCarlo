@@ -1,5 +1,9 @@
 #include "../src/BlackScholesModel.hpp"
 #include "../src/parser.hpp"
+#include "../src/OptionBasket.hpp"
+#include "../src/OptionAsian.hpp"
+#include "../src/OptionPerformance.hpp"
+#include "../src/MonteCarlo.hpp"
 #include <string>
 #include <iostream>
 
@@ -13,10 +17,10 @@ int main(int argc, char **argv) {
     string type;
     int size, nbtt;
     size_t n_samples;
+    PnlVect *payoffCoeff = pnl_vect_create_from_scalar(size, 1.0 / size);
 
     Param *P = new Parser("../data/basket.dat");
 
-    P->extract("option type", type);
     P->extract("maturity", T);
     P->extract("option size", size);
     P->extract("spot", spot, size);
@@ -27,7 +31,6 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-
     nbtt = 11;
     PnlRng *rng = pnl_rng_create(PNL_RNG_KNUTH);
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
