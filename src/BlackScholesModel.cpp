@@ -1,5 +1,5 @@
 #include "BlackScholesModel.hpp"
-#include <math.h>
+#include <cmath>
 #include <iostream>
 
 using namespace std;
@@ -45,7 +45,7 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     pnl_mat_plus_mat(gamma, identity);
     pnl_mat_chol(gamma);
     // Copy the past matrix on the path matrix
-    int lastDatePast = std::round(t * T / (double)nbTimeSteps);
+    int lastDatePast = round(t * T / (double)nbTimeSteps);
 	double previousDate = t;
     PnlVect *tempRow = pnl_vect_create(size_);
     for (int i = 0; i <= lastDatePast; i++) 
