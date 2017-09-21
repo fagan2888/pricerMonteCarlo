@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-    nbtt = 4;
+    nbtt = 300;
     PnlRng *rng = pnl_rng_create(PNL_RNG_KNUTH);
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
     BlackScholesModel blackScholesModel(size, r, rho, sigma, spot);
@@ -40,13 +40,13 @@ int main(int argc, char **argv) {
 
     /// Test de BlackScholesModel avec un historique
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
-    int t = 2;
-    PnlMat *past = pnl_mat_create_from_scalar(t, size, 4);
-    //blackScholesModel.asset(pnlMat,t,T,nbtt,rng,past);
-    //pnl_mat_print(past);
-    cout << "" << endl;
-    //pnl_mat_print(pnlMat);
-
+    int t = 1;
+    PnlMat *past =  pnl_mat_create_from_file("../data/simul_basket.dat");
+    blackScholesModel.asset(pnlMat,t,T,nbtt,rng,past);
+    pnl_mat_print(past);
+    cout << "koi" << endl;
+    pnl_mat_print(pnlMat);
+    
 
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
