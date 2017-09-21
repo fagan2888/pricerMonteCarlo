@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-    nbtt = 11;
+    nbtt = 4;
     PnlRng *rng = pnl_rng_create(PNL_RNG_KNUTH);
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
     BlackScholesModel blackScholesModel(size, r, rho, sigma, spot);
@@ -42,16 +42,22 @@ int main(int argc, char **argv) {
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
     int t = 2;
     PnlMat *past = pnl_mat_create_from_scalar(t, size, 4);
-    //blackScholesModel.asset(pnlMat,t,T,nbtt,rng,past);
-    //pnl_mat_print(past);
+    blackScholesModel.asset(pnlMat, t, T, nbtt, rng, past);
+    pnl_mat_print(past);
     cout << "" << endl;
-    //pnl_mat_print(pnlMat);
+    pnl_mat_print(pnlMat);
+    cout << "" << endl;
 
 
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
     delete P;
+
+    PnlMat *shift_path = pnl_mat_create(nbtt + 1, size);
+    blackScholesModel.shiftAsset(shift_path, pnlMat, 0, 999999999, 2.5, (double) T / nbtt);
+
+    cout << "SUCCESS" << endl;
 
     exit(0);
 
