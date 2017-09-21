@@ -7,12 +7,12 @@ OptionAsian::OptionAsian(double T_, int nbTimeSteps_, int size_, PnlVect *payoff
 
 double OptionAsian::payoff(const PnlMat *path)
 {
-    double payoff = 0;
-    double payoffTempo = 0;
+    double payoff = 0.0;
+    double payoffTempo = 0.0;
     for (int i = 0; i < size(); i++)
 	  {
-        payoffTempo = 0;
-        for (int j = 0; j < nbTimeSteps(); j++)
+        payoffTempo = 0.0;
+        for (int j = 0; j <= nbTimeSteps(); j++)
 		    {
             payoffTempo += MGET(path, j, i);
         }

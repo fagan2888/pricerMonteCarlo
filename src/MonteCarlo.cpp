@@ -60,3 +60,20 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
     double estimateurVariance = exp(-2 * (mod_->r_) * (opt_->maturity())) * (squareSum - pow(sum, 2));
     ic = sqrt(estimateurVariance);
 }
+void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta) {
+    double sum=0;
+    auto shift_path = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
+    auto path= pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
+    for (int d=0; d < mod_->size_; d++){
+        double delta_sum=0;
+        for (int i = 0; i < nbSamples_; i++) {
+            mod_->asset(path, t, opt_->maturity(), opt_->nbTimeSteps(), rng_, past);
+            mod_->shiftAsset(shift_path, path, d, fdStep_, t, opt_->maturity() / opt_->nbTimeSteps());
+            double payoffhUp=opt_->payoff(shift_path);
+            mod_->shiftAsset(shift_path, path, d, -fdStep_, t, opt_->maturity() / opt_->nbTimeSteps());
+            double payoffhDown=opt_->payoff(shift_path);
+            delta_sum+=payoffhUp-payoffhDown;
+        }
+        LET(delta,d)=exp(-mod_->r_*(opt_->maturity()-t)) / (2.0*nbSamples_*fdStep_*MGET(past, past->m-1, d));
+    }
+}
