@@ -36,7 +36,7 @@ void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *r
     }
 }
 
-void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps, PnlRng *rng, const PnlMat *past) 
+void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps, PnlRng *rng, const PnlMat *past)
 {
     /// Decomposition de Cheloesky
     PnlMat *gamma = pnl_mat_create_from_scalar(size_, size_, rho_);
@@ -45,11 +45,11 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     pnl_mat_mult_scalar(identity, 1 - rho_);
     pnl_mat_plus_mat(gamma, identity);
     pnl_mat_chol(gamma);
-    
+
     /// Récupérer les spots de past et remplir les premières lignes de path
-    double nbDatesaRecuperer = round(t);
+    int nbDatesaRecuperer = (int)floor(t*(double)nbTimeSteps/T);
     PnlVect* tempRow = pnl_vect_create(size_);
-    for (int i = 0; i <= nbDatesaRecuperer; i++) 
+    for (int i = 0; i <= nbDatesaRecuperer; i++)
     {
         pnl_mat_get_row(tempRow, past, i);
         pnl_mat_set_row(path, tempRow, i);
@@ -61,12 +61,12 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 
     /// Simuler le reste du chemin
    double previousDate = t;
-   for (int i = nbDatesaRecuperer+1; i <= nbTimeSteps; i++) 
+   for (int i = nbDatesaRecuperer+1; i <= nbTimeSteps; i++)
     {
         PnlVect *G_i = pnl_vect_create(size_);
         pnl_vect_rng_normal(G_i, size_, rng);
-        for (int d = 0; d < size_; d++) 
-	{
+        for (int d = 0; d < size_; d++)
+        {
             double sigma_d = pnl_vect_get(sigma_, d);
             PnlVect *L_d = pnl_vect_create(size_);
             pnl_mat_get_row(L_d, gamma, d);

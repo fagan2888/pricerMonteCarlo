@@ -25,6 +25,8 @@ void MonteCarlo::price(double &prix, double &ic) {
         double tempPayoff = opt_->payoff(spotsMat);
         squareSum += pow(tempPayoff, 2);
         sum += tempPayoff;
+        //pnl_mat_print(spotsMat);
+        //std::cout << "----------------" << std::endl;
     }
 
     sum /= nbSamples_;

@@ -11,9 +11,9 @@
 using namespace std;
 
 /*enum option_kind {
-  ASIAN, 
-  BASKET, 
-  PERF, 
+  ASIAN,
+  BASKET,
+  PERF,
 };*/
 
 
@@ -46,8 +46,8 @@ int main(int argc, char **argv)
 	P->extract("timestep number", nbTimeSteps);
 
     P->print();
-	
-	//enum option_kind para;	
+
+	//enum option_kind para;
 
 	/* Création de l'option en fonction du type */
 
@@ -61,16 +61,16 @@ int main(int argc, char **argv)
 		opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff);
 
 	/*switch (para) {
-  		case ASIAN:            
-    		OptionAsian * opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike); 
+  		case ASIAN:
+    		OptionAsian * opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
     		break;
-  		case BASKET:            
-    		OptionBasket * opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike); 
+  		case BASKET:
+    		OptionBasket * opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
    			break;
-  		case PERFORMANCE:            
-    		OptionPerformance * opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff, strike); 
+  		case PERFORMANCE:
+    		OptionPerformance * opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff, strike);
     		break;
-  		default:            
+  		default:
     		cout<<"Error, bad option type, quitting\n";
     		abort();
   	}*/
@@ -78,12 +78,12 @@ int main(int argc, char **argv)
 	BlackScholesModel* bsmod = new BlackScholesModel(size, r, corr, sigma, spot);
 
 	/* Pas de temps */
-    double fdStep = 1.0;
+    double fdStep = 0.0;
 	/* Générateur aléatoire */
 	PnlRng* rng = pnl_rng_create(PNL_RNG_MERSENNE);
 	pnl_rng_sseed(rng, time(NULL));
 
-	MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, 50000); /* n_samples */
+	MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int)n_samples); /* n_samples */
 
 	double prix;
 	double ic;
