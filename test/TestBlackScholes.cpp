@@ -42,16 +42,18 @@ int main(int argc, char **argv) {
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
     int t = 2;
     PnlMat *past = pnl_mat_create_from_scalar(t, size, 4);
-    //blackScholesModel.asset(pnlMat,t,T,nbtt,rng,past);
-    //pnl_mat_print(past);
+    blackScholesModel.asset(pnlMat,t,T,nbtt,rng,past);
+    pnl_mat_print(past);
     cout << "" << endl;
-    //pnl_mat_print(pnlMat);
+    pnl_mat_print(pnlMat);
 
 
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
     delete P;
+
+    cout << "SUCCESS" << endl;
 
     exit(0);
 

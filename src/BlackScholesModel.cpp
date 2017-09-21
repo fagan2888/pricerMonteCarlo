@@ -44,7 +44,8 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     pnl_mat_plus_mat(gamma, identity);
     pnl_mat_chol(gamma);
     // Copy the past matrix on the path matrix
-    int lastDatePast = (int) (t * T / nbTimeSteps);
+    int lastDatePast = (int) ( (float)(T - t) * nbTimeSteps);//(t * T / nbTimeSteps);
+    cout << lastDatePast  << " | T : " << T << endl;
     PnlVect *tempRow = pnl_vect_create(size_);
     for (int i = 0; i <= lastDatePast; i++) {
         pnl_mat_get_row(tempRow, past, i);
