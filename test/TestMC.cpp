@@ -81,7 +81,7 @@ int main(int argc, char **argv)
     double fdStep = 1.0;
 	/* Générateur aléatoire */
 	PnlRng* rng = pnl_rng_create(PNL_RNG_MERSENNE);
-	pnl_rng_sseed(rng, 0);
+	pnl_rng_sseed(rng, time(NULL));
 
 	MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, 50000); /* n_samples */
 
