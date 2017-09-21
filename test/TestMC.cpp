@@ -10,6 +10,10 @@
 
 using namespace std;
 
+<<<<<<< HEAD
+int main(int argc, char **argv)
+{
+=======
 /*enum option_kind {
   ASIAN,
   BASKET,
@@ -18,6 +22,7 @@ using namespace std;
 
 
 int main(int argc, char **argv) {
+>>>>>>> 513e03ae50536eeec67fcefba3829423b092e7cd
     double T, r, strike, corr;
     PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
@@ -34,7 +39,11 @@ int main(int argc, char **argv) {
     P->extract("volatility", sigma, size);
     P->extract("interest rate", r);
     P->extract("correlation", corr);
+<<<<<<< HEAD
+    P->extract("payoff coefficients", payoffCoeff,size);
+=======
     P->extract("payoff coefficients", payoffCoeff, size);
+>>>>>>> 513e03ae50536eeec67fcefba3829423b092e7cd
 
     if (P->extract("dividend rate", divid, size) == false) {
         divid = pnl_vect_create_from_zero(size);
@@ -45,12 +54,24 @@ int main(int argc, char **argv) {
 
     P->print();
 
+<<<<<<< HEAD
+=======
     //enum option_kind para;
+>>>>>>> 513e03ae50536eeec67fcefba3829423b092e7cd
 
     /* Création de l'option en fonction du type */
 
     Option *opt;
 
+<<<<<<< HEAD
+  if(type.compare("asian") == 0)
+    opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
+	if(type.compare("basket") == 0)
+		opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
+	if(type.compare("performance") == 0)
+		opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff);
+
+=======
     if (type.compare("asian") == 0)
         opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
     if (type.compare("basket") == 0)
@@ -72,6 +93,7 @@ int main(int argc, char **argv) {
             cout<<"Error, bad option type, quitting\n";
             abort();
       }*/
+>>>>>>> 513e03ae50536eeec67fcefba3829423b092e7cd
 
     BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot);
 
@@ -88,6 +110,8 @@ int main(int argc, char **argv) {
     monteCarlo.price(prix, ic);
     std::cout << prix << " | " << ic << std::endl;
 
+<<<<<<< HEAD
+=======
     int nbtt = 10;
     PnlMat *pnlMat = pnl_mat_create_from_scalar(nbtt + 1, size, 10);
     bsmod->asset(pnlMat, T, nbtt, rng);
@@ -115,6 +139,7 @@ int main(int argc, char **argv) {
     cout << "Number of samples " << n_samples << endl;
     */
 
+>>>>>>> 513e03ae50536eeec67fcefba3829423b092e7cd
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
