@@ -5,8 +5,7 @@
 #include "pnl/pnl_matrix.h"
 
 /// \brief Modèle de Black Scholes
-class BlackScholesModel
-{
+class BlackScholesModel {
 public:
     int size_; /// nombre d'actifs du modèle
     double r_; /// taux d'intérêt
@@ -15,6 +14,7 @@ public:
     PnlVect *spot_; /// valeurs initiales du sous-jacent
 
     BlackScholesModel(int, double, double, PnlVect *, PnlVect *);
+
     /**
      * Génère une trajectoire du modèle et la stocke dans path
      *

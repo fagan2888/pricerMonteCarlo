@@ -40,18 +40,24 @@ int main(int argc, char **argv) {
 
     /// Test de BlackScholesModel avec un historique
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
-    int t = 1;
-    PnlMat *past =  pnl_mat_create_from_file("../data/simul_basket.dat");
-    blackScholesModel.asset(pnlMat,t,T,nbtt,rng,past);
+    int t = 2;
+    PnlMat *past = pnl_mat_create_from_scalar(t, size, 4);
+    blackScholesModel.asset(pnlMat, t, T, nbtt, rng, past);
     pnl_mat_print(past);
-    cout << "koi" << endl;
+    cout << "" << endl;
     pnl_mat_print(pnlMat);
-    
+    cout << "" << endl;
+
 
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
     delete P;
+
+    PnlMat *shift_path = pnl_mat_create(nbtt + 1, size);
+    blackScholesModel.shiftAsset(shift_path, pnlMat, 0, 999999999, 2.5, (double) T / nbtt);
+
+    cout << "SUCCESS" << endl;
 
     exit(0);
 
