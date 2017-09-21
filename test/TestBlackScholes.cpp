@@ -36,18 +36,13 @@ int main(int argc, char **argv) {
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
     BlackScholesModel blackScholesModel(size, r, rho, sigma, spot);
     blackScholesModel.asset(pnlMat, T, nbtt, rng);
-    //pnl_mat_print(pnlMat);
 
     /// Test de BlackScholesModel avec un historique
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
     int t = 2;
     PnlMat *past = pnl_mat_create_from_scalar(t, size, 4);
     blackScholesModel.asset(pnlMat, t, T, nbtt, rng, past);
-    pnl_mat_print(past);
-    cout << "" << endl;
     pnl_mat_print(pnlMat);
-    cout << "" << endl;
-
 
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
