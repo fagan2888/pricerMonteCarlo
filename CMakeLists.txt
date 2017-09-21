@@ -64,6 +64,10 @@ add_test(testMC_basket_2 testMC ../data/basket_2.dat)
 add_test(testMC_asian testMC ../data/asian.dat)
 add_test(testMC_perf testMC ../data/perf.dat)
 
+# PricerHistory (t > 0)
+add_executable(PricerHistory src/parser.cpp test/PricerHistory.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
+target_link_libraries(PricerHistory ${LIBS})
+
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)
 # target_link_libraries(mc-pricer ${LIBS})
 # install(TARGETS mc-pricer DESTINATION bin)

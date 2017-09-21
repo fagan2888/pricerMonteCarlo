@@ -48,6 +48,10 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 
     /// Récupérer les spots de past et remplir les premières lignes de path
     int nbDatesaRecuperer = (int)floor(t*(double)nbTimeSteps/T);
+    std::cout << "nombre de dates à récupérer = " << nbDatesaRecuperer << std::endl
+              << "instant t = " << t << std::endl
+              << "maturité T = " << T << std::endl
+              << "nb TimeSteps = " << nbTimeSteps << std::endl;
     PnlVect* tempRow = pnl_vect_create(size_);
     for (int i = 0; i <= nbDatesaRecuperer; i++)
     {
@@ -62,7 +66,7 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     /// Simuler le reste du chemin
    double previousDate = t;
    for (int i = nbDatesaRecuperer+1; i <= nbTimeSteps; i++)
-    {
+   {
         PnlVect *G_i = pnl_vect_create(size_);
         pnl_vect_rng_normal(G_i, size_, rng);
         for (int d = 0; d < size_; d++)

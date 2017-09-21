@@ -10,13 +10,6 @@
 
 using namespace std;
 
-/*enum option_kind {
-  ASIAN,
-  BASKET,
-  PERF,
-};*/
-
-
 int main(int argc, char **argv)
 {
     double T, r, strike, corr;
@@ -34,8 +27,8 @@ int main(int argc, char **argv)
     P->extract("spot", spot, size);
     P->extract("volatility", sigma, size);
     P->extract("interest rate", r);
-	P->extract("correlation", corr);
-	P->extract("payoff coefficients", payoffCoeff,size);
+    P->extract("correlation", corr);
+    P->extract("payoff coefficients", payoffCoeff,size);
 
     if (P->extract("dividend rate", divid, size) == false)
     {
@@ -43,37 +36,22 @@ int main(int argc, char **argv)
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-	P->extract("timestep number", nbTimeSteps);
+    P->extract("timestep number", nbTimeSteps);
 
     P->print();
 
-	//enum option_kind para;
 
 	/* Création de l'option en fonction du type */
 
 	Option * opt;
 
-	if(type.compare("asian") == 0)
-		opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
+  if(type.compare("asian") == 0)
+    opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
 	if(type.compare("basket") == 0)
 		opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
 	if(type.compare("performance") == 0)
 		opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff);
 
-	/*switch (para) {
-  		case ASIAN:
-    		OptionAsian * opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
-    		break;
-  		case BASKET:
-    		OptionBasket * opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
-   			break;
-  		case PERFORMANCE:
-    		OptionPerformance * opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff, strike);
-    		break;
-  		default:
-    		cout<<"Error, bad option type, quitting\n";
-    		abort();
-  	}*/
 
 	BlackScholesModel* bsmod = new BlackScholesModel(size, r, corr, sigma, spot);
 
@@ -89,24 +67,6 @@ int main(int argc, char **argv)
 	double ic;
 	monteCarlo.price(prix, ic);
   	std::cout << prix << " | " << ic << std::endl;
-
-	//cout << "mc price " << prix << endl;
-
-	/*
-    cout << endl;
-    cout << "option type " << type << endl;
-    cout << "maturity " << T << endl;
-    cout << "strike " << strike << endl;
-    cout << "option size " << size << endl;
-    cout << "interest rate " << r << endl;
-    cout << "dividend rate ";
-    pnl_vect_print_asrow(divid);
-    cout << "spot ";
-    pnl_vect_print_asrow(spot);
-    cout << "volatility ";
-    pnl_vect_print_asrow(sigma);
-    cout << "Number of samples " << n_samples << endl;
-	*/
 
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
