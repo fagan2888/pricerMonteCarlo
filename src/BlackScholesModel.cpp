@@ -71,7 +71,8 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
         for (int d = 0; d < size_; d++) {
             double sigma_d = pnl_vect_get(sigma_, d);
             pnl_mat_get_row(L_d, gamma, d);
-            double lastSpot = pnl_mat_get(path, i - 1, d);//(i == lastDatePast) ? GET(spots_t, d) : pnl_mat_get(path, i - 1, d);
+            double lastSpot = pnl_mat_get(path, i - 1,
+                                          d);//(i == lastDatePast) ? GET(spots_t, d) : pnl_mat_get(path, i - 1, d);
             cout << lastSpot << endl;
             double path_t_d = lastSpot * exp((r_ - pow(sigma_d, 2) / 2) * timeInterval +
                                              sigma_d * sqrt(timeInterval) *
