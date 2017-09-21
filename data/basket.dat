@@ -16,4 +16,3 @@ payoff coefficients <vector>  0.025
 
 timestep number     <int>     1
 sample number       <long>     50000
-

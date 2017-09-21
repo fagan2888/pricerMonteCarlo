@@ -18,7 +18,6 @@ MonteCarlo::MonteCarlo(BlackScholesModel *mod, Option *opt, PnlRng *rng, double 
 void MonteCarlo::price(double &prix, double &ic) {
     auto spotsMat = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
     pnl_mat_set_all(spotsMat, 0.0);
-
     double sum = 0.0;
     double squareSum = 0.0;
     for (int i = 0; i < nbSamples_; i++) {
@@ -26,6 +25,8 @@ void MonteCarlo::price(double &prix, double &ic) {
         double tempPayoff = opt_->payoff(spotsMat);
         squareSum += pow(tempPayoff, 2);
         sum += tempPayoff;
+        //pnl_mat_print(spotsMat);
+        //std::cout << "----------------" << std::endl;
     }
 
     sum /= nbSamples_;
