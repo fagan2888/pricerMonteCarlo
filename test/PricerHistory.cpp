@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     r = 0.04879;
     corr = 0.0;
     payoffCoeff = pnl_vect_create_from_scalar(size, 0.025);
-    n_samples = 1;
+    n_samples = 50000;
     nbTimeSteps = 100;
 
     PnlMat* history = pnl_mat_create_from_file(infile);
