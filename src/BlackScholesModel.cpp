@@ -53,7 +53,7 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     pnl_mat_chol(gamma);
 
     /// Copy the past matrix on the path matrix
-    int lastDatePast = floor(t * (double) nbTimeSteps / T);
+    int lastDatePast = (int)floor(t * (double) nbTimeSteps / T);
     PnlVect *tempRow = pnl_vect_create(size_);
     for (int i = 0; i < lastDatePast; i++) {
         pnl_mat_get_row(tempRow, past, i);
@@ -92,7 +92,7 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 }
 
 void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d, double h, double t, double timestep) {
-    int currentDate = floor(t / timestep);
+    int currentDate = (int)floor(t / timestep);
     pnl_mat_clone(shift_path, path);
     pnl_mat_set(shift_path, currentDate, d, MGET(path, currentDate, d) * (1 + h));
 }
