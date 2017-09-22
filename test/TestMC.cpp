@@ -9,15 +9,9 @@
 
 using namespace std;
 
-<<<<<<< Updated upstream
-int main(int argc, char **argv) {
-    
-    double T, r, strike, corr;
-=======
 int main(int argc, char **argv)
 {
    double T, r, strike, corr;
->>>>>>> Stashed changes
     PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
     int size, nbTimeSteps;
@@ -34,10 +28,7 @@ int main(int argc, char **argv)
     P->extract("interest rate", r);
     P->extract("correlation", corr);
     P->extract("payoff coefficients", payoffCoeff, size);
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
     if (P->extract("dividend rate", divid, size) == false) {
         divid = pnl_vect_create_from_zero(size);
     }
@@ -47,15 +38,8 @@ int main(int argc, char **argv)
 
     P->print();
 
-    /* Création de l'option en fonction du type */
-<<<<<<< Updated upstream
-    
     Option *opt;
-    
-=======
 
-    Option *opt;
->>>>>>> Stashed changes
     if (type.compare("asian") == 0)
         opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
     if (type.compare("basket") == 0)
