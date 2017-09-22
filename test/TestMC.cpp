@@ -10,6 +10,16 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+
+    if (argc < 2) {
+        cout << "No input file" << endl;
+    }
+
+    if (argc > 2) {
+        cout << "Multiple input files --> one input file" << endl;
+        exit(1);
+    }
+
     double T, r, strike, corr, mcPrice, mcStd;
     PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
@@ -56,7 +66,7 @@ int main(int argc, char **argv) {
     PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
     pnl_rng_sseed(rng, time(NULL));
 
-    MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, n_samples);
+    MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples);
 
     double prix;
     double ic;

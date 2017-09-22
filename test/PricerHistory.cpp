@@ -11,8 +11,17 @@
 
 using namespace std;
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
+
+	if (argc < 2) {
+		cout << "No input file" << endl;
+	}
+
+	if (argc > 2) {
+		cout << "Multiple input files --> one input file" << endl;
+		exit(1);
+	}
+
     double T, t, r, strike, corr;
     PnlVect *spot, *sigma, *payoffCoeff;
     string type;

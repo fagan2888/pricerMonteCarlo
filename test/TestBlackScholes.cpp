@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int main(int argc, char **argv) {
+int main() {
 
     double T, r, strike, rho;
     PnlVect *spot, *sigma, *divid;
@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
     string type;
     int size, nbtt;
     size_t n_samples;
-    PnlVect *payoffCoeff = pnl_vect_create_from_scalar(size, 1.0 / size);
+    //PnlVect *payoffCoeff = pnl_vect_create_from_scalar(size, 1.0 / size);
 
     Param *P = new Parser("../data/basket.dat");
 
@@ -26,6 +26,7 @@ int main(int argc, char **argv) {
     P->extract("spot", spot, size);
     P->extract("volatility", sigma, size);
     P->extract("interest rate", r);
+	P->extract("correlation", rho);
     if (P->extract("dividend rate", divid, size) == false) {
         divid = pnl_vect_create_from_zero(size);
     }
