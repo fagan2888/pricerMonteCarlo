@@ -50,14 +50,14 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
         squareSum += pow(tempPayoff, 2);
         sum += tempPayoff;
     }
-    pnl_mat_print(pathMat);
+    //pnl_mat_print(pathMat);
     std::cout << " | sum = " << sum << std::endl;
     std::cout << "________________________________"<< std::endl;
     sum /= nbSamples_;
     squareSum /= nbSamples_;
     /* Calcul du prix */
-    std::cout << "exp = " << exp(-(mod_->r_) * (opt_->maturity())) * sum
-    << " | nbSamples = " << nbSamples_ << std::endl;
+    //std::cout << "exp = " << exp(-(mod_->r_) * (opt_->maturity())) * sum
+    //<< " | nbSamples = " << nbSamples_ << std::endl;
     prix = exp(-(mod_->r_) * (opt_->maturity()-t)) * sum;
 
     /* Intervalle de confiance */
