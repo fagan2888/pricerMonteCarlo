@@ -44,6 +44,7 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
+	n_samples = 5;
     P->extract("timestep number", nbTimeSteps);
 
     P->print();
