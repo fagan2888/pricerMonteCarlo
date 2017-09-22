@@ -36,13 +36,13 @@ void MonteCarlo::price(double &prix, double &ic) {
 };
 
 void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
-    double sum = 0.0;
-    double squareSum = 0.0;
+    double sum, squareSum, tempPayoff = 0.0;
     PnlMat *pathMat = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
+    std::cout << "_____ MonteCarlo Computation______"<< std::endl;
     std::cout << "________________________________" << std::endl;
     for (int i = 0; i < nbSamples_; i++) {
         mod_->asset(pathMat, t, opt_->maturity(), opt_->nbTimeSteps(), rng_, past);
-        double tempPayoff = opt_->payoff(pathMat);
+        tempPayoff = opt_->payoff(pathMat);
         squareSum += pow(tempPayoff, 2);
         sum += tempPayoff;
     }
@@ -50,12 +50,13 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
     std::cout << "________________________________" << std::endl;
     sum /= nbSamples_;
     squareSum /= nbSamples_;
-    /* Calcul du prix */
+
+    /// Price computing
     prix = exp(-(mod_->r_) * (opt_->maturity() - t)) * sum;
 
-    /* Intervalle de confiance */
-    double estimateurVariance = exp(-2 * (mod_->r_) * (opt_->maturity() - t)) * (squareSum - pow(sum, 2));
-    ic = 1.96 * sqrt(estimateurVariance) / sqrt(nbSamples_);
+    /// Confidence interval in 95%
+    double varianceEstimator = exp(-2 * (mod_->r_) * (opt_->maturity() - t)) * (squareSum - pow(sum, 2));
+    ic = 1.96 * sqrt(varianceEstimator) / sqrt(nbSamples_);
 }
 
 void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta) {

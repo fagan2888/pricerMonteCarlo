@@ -21,7 +21,6 @@ void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *r
     pnl_mat_plus_mat(gamma, identity);
     pnl_mat_chol(gamma);
 
-
     pnl_mat_set_row(path, spot_, 0);
     PnlVect *G_i = pnl_vect_create(size_);
     PnlVect *L_d = pnl_vect_create(size_);

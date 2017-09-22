@@ -10,7 +10,7 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-    double T, r, strike, corr;
+    double T, r, strike, corr, mcPrice, mcStd;
     PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
     int size, nbTimeSteps;
@@ -19,6 +19,8 @@ int main(int argc, char **argv) {
     char *infile = argv[1];
     Param *P = new Parser(infile);
 
+    P->extract("mc price", mcPrice);
+    P->extract("mc standard deviation", mcStd);
     P->extract("option type", type);
     P->extract("maturity", T);
     P->extract("option size", size);
@@ -59,14 +61,15 @@ int main(int argc, char **argv) {
     double prix;
     double ic;
     monteCarlo.price(prix, ic);
-    cout << prix << " | " << ic << endl;
+    cout << "Prix et std attendu : " << mcPrice << " | " << mcStd << endl;
+    cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
 
-    int nbtt = 10;
+    /*int nbtt = 10;
     PnlMat *pnlMat = pnl_mat_create_from_scalar(nbtt + 1, size, 10);
     bsmod->asset(pnlMat, T, nbtt, rng);
     PnlVect *deltas = pnl_vect_create_from_scalar(size, 1.0 / size);
     monteCarlo.delta(pnlMat, 0, deltas);
-    pnl_vect_print(deltas);
+    pnl_vect_print(deltas);*/
 
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);

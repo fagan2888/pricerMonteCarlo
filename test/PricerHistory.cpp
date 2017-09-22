@@ -83,7 +83,6 @@ int main(int argc, char **argv)
 
 	double prix;
 	double ic;
-    std::cout << "_____ MonteCarlo Computation______"<< std::endl;
     monteCarlo.price(history, t , prix, ic);
     std::cout << prix << " | " << ic << std::endl;
 
