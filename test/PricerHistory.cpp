@@ -44,14 +44,14 @@ int main(int argc, char **argv)
     type = "basket";
     strike =100;
     T = 3.0;
-    t = 3.0;
+    t = 2.0;
     size = 40;
     spot = pnl_vect_create_from_scalar(size, 100.0);
     sigma = pnl_vect_create_from_scalar(size, 0.2);
     r = 0.04879;
     corr = 0.0;
     payoffCoeff = pnl_vect_create_from_scalar(size, 0.025);
-    n_samples = 1;
+    n_samples = 50000;
     nbTimeSteps = 100;
 
     PnlMat* history = pnl_mat_create_from_file(infile);
