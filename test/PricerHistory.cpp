@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     type = "basket";
     strike =100;
     T = 3.0;
-    t = 2.0;
+    t = 1.0;
     size = 40;
     spot = pnl_vect_create_from_scalar(size, 100.0);
     sigma = pnl_vect_create_from_scalar(size, 0.2);
@@ -52,11 +52,10 @@ int main(int argc, char **argv)
     corr = 0.0;
     payoffCoeff = pnl_vect_create_from_scalar(size, 0.025);
     n_samples = 50000;
-    nbTimeSteps = 100;
+    nbTimeSteps = 300;
 
     PnlMat* history = pnl_mat_create_from_file(infile);
     //pnl_mat_print(history);
-
 
 	/* Création de l'option en fonction du type */
 
@@ -82,7 +81,7 @@ int main(int argc, char **argv)
 
 	double prix;
 	double ic;
-    std::cout << "_____ MonteCarlo Computation_____"<< std::endl;
+    std::cout << "_____ MonteCarlo Computation______"<< std::endl;
     monteCarlo.price(history, t , prix, ic);
     std::cout << prix << " | " << ic << std::endl;
 

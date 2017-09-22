@@ -20,6 +20,8 @@ void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *r
     pnl_mat_mult_scalar(identity, 1 - rho_);
     pnl_mat_plus_mat(gamma, identity);
     pnl_mat_chol(gamma);
+
+
     pnl_mat_set_row(path, spot_, 0);
     PnlVect *G_i = pnl_vect_create(size_);
     PnlVect *L_d = pnl_vect_create(size_);
@@ -40,7 +42,6 @@ void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *r
     pnl_mat_free(&identity);
     pnl_vect_free(&G_i);
     pnl_vect_free(&L_d);
-
 }
 
 void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps, PnlRng *rng, const PnlMat *past) {
@@ -62,7 +63,7 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 
     /// Get the spot value
     PnlVect *spots_t = pnl_vect_create(size_);
-    pnl_mat_get_row(spots_t, past, past->m-1);
+    pnl_mat_get_row(spots_t, past, past->m - 1);
 
     /// Simulate the end of path
     PnlVect *G_i = pnl_vect_create(size_);
