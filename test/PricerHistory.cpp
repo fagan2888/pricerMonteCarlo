@@ -54,7 +54,9 @@ int main(int argc, char **argv)
     n_samples = 50000;
     nbTimeSteps = 300;
 
+    //PnlMat* history = pnl_mat_create_from_scalar(1, size, 100.0);//pnl_mat_create_from_file(infile);
     PnlMat* history = pnl_mat_create_from_file(infile);
+
     //pnl_mat_print(history);
 
 	/* Création de l'option en fonction du type */
