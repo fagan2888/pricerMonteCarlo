@@ -17,7 +17,6 @@ int main() {
     string type;
     int size, nbtt;
     size_t n_samples;
-    //PnlVect *payoffCoeff = pnl_vect_create_from_scalar(size, 1.0 / size);
 
     Param *P = new Parser("../data/basket.dat");
 
@@ -42,18 +41,13 @@ int main() {
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
     int t = 2;
     PnlMat *past = pnl_mat_create_from_scalar(t, size, 4);
-    //blackScholesModel.asset(pnlMat, t, T, nbtt, rng, past);
-    //pnl_mat_print(pnlMat);
+    blackScholesModel.asset(pnlMat, t, T, nbtt, rng, past);
 
+    pnl_rng_free(&rng);
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
     delete P;
-
-    //PnlMat *shift_path = pnl_mat_create(nbtt + 1, size);
-    //blackScholesModel.shiftAsset(shift_path, pnlMat, 0, 999999999, 2.5, (double) T / nbtt);
-
-    cout << "SUCCESS" << endl;
 
     exit(0);
 

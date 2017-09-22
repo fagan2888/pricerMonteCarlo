@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    double T, r, strike, corr, mcPrice, mcStd;
+    double T, r, strike, corr, mcPrice;
     PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
     int size, nbTimeSteps;
@@ -30,7 +30,6 @@ int main(int argc, char **argv) {
     Param *P = new Parser(infile);
 
     P->extract("mc price", mcPrice);
-    P->extract("mc standard deviation", mcStd);
     P->extract("option type", type);
     P->extract("maturity", T);
     P->extract("option size", size);
@@ -45,8 +44,6 @@ int main(int argc, char **argv) {
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
     P->extract("timestep number", nbTimeSteps);
-
-    P->print();
 
     /* Création de l'option en fonction du type */
     Option *opt;
@@ -71,7 +68,7 @@ int main(int argc, char **argv) {
     double prix;
     double ic;
     monteCarlo.price(prix, ic);
-    cout << "Prix et std attendu : " << mcPrice << " | " << mcStd << endl;
+    cout << "Prix : " << mcPrice << endl;
     cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
 
     /*int nbtt = 10;
@@ -81,11 +78,17 @@ int main(int argc, char **argv) {
     monteCarlo.delta(pnlMat, 0, deltas);
     pnl_vect_print(deltas);*/
 
+    pnl_rng_free(&rng);
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
     pnl_vect_free(&payoffCoeff);
     delete P;
 
-    exit(0);
+    if (abs(mcPrice - prix) / mcPrice < 5 * ic) {
+        exit(0);
+    } else {
+        exit(1);
+    }
+
 }
