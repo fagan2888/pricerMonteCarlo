@@ -9,9 +9,8 @@
 
 using namespace std;
 
-int main(int argc, char **argv)
-{
-   double T, r, strike, corr;
+int main(int argc, char **argv) {
+    double T, r, strike, corr;
     PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
     int size, nbTimeSteps;
@@ -28,7 +27,6 @@ int main(int argc, char **argv)
     P->extract("interest rate", r);
     P->extract("correlation", corr);
     P->extract("payoff coefficients", payoffCoeff, size);
-
     if (P->extract("dividend rate", divid, size) == false) {
         divid = pnl_vect_create_from_zero(size);
     }
@@ -38,6 +36,7 @@ int main(int argc, char **argv)
 
     P->print();
 
+    /* Création de l'option en fonction du type */
     Option *opt;
 
     if (type.compare("asian") == 0)
