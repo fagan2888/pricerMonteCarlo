@@ -9,9 +9,8 @@ int main() {
 
     double T, r, strike, rho;
     PnlVect *spot, *sigma, *divid;
-    PnlMat *pnlMat;
     string type;
-    int size, nbtt;
+    int size;
     size_t n_samples;
 
     Param *P = new Parser("../data/basket.dat");
