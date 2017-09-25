@@ -67,6 +67,11 @@ add_test(testMC_perf testMC ../data/perf.dat)
 add_executable(testPricerHistory src/parser.cpp test/TestPricerHistory.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp src/HedgingPortfolio.cpp)
 target_link_libraries(testPricerHistory ${LIBS})
 
+# Test BlackScholesModel::simul_market
+add_executable(testBlackScholesModel_simul_market test/TestSimulMarket.cpp src/BlackScholesModel.cpp src/parser.cpp)
+target_link_libraries(testBlackScholesModel_simul_market ${LIBS})
+add_test(testBlackScholesModel_simul_market testBlackScholesModel_simul_market)
+
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)
 # target_link_libraries(mc-pricer ${LIBS})
 # install(TARGETS mc-pricer DESTINATION bin)
