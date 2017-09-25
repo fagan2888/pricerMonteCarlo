@@ -7,8 +7,8 @@
 #include <iostream>
 
 void HedgingPortfolio::hedgingPAndL(PnlVect* result,PnlMat* path){
-    PnlVect* delta_0= pnl_vect_create(H);
-    PnlVect* delta_i= pnl_vect_create(H);
+    PnlVect* delta_0= pnl_vect_create(monteCarlo->mod_->size_);
+    PnlVect* delta_i= pnl_vect_create(monteCarlo->mod_->size_);
     PnlMat* path_i= pnl_vect_create(H,monteCarlo->mod->size_);
     double prix,ic;
     monteCarlo->price(prix,ic);
