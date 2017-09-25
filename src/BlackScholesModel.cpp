@@ -102,5 +102,5 @@ void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d
 }
 
 void BlackScholesModel::simul_market(PnlMat *path, int H) {
-
+    
 }
