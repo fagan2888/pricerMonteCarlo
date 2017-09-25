@@ -22,7 +22,9 @@ double HedgingPortfolio::hedgingPAndL(PnlVect* result,PnlMat* path){
     monteCarlo->delta(&past_0,0,delta_0);
     pnl_mat_get_row(path_i,path,0);
     LET(result,0)=prix-pnl_vect_scalar_prod(delta_0,path_i);
-    for (int i=1 ; i<H+1 ; i++) {
+    std::cout << " H = " << H << std::endl;
+    for (int i=1 ; i<H ; i++) {
+        std::cout << " i = " << i << std::endl;
         PnlMat past_0=pnl_mat_wrap_mat_rows(path,0,i-1);
         PnlMat past_i=pnl_mat_wrap_mat_rows(path,0,i);
         monteCarlo->delta(&past_0,(i-1)*monteCarlo->opt_->maturity()/H,delta_0);
@@ -31,6 +33,6 @@ double HedgingPortfolio::hedgingPAndL(PnlVect* result,PnlMat* path){
         pnl_mat_get_row(path_i,path,i);
         LET(result,i)=LET(result,i-1)*exp(monteCarlo->mod_->r_*monteCarlo->opt_->maturity()/H )-(pnl_vect_scalar_prod(delta_i,path_i));
     }
-    double pAngLResult=GET(result,H)+pnl_vect_scalar_prod(delta_i,path_i);
+    double pAngLResult=GET(result,H-1)+pnl_vect_scalar_prod(delta_i,path_i);
 
 }
