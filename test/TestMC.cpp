@@ -10,7 +10,17 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-    double T, r, strike, corr;
+
+    if (argc < 2) {
+        cout << "No input file" << endl;
+    }
+
+    if (argc > 2) {
+        cout << "Multiple input files --> one input file" << endl;
+        exit(1);
+    }
+
+    double T, r, strike, corr, mcPrice;
     PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
     int size, nbTimeSteps;
@@ -19,6 +29,7 @@ int main(int argc, char **argv) {
     char *infile = argv[1];
     Param *P = new Parser(infile);
 
+    P->extract("mc price", mcPrice);
     P->extract("option type", type);
     P->extract("maturity", T);
     P->extract("option size", size);
@@ -33,8 +44,6 @@ int main(int argc, char **argv) {
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
     P->extract("timestep number", nbTimeSteps);
-
-    P->print();
 
     /* Création de l'option en fonction du type */
     Option *opt;
@@ -54,25 +63,32 @@ int main(int argc, char **argv) {
     PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
     pnl_rng_sseed(rng, time(NULL));
 
-    MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, n_samples);
+    MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples);
 
     double prix;
     double ic;
     monteCarlo.price(prix, ic);
-    cout << prix << " | " << ic << endl;
+    cout << "Prix : " << mcPrice << endl;
+    cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
 
-    int nbtt = 10;
+    /*int nbtt = 10;
     PnlMat *pnlMat = pnl_mat_create_from_scalar(nbtt + 1, size, 10);
     bsmod->asset(pnlMat, T, nbtt, rng);
     PnlVect *deltas = pnl_vect_create_from_scalar(size, 1.0 / size);
     monteCarlo.delta(pnlMat, 0, deltas);
-    pnl_vect_print(deltas);
+    pnl_vect_print(deltas);*/
 
+    pnl_rng_free(&rng);
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
     pnl_vect_free(&payoffCoeff);
     delete P;
 
-    exit(0);
+    if (abs(mcPrice - prix) / mcPrice < 5 * ic) {
+        exit(0);
+    } else {
+        exit(1);
+    }
+
 }

@@ -1,5 +1,5 @@
-# mc price: 4.67
-# mc standard deviation: 0.029
+mc price <float> 4.67
+# mc standard deviation <float> 0.029
 
 
 model type          <string>  bs

@@ -41,19 +41,18 @@ endif()
 set(LIBS ${LIBS} m)
 
 # Testing the parser
-add_executable(parser-test src/parser.cpp test/test_parser.cpp)
-target_link_libraries(parser-test ${LIBS})
-add_executable(mc-example src/mc_example.cpp src/BlackScholesModel.cpp)
-target_link_libraries(mc-example ${LIBS})
+add_executable(testParser src/parser.cpp test/TestParser.cpp)
+target_link_libraries(testParser ${LIBS})
 
-# Unit test
-add_executable(optionTest test/TestOption.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp src/OptionPerformance.hpp)
-target_link_libraries(optionTest ${LIBS})
-add_test(optionTest optionTest)
+# Test Option
+add_executable(testOption test/TestOption.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp src/OptionPerformance.hpp)
+target_link_libraries(testOption ${LIBS})
+add_test(testOption testOption)
 
-add_executable(blackScholesTest src/MonteCarlo.cpp src/Option.cpp src/OptionPerformance.cpp src/OptionBasket.cpp src/OptionAsian.cpp src/BlackScholesModel.cpp src/parser.cpp test/TestBlackScholes.cpp src/HedgingPortfolio.hpp src/HedgingPortfolio.cpp)
-target_link_libraries(blackScholesTest ${LIBS})
-add_test(blackScholesTest blackScholesTest)
+# Test BlackScholesModel
+add_executable(testBlackScholes src/MonteCarlo.cpp src/Option.cpp src/OptionPerformance.cpp src/OptionBasket.cpp src/OptionAsian.cpp src/BlackScholesModel.cpp src/parser.cpp test/TestBlackScholes.cpp)
+target_link_libraries(testBlackScholes ${LIBS})
+add_test(testBlackScholes testBlackScholes)
 
 # Test MC
 add_executable(testMC src/parser.cpp test/TestMC.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
@@ -64,9 +63,9 @@ add_test(testMC_basket_2 testMC ../data/basket_2.dat)
 add_test(testMC_asian testMC ../data/asian.dat)
 add_test(testMC_perf testMC ../data/perf.dat)
 
-# PricerHistory (t > 0)
-add_executable(PricerHistory src/parser.cpp test/PricerHistory.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
-target_link_libraries(PricerHistory ${LIBS})
+# Test PricerHistory (t > 0)
+add_executable(testPricerHistory src/parser.cpp test/TestPricerHistory.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
+target_link_libraries(testPricerHistory ${LIBS})
 
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)
 # target_link_libraries(mc-pricer ${LIBS})

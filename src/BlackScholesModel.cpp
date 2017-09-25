@@ -20,6 +20,7 @@ void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *r
     pnl_mat_mult_scalar(identity, 1 - rho_);
     pnl_mat_plus_mat(gamma, identity);
     pnl_mat_chol(gamma);
+
     pnl_mat_set_row(path, spot_, 0);
     PnlVect *G_i = pnl_vect_create(size_);
     PnlVect *L_d = pnl_vect_create(size_);
@@ -40,7 +41,6 @@ void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *r
     pnl_mat_free(&identity);
     pnl_vect_free(&G_i);
     pnl_vect_free(&L_d);
-
 }
 
 void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps, PnlRng *rng, const PnlMat *past) {
@@ -53,20 +53,21 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     pnl_mat_chol(gamma);
 
     /// Copy the past matrix on the path matrix
-    int lastDatePast = floor(t * (double) nbTimeSteps / T);
+    int lastDatePast = (int)floor(t * (double) nbTimeSteps / T);
     PnlVect *tempRow = pnl_vect_create(size_);
-    for (int i = 0; i < lastDatePast; i++) {
+    for (int i = 0; i <= lastDatePast; i++) {
         pnl_mat_get_row(tempRow, past, i);
         pnl_mat_set_row(path, tempRow, i);
     }
     /// Get the spot value
     PnlVect *spots_t = pnl_vect_create(size_);
-    pnl_mat_get_row(spots_t, past, past->m-1);
+    pnl_mat_get_row(spots_t, past, past->m - 1);
+
     /// Simulate the end of path
     PnlVect *G_i = pnl_vect_create(size_);
     PnlVect *L_d = pnl_vect_create(size_);
     double timeInterval = t - lastDatePast * T / (double) nbTimeSteps;
-    for (int i = lastDatePast; i <= nbTimeSteps; i++) {
+    for (int i = lastDatePast+1; i <= nbTimeSteps; i++) {
         pnl_vect_rng_normal(G_i, size_, rng);
         for (int d = 0; d < size_; d++) {
             double sigma_d = pnl_vect_get(sigma_, d);
@@ -90,7 +91,7 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 }
 
 void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d, double h, double t, double timestep) {
-    int currentDate = floor(t / timestep);
+    int currentDate = (int)floor(t / timestep);
     pnl_mat_clone(shift_path, path);
     pnl_mat_set(shift_path, currentDate, d, MGET(path, currentDate, d) * (1 + h));
 }

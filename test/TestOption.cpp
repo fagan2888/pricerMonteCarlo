@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int main(int argc, char **argv) {
+int main() {
 
     bool success = true;
 
@@ -27,7 +27,6 @@ int main(int argc, char **argv) {
     if (optionBasket.payoff(path) != 1) {
         cout << "Erreur sur le calcul du payoff de la Basketoption" << endl;
         success = false;
-        return 1;
     }
 
     /// Test sur OptionAsian
@@ -45,11 +44,13 @@ int main(int argc, char **argv) {
     /// Test sur OptionPerformance
     OptionPerformance optionPerformance(maturity, nbTimeSteps, size, payoffCoeff);
 
-    if (success) {
-        cout << "SUCCESS" << endl;
-    } else {
-        cout << "FAIL" << endl;
-    }
+    pnl_rng_free(&rng);
+    pnl_vect_free(&payoffCoeff);
+    pnl_mat_free(&path);
 
-    return 0;
+    if (success) {
+        exit(0);
+    } else {
+        exit(1);
+    }
 }
