@@ -84,7 +84,7 @@ void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta) {
             delta_sum += payoffhUp - payoffhDown;
         }
         LET(delta, d) =
-                exp(-mod_->r_ * (opt_->maturity() - t)) / (2.0 * nbSamples_ * fdStep_ * MGET(past, past->m - 1, d));
+                exp(-mod_->r_ * (opt_->maturity() - t)) / (2.0 * nbSamples_ * fdStep_ * MGET(past, past->m - 1, d))*delta_sum;
     }
 
     /// Free the memory

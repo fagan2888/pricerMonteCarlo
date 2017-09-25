@@ -92,8 +92,12 @@ int main(int argc, char **argv) {
     PnlVect *trend = pnl_vect_create_from_zero(size);
     BlackScholesModel* bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
     MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples); /* n_samples */
-
-	double prix;
+    /*HedgingPortfolio hedgingPortfolio(nbTimeSteps,&monteCarlo);
+    PnlVect* results=pnl_vect_create_from_scalar(nbTimeSteps,0);
+    hedgingPortfolio.hedgingPAndL(results,history);
+    pnl_vect_print(results);
+*/
+    double prix;
 	double ic;
     std::cout << "_____MonteCarlo Computation_____"<< std::endl;
     monteCarlo.price(prix, ic);

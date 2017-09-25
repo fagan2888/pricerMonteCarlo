@@ -73,7 +73,14 @@ int main(int argc, char **argv) {
 
     double prix;
     double ic;
-    monteCarlo.price(prix, ic);
+    //monteCarlo.price(prix, ic);
+    PnlVect* deltas=pnl_vect_create_from_zero(size);
+    PnlMat* history = pnl_mat_create_from_scalar(1, size, 100.0);
+    monteCarlo.delta(history,0,deltas);
+    pnl_vect_print(deltas);
+    //monteCarlo.price(prix,ic);
+    monteCarlo.price(history,0,prix,ic);
+
     cout << "Prix attendu : " << mcPrice << endl;
     cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
 
