@@ -4,6 +4,10 @@ Option::Option(double T_, int nbTimeSteps_, int size_, PnlVect *payoffCoeff_) : 
                                                                                 size_(size_),
                                                                                 payoffCoeff_(payoffCoeff_) {}
 
+Option::~Option() {
+    pnl_vect_free(&payoffCoeff_);
+}
+
 double Option::maturity() {
     return this->T_;
 }

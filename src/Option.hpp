@@ -6,7 +6,20 @@
 /// \brief Classe Option abstraite
 class Option {
 public:
+    /**
+    * Constructeur de la classe
+    *
+    * @param[in] maturité
+    * @param[in] nombre de pas de temps de discrétisation
+    * @param[in] dimension du modèle, redondant avec BlackScholesModel::size_
+    * @param[in] coefficient permettant le calcul du payoff
+    */
     Option(double T_, int nbTimeSteps_, int size_, PnlVect *payoffCoeff_);
+
+    /**
+     * Destructeur de classe
+     */
+    ~Option();
 
     /**
      * Calcule la valeur du payoff sur la trajectoire

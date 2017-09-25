@@ -12,6 +12,8 @@ BlackScholesModel::BlackScholesModel(int size, double r, double rho, PnlVect *si
     spot_ = spot;
 }
 
+BlackScholesModel::~BlackScholesModel() {}
+
 void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *rng) {
     /// Cholesky decomposition
     PnlMat *gamma = pnl_mat_create_from_scalar(size_, size_, rho_);

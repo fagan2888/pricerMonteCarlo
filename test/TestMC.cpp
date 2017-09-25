@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
     double prix;
     double ic;
     monteCarlo.price(prix, ic);
-    cout << "Prix : " << mcPrice << endl;
+    cout << "Prix attendu : " << mcPrice << endl;
     cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
 
     /*int nbtt = 10;
