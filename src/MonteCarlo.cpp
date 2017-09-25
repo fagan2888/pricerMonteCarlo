@@ -15,6 +15,11 @@ MonteCarlo::MonteCarlo(BlackScholesModel *mod, Option *opt, PnlRng *rng, double 
     nbSamples_ = nbSamples;
 }
 
+MonteCarlo::~MonteCarlo() {
+    delete opt_;
+    pnl_rng_free(&rng_);
+}
+
 void MonteCarlo::price(double &prix, double &ic) {
     PnlMat *spotsMat = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
     double sum, squareSum, tempPayoff = 0.0;

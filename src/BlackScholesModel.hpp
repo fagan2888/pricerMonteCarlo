@@ -16,6 +16,11 @@ public:
     BlackScholesModel(int, double, double, PnlVect *, PnlVect *);
 
     /**
+     * Destructeur de classe
+     */
+    ~BlackScholesModel();
+
+    /**
      * Génère une trajectoire du modèle et la stocke dans path
      *
      * @param[out] path contient une trajectoire du modèle.
