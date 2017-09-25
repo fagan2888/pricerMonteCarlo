@@ -59,7 +59,6 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
         pnl_mat_get_row(tempRow, past, i);
         pnl_mat_set_row(path, tempRow, i);
     }
-
     /// Get the spot value
     PnlVect *spots_t = pnl_vect_create(size_);
     pnl_mat_get_row(spots_t, past, past->m-1);

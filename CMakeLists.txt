@@ -51,7 +51,7 @@ add_executable(optionTest test/TestOption.cpp src/BlackScholesModel.cpp src/Mont
 target_link_libraries(optionTest ${LIBS})
 add_test(optionTest optionTest)
 
-add_executable(blackScholesTest src/MonteCarlo.cpp src/Option.cpp src/OptionPerformance.cpp src/OptionBasket.cpp src/OptionAsian.cpp src/BlackScholesModel.cpp src/parser.cpp test/TestBlackScholes.cpp)
+add_executable(blackScholesTest src/MonteCarlo.cpp src/Option.cpp src/OptionPerformance.cpp src/OptionBasket.cpp src/OptionAsian.cpp src/BlackScholesModel.cpp src/parser.cpp test/TestBlackScholes.cpp src/HedgingPortfolio.hpp src/HedgingPortfolio.cpp)
 target_link_libraries(blackScholesTest ${LIBS})
 add_test(blackScholesTest blackScholesTest)
 
