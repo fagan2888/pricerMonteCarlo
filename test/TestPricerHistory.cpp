@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
     PnlVect *spot, *sigma, *payoffCoeff, *delta;
     string type;
     int size, nbTimeSteps;
-    size_t n_samples; /* ATTENTION : type long donné en entrée ! */
+    size_t n_samples;
 
     char *infile = argv[1];
     //Param *P = new Parser(infile);
@@ -72,7 +72,6 @@ int main(int argc, char **argv) {
     //pnl_mat_print(history);
 
     /* Création de l'option en fonction du type */
-
     Option *opt;
 
     if (type.compare("asian") == 0)
@@ -80,7 +79,13 @@ int main(int argc, char **argv) {
     if (type.compare("basket") == 0)
         opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
     if (type.compare("performance") == 0)
-        {}//opt = n1;tep = 0.0;
+        opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff);
+	if (type.compare("asian") != 0 && type.compare("basket") != 0 && type.compare("performance") != 0) {
+		cout << "Bad option type !" << endl;
+        exit(1);
+    }
+    //opt = n1;tep = 0.0;
+
     /* Générateur aléatoire */
     PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
     pnl_rng_sseed(rng, time(NULL));
@@ -90,7 +95,7 @@ int main(int argc, char **argv) {
 
 	double prix;
 	double ic;
-    std::cout << "_____ MonteCarlo Computation_____"<< std::endl;
+    std::cout << "_____MonteCarlo Computation_____"<< std::endl;
     monteCarlo.price(prix, ic);
     std::cout << prix << " | " << ic << std::endl;
 

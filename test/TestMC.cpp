@@ -42,7 +42,6 @@ int main(int argc, char **argv) {
         divid = pnl_vect_create_from_zero(size);
     }
     P->extract("strike", strike);
-	cout << "Strike !" << strike << endl;
     P->extract("sample number", n_samples);
 	//n_samples = 5;
     P->extract("timestep number", nbTimeSteps);
@@ -60,7 +59,6 @@ int main(int argc, char **argv) {
 		cout << "Bad option type !" << endl;
         exit(1);
     }
-
 
     PnlVect *trend = pnl_vect_create_from_zero(size);
     BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
