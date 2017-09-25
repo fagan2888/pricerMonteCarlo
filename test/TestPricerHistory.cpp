@@ -53,16 +53,16 @@ int main(int argc, char **argv) {
 
     type = "basket";
     strike =100;
-    T = 1.0;
-    t = 0.0;
-    size = 1;
+    T = 3.0;
+    //t = 0.0;
+    size = 40;
     fdStep = 0.01;
     spot = pnl_vect_create_from_scalar(size, 100.0);
     sigma = pnl_vect_create_from_scalar(size, 0.2);
-    delta = pnl_vect_create_from_scalar(size, 0.0);
+    //delta = pnl_vect_create_from_scalar(size, 0.0);
     r = 0.04879;
     corr = 0.0;
-    payoffCoeff = pnl_vect_create_from_scalar(size, 1);
+    payoffCoeff = pnl_vect_create_from_scalar(size, 0.025);
     n_samples = 1;
     nbTimeSteps = 200;
 
@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
     PnlVect* results=pnl_vect_create_from_scalar(nbTimeSteps,0);
     hedgingPortfolio.hedgingPAndL(results,history);
     pnl_vect_print(results);
-*/
+	*/
     double prix;
 	double ic;
     std::cout << "_____MonteCarlo Computation_____"<< std::endl;
