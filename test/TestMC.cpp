@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
     PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
     int size, nbTimeSteps;
-    size_t n_samples; /* ATTENTION : type long donné en entrée ! */
+    size_t n_samples;
 
     char *infile = argv[1];
     Param *P = new Parser(infile);
