@@ -13,7 +13,7 @@ public:
     PnlVect *sigma_; /// vecteur de volatilités
     PnlVect *spot_; /// valeurs initiales du sous-jacent
 
-    BlackScholesModel(int, double, double, PnlVect *, PnlVect *);
+    BlackScholesModel(int, double, double, PnlVect *, PnlVect *, PnlVect *);
 
     /**
      * Destructeur de classe
@@ -59,6 +59,16 @@ public:
      */
     void shiftAsset(PnlMat *shift_path, const PnlMat *path, int d, double h, double t, double timestep);
 
+    /**
+     * Calcule une simulation de marché
+     *
+     * @param[out] path contient la trajectoire
+     * @param H
+     */
+    void simul_market(PnlMat *path, int H);
+
+protected:
+    PnlVect *trend_;
 };
 
 

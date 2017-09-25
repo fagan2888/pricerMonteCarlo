@@ -53,16 +53,16 @@ int main(int argc, char **argv) {
 
     type = "basket";
     strike =100;
-    T = 2.0;
-    t = 1.0;
-    size = 40;
+    T = 1.0;
+    t = 0.0;
+    size = 1;
     fdStep = 0.01;
     spot = pnl_vect_create_from_scalar(size, 100.0);
     sigma = pnl_vect_create_from_scalar(size, 0.2);
     delta = pnl_vect_create_from_scalar(size, 0.0);
     r = 0.04879;
     corr = 0.0;
-    payoffCoeff = pnl_vect_create_from_scalar(size, 0.025);
+    payoffCoeff = pnl_vect_create_from_scalar(size, 1);
     n_samples = 1;
     nbTimeSteps = 200;
 
@@ -84,18 +84,27 @@ int main(int argc, char **argv) {
     /* Générateur aléatoire */
     PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
     pnl_rng_sseed(rng, time(NULL));
-
-    std::cout << "_____ Hedging Portfolio _____"<< std::endl;
-
-    BlackScholesModel* bsmod = new BlackScholesModel(size, r, corr, sigma, spot);
+    PnlVect *trend = pnl_vect_create_from_zero(size);
+    BlackScholesModel* bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
     MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples); /* n_samples */
-    HedgingPortfolio hedgingPortfolio(nbTimeSteps,&monteCarlo);
+    /*HedgingPortfolio hedgingPortfolio(nbTimeSteps,&monteCarlo);
     PnlVect* results=pnl_vect_create_from_scalar(nbTimeSteps,0);
     hedgingPortfolio.hedgingPAndL(results,history);
     pnl_vect_print(results);
-
+*/
     double prix;
 	double ic;
+    std::cout << "_____ MonteCarlo Computation_____"<< std::endl;
+    monteCarlo.price(prix, ic);
+    std::cout << prix << " | " << ic << std::endl;
+
+    HedgingPortfolio hedgingPortfolio(nbTimeSteps, &monteCarlo);
+    PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps, 0.0);
+    hedgingPortfolio.hedgingPAndL(results, history);
+    pnl_vect_print(results);
+    //monteCarlo.delta(history, t, delta);
+    //pnl_vect_print(delta);
+
     //monteCarlo.price(history, t , prix, ic);
     //monteCarlo.price(prix, ic);
     //std::cout << prix << " | " << ic << std::endl;
@@ -105,6 +114,7 @@ int main(int argc, char **argv) {
     pnl_vect_free(&sigma);
     pnl_vect_free(&payoffCoeff);
     pnl_mat_free(&history);
+    pnl_vect_free(&trend);
     //delete P;
 
     exit(0);
