@@ -36,10 +36,8 @@ int main() {
     BlackScholesModel *bsModel = new BlackScholesModel(1, 1.01, 1.0, pnl_vect_create_from_scalar(1, 0.4),
                                                        pnl_vect_create_from_scalar(1, 10.0));
     MonteCarlo monteCarlo(bsModel, optionAsian, rng, 10.0, 50000);
-    double prix = 0.0;
-    double ic = 0.0;
+    double prix, ic;
     monteCarlo.price(prix, ic);
-    cout << prix << " | " << ic << endl;
 
     /// Test sur OptionPerformance
     OptionPerformance optionPerformance(maturity, nbTimeSteps, size, payoffCoeff);

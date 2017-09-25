@@ -38,12 +38,15 @@ void MonteCarlo::price(double &prix, double &ic) {
     /// Confidence interval in 95%
     double varianceEstimator = exp(-2 * (mod_->r_) * (opt_->maturity())) * (squareSum - pow(sum, 2));
     ic = 1.96 * sqrt(varianceEstimator) / sqrt(nbSamples_);
+
+    /// Free the memory
+    pnl_mat_free(&spotsMat);
 };
 
 void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
     double sum, squareSum, tempPayoff = 0.0;
     PnlMat *pathMat = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
-    std::cout << "_____ MonteCarlo Computation______"<< std::endl;
+    std::cout << "_____ MonteCarlo Computation______" << std::endl;
     std::cout << "________________________________" << std::endl;
     for (int i = 0; i < nbSamples_; i++) {
         mod_->asset(pathMat, t, opt_->maturity(), opt_->nbTimeSteps(), rng_, past);
@@ -62,11 +65,14 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
     /// Confidence interval in 95%
     double varianceEstimator = exp(-2 * (mod_->r_) * (opt_->maturity() - t)) * (squareSum - pow(sum, 2));
     ic = 1.96 * sqrt(varianceEstimator) / sqrt(nbSamples_);
+
+    /// Free the memory
+    pnl_mat_free(&pathMat);
 }
 
 void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta) {
-    auto shift_path = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
-    auto path = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
+    PnlMat *shift_path = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
+    PnlMat *path = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
     for (int d = 0; d < mod_->size_; d++) {
         double delta_sum = 0;
         for (int i = 0; i < nbSamples_; i++) {
@@ -80,4 +86,8 @@ void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta) {
         LET(delta, d) =
                 exp(-mod_->r_ * (opt_->maturity() - t)) / (2.0 * nbSamples_ * fdStep_ * MGET(past, past->m - 1, d));
     }
+
+    /// Free the memory
+    pnl_mat_free(&shift_path);
+    pnl_mat_free(&path);
 }
