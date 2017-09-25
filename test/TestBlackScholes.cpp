@@ -34,7 +34,8 @@ int main() {
     nbtt = 300;
     PnlRng *rng = pnl_rng_create(PNL_RNG_KNUTH);
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
-    BlackScholesModel blackScholesModel(size, r, rho, sigma, spot);
+    PnlVect *trend = pnl_vect_create_from_zero(size);
+    BlackScholesModel blackScholesModel(size, r, rho, sigma, spot, trend);
     blackScholesModel.asset(pnlMat, T, nbtt, rng);
 
     /// Test de BlackScholesModel avec un historique
@@ -47,6 +48,7 @@ int main() {
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
+    pnl_vect_free(&trend);
     delete P;
 
     exit(0);

@@ -15,7 +15,7 @@ public:
     /**
     * Constructeur de la classe
     *
-    * @param[in] nombre de pas
+    * @param[in] nombre de pas de rebalencement
     * @param[in] modele Monte Carlo
     */
     HedgingPortfolio(int H, MonteCarlo *mCarlo);
