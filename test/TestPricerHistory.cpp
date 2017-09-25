@@ -6,6 +6,7 @@
 #include "../src/OptionAsian.hpp"
 #include "../src/OptionBasket.hpp"
 #include "../src/OptionPerformance.hpp"
+#include "../src/HedgingPortfolio.hpp"
 
 #include "pnl/pnl_matrix.h"
 
@@ -54,19 +55,19 @@ int main(int argc, char **argv) {
     strike =100;
     T = 1.0;
     t = 0.0;
-    size = 40;
+    size = 1;
     fdStep = 0.01;
     spot = pnl_vect_create_from_scalar(size, 100.0);
     sigma = pnl_vect_create_from_scalar(size, 0.2);
     delta = pnl_vect_create_from_scalar(size, 0.0);
     r = 0.04879;
     corr = 0.0;
-    payoffCoeff = pnl_vect_create_from_scalar(size, 0.025);
+    payoffCoeff = pnl_vect_create_from_scalar(size, 1);
     n_samples = 1;
     nbTimeSteps = 200;
 
-    PnlMat* history = pnl_mat_create_from_scalar(1, size, 100.0);//pnl_mat_create_from_file(infile);
-    //PnlMat *history = pnl_mat_create_from_file(infile);
+    //PnlMat* history = pnl_mat_create_from_scalar(1, size, 100.0);//pnl_mat_create_from_file(infile);
+    PnlMat *history = pnl_mat_create_from_file(infile);
 
     //pnl_mat_print(history);
 
@@ -90,8 +91,16 @@ int main(int argc, char **argv) {
 	double prix;
 	double ic;
     std::cout << "_____ MonteCarlo Computation_____"<< std::endl;
-    monteCarlo.delta(history, t, delta);
-    pnl_vect_print(delta);
+    monteCarlo.price(prix, ic);
+    std::cout << prix << " | " << ic << std::endl;
+
+    HedgingPortfolio hedgingPortfolio(nbTimeSteps, &monteCarlo);
+    PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps, 0.0);
+    hedgingPortfolio.hedgingPAndL(results, history);
+    pnl_vect_print(results);
+    //monteCarlo.delta(history, t, delta);
+    //pnl_vect_print(delta);
+
     //monteCarlo.price(history, t , prix, ic);
     //monteCarlo.price(prix, ic);
     //std::cout << prix << " | " << ic << std::endl;
