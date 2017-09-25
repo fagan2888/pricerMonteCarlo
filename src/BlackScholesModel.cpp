@@ -96,6 +96,6 @@ void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d
     int currentDate = (int) ceil(t / timestep);
     pnl_mat_clone(shift_path, path);
     for (int i = currentDate; i < path->m; i++) {
-        pnl_mat_set(shift_path, currentDate, i, MGET(path, currentDate, d) * (1 + h));
+        pnl_mat_set(shift_path, i, d, MGET(path, currentDate, d) * (1 + h));
     }
 }
