@@ -69,13 +69,13 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     /// Simulate the end of path
     PnlVect *G_i = pnl_vect_create(size_);
     PnlVect *L_d = pnl_vect_create(size_);
-    double timeInterval = t - lastDatePast * T / (double) nbTimeSteps;
+    double timeInterval = (lastDatePast +1 )* T / (double) nbTimeSteps-t;
     for (int i = lastDatePast + 1; i <= nbTimeSteps; i++) {
         pnl_vect_rng_normal(G_i, size_, rng);
         for (int d = 0; d < size_; d++) {
             double sigma_d = pnl_vect_get(sigma_, d);
             pnl_mat_get_row(L_d, gamma, d);
-            double lastSpot = (i == lastDatePast) ? GET(spots_t, d) : pnl_mat_get(path, i - 1, d);
+            double lastSpot = (i == lastDatePast+1) ? GET(spots_t, d) : pnl_mat_get(path, i - 1, d);
             double path_t_d = lastSpot * exp((r_ - pow(sigma_d, 2) / 2) * timeInterval +
                                              sigma_d * sqrt(timeInterval) *
                                              pnl_vect_scalar_prod(L_d, G_i));
