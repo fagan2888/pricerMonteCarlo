@@ -33,8 +33,9 @@ int main() {
     OptionAsian *optionAsian = new OptionAsian(maturity, nbTimeSteps, size, payoffCoeff, strike);
     PnlRng *rng = pnl_rng_create(PNL_RNG_KNUTH);
     pnl_rng_sseed(rng, 0);
+    PnlVect *trend = pnl_vect_create_from_zero(size);
     BlackScholesModel *bsModel = new BlackScholesModel(1, 1.01, 1.0, pnl_vect_create_from_scalar(1, 0.4),
-                                                       pnl_vect_create_from_scalar(1, 10.0));
+                                                       pnl_vect_create_from_scalar(1, 10.0),trend);
     MonteCarlo monteCarlo(bsModel, optionAsian, rng, 10.0, 50000);
     double prix, ic;
     monteCarlo.price(prix, ic);
@@ -45,6 +46,7 @@ int main() {
     pnl_rng_free(&rng);
     pnl_vect_free(&payoffCoeff);
     pnl_mat_free(&path);
+    pnl_vect_free(&trend);
 
     if (success) {
         exit(0);

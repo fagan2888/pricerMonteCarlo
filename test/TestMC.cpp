@@ -62,7 +62,8 @@ int main(int argc, char **argv) {
     }
 
 
-    BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot);
+    PnlVect *trend = pnl_vect_create_from_zero(size);
+    BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
 
     /* Pas de temps */
     double fdStep = 0.1;
@@ -90,6 +91,7 @@ int main(int argc, char **argv) {
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
     pnl_vect_free(&payoffCoeff);
+    pnl_vect_free(&trend);
     delete P;
 
     if (abs(mcPrice - prix) / mcPrice < 5 * ic) {

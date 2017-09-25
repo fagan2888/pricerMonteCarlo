@@ -84,8 +84,8 @@ int main(int argc, char **argv) {
     /* Générateur aléatoire */
     PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
     pnl_rng_sseed(rng, time(NULL));
-
-    BlackScholesModel* bsmod = new BlackScholesModel(size, r, corr, sigma, spot);
+    PnlVect *trend = pnl_vect_create_from_zero(size);
+    BlackScholesModel* bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
     MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples); /* n_samples */
 
 	double prix;
@@ -110,6 +110,7 @@ int main(int argc, char **argv) {
     pnl_vect_free(&sigma);
     pnl_vect_free(&payoffCoeff);
     pnl_mat_free(&history);
+    pnl_vect_free(&trend);
     //delete P;
 
     exit(0);

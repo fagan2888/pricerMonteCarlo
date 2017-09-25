@@ -4,12 +4,13 @@
 
 using namespace std;
 
-BlackScholesModel::BlackScholesModel(int size, double r, double rho, PnlVect *sigma, PnlVect *spot) {
+BlackScholesModel::BlackScholesModel(int size, double r, double rho, PnlVect *sigma, PnlVect *spot, PnlVect *trend) {
     size_ = size;
     r_ = r;
     rho_ = rho;
     sigma_ = sigma;
     spot_ = spot;
+    trend_ = trend;
 }
 
 BlackScholesModel::~BlackScholesModel() {}
@@ -98,4 +99,8 @@ void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d
     for (int i = currentDate; i < path->m; i++) {
         pnl_mat_set(shift_path, i, d, MGET(path, currentDate, d) * (1 + h));
     }
+}
+
+void BlackScholesModel::simul_market(PnlMat *path, int H) {
+    
 }
