@@ -12,6 +12,8 @@ BlackScholesModel::BlackScholesModel(int size, double r, double rho, PnlVect *si
     spot_ = spot;
 }
 
+BlackScholesModel::~BlackScholesModel() {}
+
 void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *rng) {
     /// Cholesky decomposition
     PnlMat *gamma = pnl_mat_create_from_scalar(size_, size_, rho_);
@@ -59,7 +61,6 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
         pnl_mat_get_row(tempRow, past, i);
         pnl_mat_set_row(path, tempRow, i);
     }
-
     /// Get the spot value
     PnlVect *spots_t = pnl_vect_create(size_);
     pnl_mat_get_row(spots_t, past, past->m - 1);
@@ -94,5 +95,8 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d, double h, double t, double timestep) {
     int currentDate = (int)floor(t / timestep);
     pnl_mat_clone(shift_path, path);
-    pnl_mat_set(shift_path, currentDate, d, MGET(path, currentDate, d) * (1 + h));
+    for (int i=d; i<=timestep; i++)
+    {
+      pnl_mat_set(shift_path, currentDate, i, MGET(path, currentDate, d) * (1 + h));
+    }
 }

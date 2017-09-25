@@ -4,8 +4,7 @@
 #include "BlackScholesModel.hpp"
 #include "pnl/pnl_random.h"
 
-class MonteCarlo
-{
+class MonteCarlo {
 public:
     BlackScholesModel *mod_; /*! pointeur vers le modèle */
     Option *opt_; /*! pointeur sur l'option */
@@ -22,14 +21,19 @@ public:
      * @param[in] pas de différence finie
      * @param[in] nombre de tirages Monte Carlo
      */
-    MonteCarlo(BlackScholesModel* mod, Option* opt, PnlRng* rng, double fdStep, int nbSamples);
+    MonteCarlo(BlackScholesModel *mod, Option *opt, PnlRng *rng, double fdStep, int nbSamples);
 
-	 /**
-     * Calcule le prix de l'option à la date 0
-     *
-     * @param[out] prix valeur de l'estimateur Monte Carlo
-     * @param[out] ic largeur de l'intervalle de confiance
-     */
+    /**
+    * Destructeur de classe
+    */
+    ~MonteCarlo();
+
+    /**
+    * Calcule le prix de l'option à la date 0
+    *
+    * @param[out] prix valeur de l'estimateur Monte Carlo
+    * @param[out] ic largeur de l'intervalle de confiance
+    */
     void price(double &prix, double &ic);
 
     /**
