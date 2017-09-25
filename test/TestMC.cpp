@@ -42,8 +42,9 @@ int main(int argc, char **argv) {
         divid = pnl_vect_create_from_zero(size);
     }
     P->extract("strike", strike);
+	cout << "Strike !" << strike << endl;
     P->extract("sample number", n_samples);
-	n_samples = 5;
+	//n_samples = 5;
     P->extract("timestep number", nbTimeSteps);
 
     /* Création de l'option en fonction du type */
@@ -55,6 +56,11 @@ int main(int argc, char **argv) {
         opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
     if (type.compare("performance") == 0)
         opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff);
+	if (type.compare("asian") != 0 && type.compare("basket") != 0 && type.compare("performance") != 0) {
+		cout << "Bad option type !" << endl;
+        exit(1);
+    }
+
 
     BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot);
 
