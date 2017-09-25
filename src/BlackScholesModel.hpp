@@ -62,10 +62,11 @@ public:
     /**
      * Calcule une simulation de marché
      *
-     * @param[out] path contient la trajectoire
-     * @param H
+     * @param[in] H le nombre de dates
+     * @param[in] T la maturité
+     * @param[in] rng le générateur aléatoire
      */
-    void simul_market(PnlMat *path, int H);
+    PnlMat *simul_market(int H, double T, PnlRng *rng);
 
 protected:
     PnlVect *trend_;

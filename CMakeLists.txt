@@ -72,6 +72,11 @@ add_test(testPricerHistory_basket_2 testPricerHistory ../data/market-data/simul_
 add_test(testPricerHistory_asian testPricerHistory ../data/market-data/simul_asian.dat)
 add_test(testPricerHistory_perf testPricerHistory ../data/market-data/simul_perf.dat)
 
+# Test BlackScholesModel::simul_market
+add_executable(testBlackScholesModel_simul_market test/TestSimulMarket.cpp src/BlackScholesModel.cpp src/parser.cpp)
+target_link_libraries(testBlackScholesModel_simul_market ${LIBS})
+add_test(testBlackScholesModel_simul_market testBlackScholesModel_simul_market)
+
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)
 # target_link_libraries(mc-pricer ${LIBS})
 # install(TARGETS mc-pricer DESTINATION bin)

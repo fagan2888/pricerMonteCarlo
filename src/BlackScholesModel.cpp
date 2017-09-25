@@ -101,6 +101,39 @@ void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d
     }
 }
 
-void BlackScholesModel::simul_market(PnlMat *path, int H) {
-    
+PnlMat *BlackScholesModel::simul_market(int H, double T, PnlRng *rng) {
+    /// Cholesky decomposition
+    PnlMat *gamma = pnl_mat_create_from_scalar(size_, size_, rho_);
+    PnlMat *identity = pnl_mat_create(size_, size_);
+    pnl_mat_set_id(identity);
+    pnl_mat_mult_scalar(identity, 1 - rho_);
+    pnl_mat_plus_mat(gamma, identity);
+    pnl_mat_chol(gamma);
+
+    /// Path simulation
+    PnlMat *path = pnl_mat_create_from_zero(H, size_);
+    pnl_mat_set_row(path, spot_, 0);
+    PnlVect *G_i = pnl_vect_create(size_);
+    PnlVect *L_d = pnl_vect_create(size_);
+    for (int i = 1; i < H; i++) {
+        pnl_vect_rng_normal(G_i, size_, rng);
+        for (int d = 0; d < size_; d++) {
+            double trend_d = pnl_vect_get(trend_, d);
+            double sigma_d = pnl_vect_get(sigma_, d);
+            double timeInterval = i * T / H;
+            pnl_mat_get_row(L_d, gamma, d);
+            double path_t_d = MGET(path, 0, d) * exp((trend_d - pow(sigma_d, 2) / 2) * timeInterval +
+                                                     sigma_d * sqrt(timeInterval) *
+                                                     pnl_vect_scalar_prod(L_d, G_i));
+            pnl_mat_set(path, i, d, path_t_d);
+        }
+    }
+
+    /// Free the memory
+    pnl_mat_free(&gamma);
+    pnl_mat_free(&identity);
+    pnl_vect_free(&G_i);
+    pnl_vect_free(&L_d);
+
+    return path;
 }
