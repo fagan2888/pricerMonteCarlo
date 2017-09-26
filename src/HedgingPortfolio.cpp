@@ -18,7 +18,8 @@ double HedgingPortfolio::hedgingPAndL(PnlVect *result, PnlMat *path) {
     PnlVect *delta_i = pnl_vect_create_from_zero(monteCarlo->mod_->size_);
     PnlVect *path_i = pnl_vect_create_from_zero(monteCarlo->mod_->size_);
     double prix, ic;
-    PnlMat *past_0, *past_i;
+    PnlMat *past_0 = pnl_mat_create(1, monteCarlo->mod_->size_);
+    PnlMat *past_i = pnl_mat_create(1, monteCarlo->mod_->size_);
     pnl_mat_extract_subblock(past_0, path, 0, 1, 0, monteCarlo->mod_->size_);
     pnl_mat_extract_subblock(past_i, path, 0, 1, 0, monteCarlo->mod_->size_);
 
