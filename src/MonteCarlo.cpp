@@ -50,7 +50,9 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
     std::cout << "_____MonteCarlo Computation______" << std::endl;
     std::cout << "________________________________" << std::endl;
     PnlMat *pathMat = pnl_mat_create(opt_->nbTimeSteps() + 1, mod_->size_);
-    double sum, squareSum, tempPayoff = 0.0;
+    double tempPayoff = 0.0;
+    double squareSum=0.0;
+    double sum=0.0;
     for (int i = 0; i < nbSamples_; i++) {
         mod_->asset(pathMat, t, opt_->maturity(), opt_->nbTimeSteps(), rng_, past);
         tempPayoff = opt_->payoff(pathMat);
