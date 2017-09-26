@@ -59,17 +59,17 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     int lastDatePast = (int) floor(t * (double) nbTimeSteps / T);
     double firstStep = lastDatePast*(T/nbTimeSteps) - t;
     PnlVect *tempRow = pnl_vect_create(size_);
-    if (firstStep == 0.0) {///special case : t = ti
+    /*if (firstStep == 0.0) {///special case : t = ti
         pnl_mat_set_subblock(path, past, 0, 0);
         firstStep = T/nbTimeSteps;
         lastDatePast += 1;
-    } else {
+    } else {*/
         //for (int i = 0; i <= lastDatePast; i++) {
         for (int i=0; i < past->m -1; i++){
             pnl_mat_get_row(tempRow, past, i);
             pnl_mat_set_row(path, tempRow, i);
         }
-    }
+    //}
     /// Get the spot value  A VOIR ??
     PnlVect *spots_t = pnl_vect_create(size_);
     pnl_mat_get_row(spots_t, past, past->m - 1);
@@ -149,7 +149,7 @@ PnlMat *BlackScholesModel::simul_market(int H, double T, PnlRng *rng) {
 }
 
 /* Une autre proposition pour simul_market */
-void BlackScholesModel::simul_market(PnlMat *path, double T, int H, PnlRng *rng){
+/*void BlackScholesModel::simul_market(PnlMat *path, double T, int H, PnlRng *rng){
     
     pnl_mat_set_row(path, spot_, 0);
     PnlVect *pastPrices = pnl_vect_copy(spot_);
@@ -166,7 +166,7 @@ void BlackScholesModel::simul_market(PnlMat *path, double T, int H, PnlRng *rng)
         }
         pastPrices = pnl_vect_wrap_mat_row(path, i+1);
     }
-}
+}*/
 
 /* Proposition pour asset avec prise en compte des spots historiques --> aide pour vérification */
 
