@@ -35,18 +35,19 @@ double HedgingPortfolio::hedgingPAndL(PnlVect *result, PnlMat *path) {
 
     /// Complétion de la matrice result
     pnl_vect_set(result, 0, prix - pnl_vect_scalar_prod(delta_0, path_i));
-    for (int i = 1; i <= H; i++) {
+    for (int i = 1; i < H; i++) {
         std::cout << " i = " << i << std::endl;
         pnl_mat_extract_subblock(past_0, path, 0, i, 0, monteCarlo->mod_->size_);
-        pnl_mat_extract_subblock(past_i, path, 0, i + 1, 0, monteCarlo->mod_->size_);
-        monteCarlo->price(past_0, (i - 1) * monteCarlo->opt_->maturity() / H, prix, ic);
-        std::cout << " prix(" << i - 1 << ")= " << prix << std::endl;
-
-        monteCarlo->price(past_i, i * monteCarlo->opt_->maturity() / H, prix, ic);
+        pnl_mat_extract_subblock(past_i, path, 0, i+1, 0, monteCarlo->mod_->size_);
+        monteCarlo->price(past_0, i * monteCarlo->opt_->maturity() / H, prix, ic);
         std::cout << " prix(" << i << ")= " << prix << std::endl;
+        std::cout << " haha(" << i << ")= " << (i+1) * monteCarlo->opt_->maturity() / H << std::endl;
+        monteCarlo->price(past_i, (i+1) * monteCarlo->opt_->maturity() / H, prix, ic);
+        std::cout << " prix(" << i+1 << ")= " << prix << std::endl;
 
-        monteCarlo->delta(past_0, (i - 1) * monteCarlo->opt_->maturity() / H, delta_0);
+        //monteCarlo->delta(past_0, (i - 1) * monteCarlo->opt_->maturity() / H, delta_0);
         monteCarlo->delta(past_i, i * monteCarlo->opt_->maturity() / H, delta_i);
+        pnl_vect_clone(delta_0,delta_i);
         pnl_vect_minus_vect(delta_i, delta_0);
         pnl_mat_get_row(path_i, path, i);
         LET(result, i) = LET(result, i - 1) * exp(monteCarlo->mod_->r_ * monteCarlo->opt_->maturity() / H) -

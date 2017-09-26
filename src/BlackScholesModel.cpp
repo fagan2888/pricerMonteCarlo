@@ -59,17 +59,17 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     int lastDatePast = (int) floor(t * (double) nbTimeSteps / T);
     double firstStep = lastDatePast*(T/nbTimeSteps) - t;
     PnlVect *tempRow = pnl_vect_create(size_);
-    if (firstStep == 0.0) {///special case : t = ti
+    /*if (firstStep == 0.0) {///special case : t = ti
         pnl_mat_set_subblock(path, past, 0, 0);
         firstStep = T/nbTimeSteps;
         lastDatePast += 1;
-    } else {
+    } else {*/
         //for (int i = 0; i <= lastDatePast; i++) {
         for (int i=0; i < past->m -1; i++){
             pnl_mat_get_row(tempRow, past, i);
             pnl_mat_set_row(path, tempRow, i);
         }
-    }
+    //}
     /// Get the spot value  A VOIR ??
     PnlVect *spots_t = pnl_vect_create(size_);
     pnl_mat_get_row(spots_t, past, past->m - 1);
