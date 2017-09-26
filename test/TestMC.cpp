@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
     PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
     int size, nbTimeSteps;
-    size_t n_samples; /* ATTENTION : type long donné en entrée ! */
+    size_t n_samples;
 
     char *infile = argv[1];
     Param *P = new Parser(infile);
@@ -43,6 +43,7 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
+	//n_samples = 5;
     P->extract("timestep number", nbTimeSteps);
 
     /* Création de l'option en fonction du type */
@@ -54,6 +55,11 @@ int main(int argc, char **argv) {
         opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
     if (type.compare("performance") == 0)
         opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff);
+	if (type.compare("asian") != 0 && type.compare("basket") != 0 && type.compare("performance") != 0) {
+		cout << "Bad option type !" << endl;
+        exit(1);
+    }
+
     PnlVect *trend = pnl_vect_create_from_zero(size);
     BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
 
