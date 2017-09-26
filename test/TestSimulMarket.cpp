@@ -34,7 +34,7 @@ int main() {
     PnlMat *path = blackScholesModel.simul_market(300, T, rng);
 
     if (path->m != 300 && path->n != size) {
-        cout << "Erreur sur la taille de la matrice";
+        cout << "Erreur sur la taille de la matrice" << endl;
         exit(1);
     }
 
