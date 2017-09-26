@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-	//n_samples = 5;
+	n_samples = 1000;
     P->extract("timestep number", nbTimeSteps);
 
     /* Création de l'option en fonction du type */
@@ -76,9 +76,9 @@ int main(int argc, char **argv) {
     double ic;
     //monteCarlo.price(prix, ic);
     PnlVect* deltas=pnl_vect_create_from_zero(size);
-    PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps+1, size, 100.0);
-    //monteCarlo.delta(history,0,deltas);
-    //pnl_vect_print(deltas);
+    PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 100.0);
+    monteCarlo.delta(history,0,deltas);
+    pnl_vect_print(deltas);
     //monteCarlo.price(prix,ic);
     //monteCarlo.price(history,0,prix,ic);
 
@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
     HedgingPortfolio hedgingPortfolio(nbTimeSteps, &monteCarlo);
     PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps+1, 0.0);
     double profitAndLoss = hedgingPortfolio.hedgingPAndL(results, history);
-    std::cout << "P&L = " << profitAndLoss << std::endl;
+    cout << "P&L = " << profitAndLoss << endl;
     //pnl_vect_print(results);
 
     /*int nbtt = 10;

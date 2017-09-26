@@ -10,15 +10,15 @@ using namespace std;
 
 int main() {
 
-    double T, r, strike, rho;
-    PnlVect *spot, *sigma, *divid;
-    PnlMat *pnlMat;
+    /// Déclaration des variables
+    double T, r, strike, mcPrice, corr;
+    PnlVect *spot, *sigma, *divid, *payoffCoeff;
     string type;
-    int size, nbtt;
+    int size, nbTimeSteps;
     size_t n_samples;
 
-    Param *P = new Parser("../data/basket.dat");
-
+    /// Parser
+    Param *P = new Parser("../data/asian.dat");
     P->extract("mc price", mcPrice);
     P->extract("option type", type);
     P->extract("maturity", T);
@@ -33,15 +33,28 @@ int main() {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
+    n_samples = 100;
     P->extract("timestep number", nbTimeSteps);
+
+    /// Test
     OptionBasket *opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
     PnlRng *rng = pnl_rng_create(PNL_RNG_KNUTH);
-    pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
+    pnl_rng_sseed(rng, time(NULL));
     PnlVect *trend = pnl_vect_create_from_zero(size);
-    BlackScholesModel blackScholesModel(size, r, rho, sigma, spot, trend);
-    MonteCarlo monteCarlo(blackScholesModel, opt, rng, 0.1, n_samples);
+    BlackScholesModel *bsmodel = new BlackScholesModel(size, r, corr, sigma, spot, trend);
+    MonteCarlo *monteCarlo = new MonteCarlo(bsmodel, opt, rng, 0.1, n_samples);
     HedgingPortfolio hedgingPortfolio(n_samples, monteCarlo);
-    PnlVect *results;
-    //PnlMat *path = blackScholesModel.asset()
-    //cout << hedgingPortfolio.hedgingPAndL()
+    PnlVect *results = pnl_vect_create(nbTimeSteps + 1);
+    PnlMat *path = pnl_mat_create(nbTimeSteps + 1,size);
+    bsmodel->asset(path, T, nbTimeSteps, rng);
+    cout << "P&L : " << hedgingPortfolio.hedgingPAndL(results, path) << endl;
+
+    /// Libération de la mémoire
+    delete P;
+    delete opt;
+    pnl_rng_free(&rng);
+    delete bsmodel;
+    delete monteCarlo;
+
+    exit(0);
 }

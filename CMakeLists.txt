@@ -77,6 +77,11 @@ add_executable(testBlackScholesModel_simul_market test/TestSimulMarket.cpp src/B
 target_link_libraries(testBlackScholesModel_simul_market ${LIBS})
 add_test(testBlackScholesModel_simul_market testBlackScholesModel_simul_market)
 
+# Test HedgingPortfolio
+add_executable(testHedgingPortfolio test/TestHedgingPortfolio.cpp src/parser.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/Option.cpp src/OptionBasket.cpp src/HedgingPortfolio.cpp)
+target_link_libraries(testHedgingPortfolio ${LIBS})
+add_test(testHedgingPortfolio testHedgingPortfolio)
+
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)
 # target_link_libraries(mc-pricer ${LIBS})
 # install(TARGETS mc-pricer DESTINATION bin)
