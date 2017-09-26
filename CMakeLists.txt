@@ -55,7 +55,7 @@ target_link_libraries(testBlackScholes ${LIBS})
 add_test(testBlackScholes testBlackScholes)
 
 # Test MC
-add_executable(testMC src/parser.cpp test/TestMC.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
+add_executable(testMC src/parser.cpp test/TestMC.cpp src/HedgingPortfolio.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
 target_link_libraries(testMC ${LIBS})
 add_test(testMC_basket testMC ../data/basket.dat)
 add_test(testMC_basket_1 testMC ../data/basket_1.dat)
