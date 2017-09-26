@@ -57,8 +57,6 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
         squareSum += pow(tempPayoff, 2);
         sum += tempPayoff;
     }
-    std::cout << " | sum = " << sum << std::endl;
-    std::cout << "________________________________" << std::endl;
     sum /= nbSamples_;
     squareSum /= nbSamples_;
 
