@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
     PnlVect *spot, *sigma, *payoffCoeff, *delta;
     string type;
     int size, nbTimeSteps;
-    size_t n_samples; /* ATTENTION : type long donné en entrée ! */
+    size_t n_samples;
 
     char *infile = argv[1];
     //Param *P = new Parser(infile);
@@ -53,16 +53,16 @@ int main(int argc, char **argv) {
 
     type = "basket";
     strike =100;
-    T = 1.0;
-    t = 0.0;
-    size = 1;
+    T = 3.0;
+    //t = 0.0;
+    size = 40;
     fdStep = 0.01;
     spot = pnl_vect_create_from_scalar(size, 100.0);
     sigma = pnl_vect_create_from_scalar(size, 0.2);
-    delta = pnl_vect_create_from_scalar(size, 0.0);
+    //delta = pnl_vect_create_from_scalar(size, 0.0);
     r = 0.04879;
     corr = 0.0;
-    payoffCoeff = pnl_vect_create_from_scalar(size, 1);
+    payoffCoeff = pnl_vect_create_from_scalar(size, 0.025);
     n_samples = 1;
     nbTimeSteps = 200;
 
@@ -72,7 +72,6 @@ int main(int argc, char **argv) {
     //pnl_mat_print(history);
 
     /* Création de l'option en fonction du type */
-
     Option *opt;
 
     if (type.compare("asian") == 0)
@@ -80,7 +79,13 @@ int main(int argc, char **argv) {
     if (type.compare("basket") == 0)
         opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
     if (type.compare("performance") == 0)
-        {}//opt = n1;tep = 0.0;
+        opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff);
+	if (type.compare("asian") != 0 && type.compare("basket") != 0 && type.compare("performance") != 0) {
+		cout << "Bad option type !" << endl;
+        exit(1);
+    }
+    //opt = n1;tep = 0.0;
+
     /* Générateur aléatoire */
     PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
     pnl_rng_sseed(rng, time(NULL));
@@ -91,10 +96,10 @@ int main(int argc, char **argv) {
     PnlVect* results=pnl_vect_create_from_scalar(nbTimeSteps,0);
     hedgingPortfolio.hedgingPAndL(results,history);
     pnl_vect_print(results);
-*/
+	*/
     double prix;
 	double ic;
-    std::cout << "_____ MonteCarlo Computation_____"<< std::endl;
+    std::cout << "_____MonteCarlo Computation_____"<< std::endl;
     monteCarlo.price(prix, ic);
     std::cout << prix << " | " << ic << std::endl;
 
