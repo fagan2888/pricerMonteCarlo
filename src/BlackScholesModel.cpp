@@ -57,7 +57,7 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 
     /// Copy the past matrix on the path matrix
     int lastDatePast = (int) floor(t * (double) nbTimeSteps / T);
-    double firstStep = lastDatePast*(T/nbTimeSteps) - t;
+    //double firstStep = lastDatePast*(T/nbTimeSteps) - t;
     PnlVect *tempRow = pnl_vect_create(size_);
     /*if (firstStep == 0.0) {///special case : t = ti
         pnl_mat_set_subblock(path, past, 0, 0);
