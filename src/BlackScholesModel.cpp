@@ -57,33 +57,25 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 
     /// Copy the past matrix on the path matrix
     int lastDatePast = (int) floor(t * (double) nbTimeSteps / T);
-    double firstStep = lastDatePast*(T/nbTimeSteps) - t;
     PnlVect *tempRow = pnl_vect_create(size_);
-    /*if (firstStep == 0.0) {///special case : t = ti
-        pnl_mat_set_subblock(path, past, 0, 0);
-        firstStep = T/nbTimeSteps;
-        lastDatePast += 1;
-    } else {*/
-        //for (int i = 0; i <= lastDatePast; i++) {
-        for (int i=0; i < past->m -1; i++){
-            pnl_mat_get_row(tempRow, past, i);
-            pnl_mat_set_row(path, tempRow, i);
-        }
-    //}
-    /// Get the spot value  A VOIR ??
+    for (int i = 0; i <= lastDatePast; i++) {
+        pnl_mat_get_row(tempRow, past, i);
+        pnl_mat_set_row(path, tempRow, i);
+    }
+    /// Get the spot value
     PnlVect *spots_t = pnl_vect_create(size_);
     pnl_mat_get_row(spots_t, past, past->m - 1);
 
     /// Simulate the end of path
     PnlVect *G_i = pnl_vect_create(size_);
     PnlVect *L_d = pnl_vect_create(size_);
-    double timeInterval = (lastDatePast +1 )* T / (double) nbTimeSteps-t;
+    double timeInterval = (lastDatePast + 1) * T / (double) nbTimeSteps - t;
     for (int i = lastDatePast + 1; i <= nbTimeSteps; i++) {
         pnl_vect_rng_normal(G_i, size_, rng);
         for (int d = 0; d < size_; d++) {
             double sigma_d = pnl_vect_get(sigma_, d);
             pnl_mat_get_row(L_d, gamma, d);
-            double lastSpot = (i == lastDatePast+1) ? GET(spots_t, d) : pnl_mat_get(path, i - 1, d);
+            double lastSpot = (i == lastDatePast + 1) ? GET(spots_t, d) : pnl_mat_get(path, i - 1, d);
             double path_t_d = lastSpot * exp((r_ - pow(sigma_d, 2) / 2) * timeInterval +
                                              sigma_d * sqrt(timeInterval) *
                                              pnl_vect_scalar_prod(L_d, G_i));
@@ -102,8 +94,8 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 }
 
 void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d, double h, double t, double timestep) {
-    //int currentDate = (int) floor(t / timestep);
-    int currentDate = (int) floor(t / timestep) + 1;
+    int currentDate = (int) floor(t / timestep);
+    //int currentDate = (int) floor(t / timestep) + 1;
     pnl_mat_clone(shift_path, path);
     for (int i = currentDate; i < path->m; i++) {
         //pnl_mat_set(shift_path, i, d, MGET(path, currentDate, d) * (1 + h));
@@ -121,6 +113,7 @@ PnlMat *BlackScholesModel::simul_market(int H, double T, PnlRng *rng) {
     pnl_mat_chol(gamma);
 
     /// Path simulation
+
     PnlMat *path = pnl_mat_create_from_zero(H, size_);
     pnl_mat_set_row(path, spot_, 0);
     PnlVect *G_i = pnl_vect_create(size_);
