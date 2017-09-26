@@ -23,11 +23,15 @@ double HedgingPortfolio::hedgingPAndL(PnlVect *result, PnlMat *path) {
     pnl_mat_extract_subblock(past_0, path, 0, 1, 0, monteCarlo->mod_->size_);
     pnl_mat_extract_subblock(past_i, path, 0, 1, 0, monteCarlo->mod_->size_);
 
+    std::cout << "*** start init ***" << std::endl;
+
     /// Calcul du prix initial de l'option
     monteCarlo->price(prix, ic);
 
     /// Calcul des deltas initiaux
     monteCarlo->delta(past_0, 0, delta_0);
+
+    std::cout << "*** start calcul ***" << std::endl;
 
     /// Complétion de la matrice result
     pnl_vect_set(result, 0, prix - pnl_vect_scalar_prod(delta_0, path_i));
@@ -48,6 +52,9 @@ double HedgingPortfolio::hedgingPAndL(PnlVect *result, PnlMat *path) {
         LET(result, i) = LET(result, i - 1) * exp(monteCarlo->mod_->r_ * monteCarlo->opt_->maturity() / H) -
                          (pnl_vect_scalar_prod(delta_i, path_i));
     }
+
+    std::cout << "*** end ***" << std::endl;
+
     double payoff = monteCarlo->opt_->payoff(path);
     pnl_mat_print(path);
     std::cout << "payoff : " << payoff << std::endl;
