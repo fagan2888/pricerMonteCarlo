@@ -43,3 +43,6 @@ CMakeCache.txt
 # IDE
 .idea/
 cmake-build-debug/
+
+# Temporal files
+*#

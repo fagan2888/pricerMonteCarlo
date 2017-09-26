@@ -149,7 +149,7 @@ PnlMat *BlackScholesModel::simul_market(int H, double T, PnlRng *rng) {
 }
 
 /* Une autre proposition pour simul_market */
-void BlackScholesModel::simul_market(PnlMat *path, double T, int H, PnlRng *rng){
+/*void BlackScholesModel::simul_market(PnlMat *path, double T, int H, PnlRng *rng){
     
     pnl_mat_set_row(path, spot_, 0);
     PnlVect *pastPrices = pnl_vect_copy(spot_);
@@ -166,7 +166,7 @@ void BlackScholesModel::simul_market(PnlMat *path, double T, int H, PnlRng *rng)
         }
         pastPrices = pnl_vect_wrap_mat_row(path, i+1);
     }
-}
+}*/
 
 /* Proposition pour asset avec prise en compte des spots historiques --> aide pour vérification */
 
