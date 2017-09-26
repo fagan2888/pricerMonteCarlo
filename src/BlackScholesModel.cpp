@@ -57,12 +57,20 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 
     /// Copy the past matrix on the path matrix
     int lastDatePast = (int) floor(t * (double) nbTimeSteps / T);
+    double firstStep = lastDatePast*(T/nbTimeSteps) - t;
     PnlVect *tempRow = pnl_vect_create(size_);
-    for (int i = 0; i <= lastDatePast; i++) {
-        pnl_mat_get_row(tempRow, past, i);
-        pnl_mat_set_row(path, tempRow, i);
+    if (firstStep == 0.0) {///special case : t = ti
+        pnl_mat_set_subblock(path, past, 0, 0);
+        firstStep = T/nbTimeSteps;
+        lastDatePast += 1;
+    } else {
+        //for (int i = 0; i <= lastDatePast; i++) {
+        for (int i=0; i < past->m -1; i++){
+            pnl_mat_get_row(tempRow, past, i);
+            pnl_mat_set_row(path, tempRow, i);
+        }
     }
-    /// Get the spot value
+    /// Get the spot value  A VOIR ??
     PnlVect *spots_t = pnl_vect_create(size_);
     pnl_mat_get_row(spots_t, past, past->m - 1);
 
@@ -94,10 +102,12 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 }
 
 void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d, double h, double t, double timestep) {
-    int currentDate = (int) floor(t / timestep);
+    //int currentDate = (int) floor(t / timestep);
+    int currentDate = (int) floor(t / timestep) + 1;
     pnl_mat_clone(shift_path, path);
     for (int i = currentDate; i < path->m; i++) {
-        pnl_mat_set(shift_path, i, d, MGET(path, currentDate, d) * (1 + h));
+        //pnl_mat_set(shift_path, i, d, MGET(path, currentDate, d) * (1 + h));
+        pnl_mat_set(shift_path, i, d, MGET(path, i, d) * (1 + h));
     }
 }
 
@@ -137,3 +147,49 @@ PnlMat *BlackScholesModel::simul_market(int H, double T, PnlRng *rng) {
 
     return path;
 }
+
+/* Une autre proposition pour simul_market */
+void BlackScholesModel::simul_market(PnlMat *path, double T, int H, PnlRng *rng){
+    
+    pnl_mat_set_row(path, spot_, 0);
+    PnlVect *pastPrices = pnl_vect_copy(spot_);
+    PnlMat *corr = pnl_mat_create_from_scalar(size_, size_, rho_);
+    PnlVect *G = pnl_vect_create(size_);
+    for (int i = 0; i < H; i++){
+        pnl_vect_rng_normal(G, size_, rng);
+        for (int j = 0; j < size_; j++){
+            PnlVect *viewCorr = pnl_vect_wrap_mat_row(corr, j);
+            double prod = pnl_vect_scalar_prod(viewCorr,G);
+            double sigmaS = GET(sigma_, j);
+            double bs = GET(&pastPrices,j) * exp( ( GET(trends_,j)- (pow(sigmaS,2)/2))*(T/H) + sigmaS*sqrt(T/H)*prod) ;
+            pnl_mat_set(path, i+1, j, bs);
+        }
+        pastPrices = pnl_vect_wrap_mat_row(path, i+1);
+    }
+}
+
+/* Proposition pour asset avec prise en compte des spots historiques --> aide pour vérification */
+
+/*
+ void BlackScholesModel::asset_Past(PnlMat *path, double T, int nbTimeSteps, PnlRng *rng){
+    pnl_mat_set_row(path, spot_, 0);
+    PnlVect *pastPrices = pnl_vect_copy(spot_);
+    PnlMat *corr = pnl_mat_create_from_scalar(size_, size_, rho_);
+    PnlVect *G = pnl_vect_create(size_);
+    for (int i = 0; i < nbTimeSteps; i++){
+        PnlMat *correl = pnl_mat_copy(corr);
+        pnl_mat_chol(correl);
+        pnl_vect_rng_uni(G, size_,0,0,rng);
+        for (int j = 0; j < size_; j++){
+            PnlVect *viewCorr = pnl_vect_wrap_mat_row(corr, j);
+            double prod = pnl_vect_scalar_prod(viewCorr,G);
+            double bs = GET(pastPrices,j) * exp( (r_ - (pow(GET(sigma_, j),2)/2))*(T/nbTimeSteps) +  GET(sigma_, j)*sqrt(T/nbTimeSteps)*prod) ;
+            pnl_vect_set(pastPrices, j, bs);
+        }
+        pnl_mat_set_row(path, pastPrices, i+1);
+        pnl_mat_free(&correl);
+    }
+    pnl_vect_free(&pastPrices);
+}
+ */
+
