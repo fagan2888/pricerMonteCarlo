@@ -113,15 +113,11 @@ double MonteCarlo::hedgingPAndL(PnlVect *result, PnlMat *path, int H) {
     pnl_mat_get_row(path_i, path, 0);
     pnl_mat_set_row(past_i, path_i, 0);
 
-    //std::cout << "*** start init ***" << std::endl;
-
     /// Calcul du prix initial de l'option
     price(prix, ic);
 
     /// Calcul des deltas initiaux
     delta(past_i, 0, delta_past);
-
-    //std::cout << "*** start calcul ***" << std::endl;
 
     /// Complétion de la matrice result
     pnl_vect_set(result, 0, prix - pnl_vect_scalar_prod(delta_past, path_i));
@@ -141,7 +137,6 @@ double MonteCarlo::hedgingPAndL(PnlVect *result, PnlMat *path, int H) {
                          (pnl_vect_scalar_prod(delta_current, path_i));
     }
 
-    std::cout << "*** end ***" << std::endl;
     double payoff = opt_->payoff(past_i);
     std::cout << "payoff : " << payoff << std::endl;
     double pAngLResult = GET(result, H) + pnl_vect_scalar_prod(delta_past, path_i) - payoff;
