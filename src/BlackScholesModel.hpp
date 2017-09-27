@@ -72,6 +72,7 @@ public:
 
 protected:
     PnlVect *trend_; /// Tendance du modèle
+    PnlMat *cholesky; /// Matrice de Cholesky
 };
 
 
