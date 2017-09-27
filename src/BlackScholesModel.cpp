@@ -51,11 +51,14 @@ void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *r
 void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps, PnlRng *rng, const PnlMat *past) {
     /// Copie de la trajectoire passée dans la trajectoire totale
     int lastDatePast = (int) floor(t * (double) nbTimeSteps / T);
+    //pnl_mat_extract_subblock(path, past, 0, lastDatePast+1, 0, size_);
+
     PnlVect *tempRow = pnl_vect_create(size_);
     for (int i = 0; i <= lastDatePast; i++) {
         pnl_mat_get_row(tempRow, past, i);
         pnl_mat_set_row(path, tempRow, i);
     }
+    pnl_vect_free(&tempRow);
     /// Get the spot value
     PnlVect *spots_t = pnl_vect_create(size_);
     pnl_mat_get_row(spots_t, past, past->m - 1);
@@ -77,7 +80,6 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
     }
 
     /// Libération de la mémoire
-    pnl_vect_free(&tempRow);
     pnl_vect_free(&spots_t);
 }
 
@@ -93,13 +95,13 @@ PnlMat *BlackScholesModel::simul_market(int H, double T, PnlRng *rng) {
     /// Simulation de la trajectoire
     PnlMat *path = pnl_mat_create_from_zero(H, size_);
     pnl_mat_set_row(path, spot_, 0);
+    double timeInterval = T / H;
 
     for (int i = 1; i < H; i++) {
         pnl_vect_rng_normal(G_i, size_, rng);
         for (int d = 0; d < size_; d++) {
             double trend_d = pnl_vect_get(trend_, d);
             double sigma_d = pnl_vect_get(sigma_, d);
-            double timeInterval = i * T / H;
             pnl_mat_get_row(L_d, cholesky, d);
             double path_t_d = MGET(path, 0, d) * exp((trend_d - pow(sigma_d, 2) / 2) * timeInterval +
                                                      sigma_d * sqrt(timeInterval) *
