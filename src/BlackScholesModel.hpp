@@ -73,6 +73,11 @@ public:
 protected:
     PnlVect *trend_; /// Tendance du modèle
     PnlMat *cholesky; /// Matrice de Cholesky
+
+private:
+    /// Déclaration ici afin de limiter les créations et suppressions à chaque appel
+    PnlVect *G_i;
+    PnlVect *L_d;
 };
 
 
