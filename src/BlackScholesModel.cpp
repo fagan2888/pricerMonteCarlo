@@ -51,8 +51,6 @@ void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *r
 void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps, PnlRng *rng, const PnlMat *past) {
     /// Copie de la trajectoire passée dans la trajectoire totale
     int lastDatePast = (int) floor(t * (double) nbTimeSteps / T);
-    pnl_mat_extract_subblock(path, past, 0, lastDatePast, 0, size_);
-
     PnlVect *tempRow = pnl_vect_create(size_);
     for (int i = 0; i <= lastDatePast; i++) {
         pnl_mat_get_row(tempRow, past, i);

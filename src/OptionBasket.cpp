@@ -9,7 +9,7 @@ OptionBasket::OptionBasket(double T_, int nbTimeSteps_, int size_, PnlVect *payo
 double OptionBasket::payoff(const PnlMat *path) {
     double payoff = 0;
     for (int d = 0; d < size_; d++) {
-        payoff += MGET(path, nbTimeSteps_, d) * payoffCoeff(d);
+        payoff += MGET(path, nbTimeSteps_, d) * GET(payoffCoeff_,d);
     }
     payoff = payoff - strike_;
     payoff = (payoff < 0) ? 0 : payoff;
