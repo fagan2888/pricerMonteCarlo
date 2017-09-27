@@ -19,8 +19,8 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    char *infile;
-    char* marketData;
+    char *infile = NULL;
+    char* marketData = NULL;
 
     //Vérifications sur les arguments
     if ((argc < 2) && (argc > 4)){

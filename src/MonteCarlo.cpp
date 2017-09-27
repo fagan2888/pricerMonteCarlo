@@ -27,7 +27,9 @@ MonteCarlo::~MonteCarlo() {
 }
 
 void MonteCarlo::price(double &prix, double &ic) {
-    double sum, squareSum, tempPayoff = 0.0;
+    double tempPayoff = 0.0;
+    double squareSum = 0.0;
+    double sum = 0.0;
     for (int i = 0; i < nbSamples_; i++) {
         mod_->asset(spotsMat, opt_->T_, opt_->nbTimeSteps_, rng_);
         tempPayoff = opt_->payoff(spotsMat);
