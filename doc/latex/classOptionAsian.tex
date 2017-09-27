@@ -1,0 +1,113 @@
+\hypertarget{classOptionAsian}{\section{Option\-Asian Class Reference}
+\label{classOptionAsian}\index{Option\-Asian@{Option\-Asian}}
+}
+
+
+{\ttfamily \#include $<$Option\-Asian.\-hpp$>$}
+
+
+
+Inheritance diagram for Option\-Asian\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classOptionAsian__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Option\-Asian\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classOptionAsian__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classOptionAsian_aa2ebea7bae19cfae1df2488459834624}{Option\-Asian} (double \hyperlink{classOption_a89f0365b68626cc5eb523f12159e0764}{T\-\_\-}, int \hyperlink{classOption_ad424223ea2698144e823c494d625fbe0}{nb\-Time\-Steps\-\_\-}, int \hyperlink{classOption_a65fae5103b50f953f29a86b1a17b4540}{size\-\_\-}, Pnl\-Vect $\ast$\hyperlink{classOption_ae39676c75e7c6592cfcead8abe48b71b}{payoff\-Coeff\-\_\-}, double \hyperlink{classOptionAsian_a2b1952985f78ae8fd471275556fec724}{strike\-\_\-})
+\item 
+virtual double \hyperlink{classOptionAsian_a4b7fefbd591f8a77e43078e1245801ea}{payoff} (const Pnl\-Mat $\ast$path)
+\begin{DoxyCompactList}\small\item\em Calcule la valeur du payoff sur la trajectoire. \end{DoxyCompactList}\item 
+double \hyperlink{classOptionAsian_a067e53c46d0746b3961609a5a1422f2b}{strike} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{classOptionAsian_a2b1952985f78ae8fd471275556fec724}{strike\-\_\-}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classOptionAsian_aa2ebea7bae19cfae1df2488459834624}{\index{Option\-Asian@{Option\-Asian}!Option\-Asian@{Option\-Asian}}
+\index{Option\-Asian@{Option\-Asian}!OptionAsian@{Option\-Asian}}
+\subsubsection[{Option\-Asian}]{\setlength{\rightskip}{0pt plus 5cm}Option\-Asian\-::\-Option\-Asian (
+\begin{DoxyParamCaption}
+\item[{double}]{T\-\_\-, }
+\item[{int}]{nb\-Time\-Steps\-\_\-, }
+\item[{int}]{size\-\_\-, }
+\item[{Pnl\-Vect $\ast$}]{payoff\-Coeff\-\_\-, }
+\item[{double}]{strike\-\_\-}
+\end{DoxyParamCaption}
+)}}\label{classOptionAsian_aa2ebea7bae19cfae1df2488459834624}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classOptionAsian_a4b7fefbd591f8a77e43078e1245801ea}{\index{Option\-Asian@{Option\-Asian}!payoff@{payoff}}
+\index{payoff@{payoff}!OptionAsian@{Option\-Asian}}
+\subsubsection[{payoff}]{\setlength{\rightskip}{0pt plus 5cm}double Option\-Asian\-::payoff (
+\begin{DoxyParamCaption}
+\item[{const Pnl\-Mat $\ast$}]{path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classOptionAsian_a4b7fefbd591f8a77e43078e1245801ea}
+
+
+Calcule la valeur du payoff sur la trajectoire. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em path} & est une matrice de taille (N+1) x d contenant une trajectoire du modèle telle que créée par la fonction asset. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+phi(trajectoire) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classOption_abe90882a11f5436077425249e3f32204}{Option}.
+
+
+
+References Option\-::nb\-Time\-Steps\-\_\-, Option\-::payoff\-Coeff\-\_\-, Option\-::size\-\_\-, and strike\-\_\-.
+
+\hypertarget{classOptionAsian_a067e53c46d0746b3961609a5a1422f2b}{\index{Option\-Asian@{Option\-Asian}!strike@{strike}}
+\index{strike@{strike}!OptionAsian@{Option\-Asian}}
+\subsubsection[{strike}]{\setlength{\rightskip}{0pt plus 5cm}double Option\-Asian\-::strike (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classOptionAsian_a067e53c46d0746b3961609a5a1422f2b}
+
+
+References strike\-\_\-.
+
+
+
+\subsection{Field Documentation}
+\hypertarget{classOptionAsian_a2b1952985f78ae8fd471275556fec724}{\index{Option\-Asian@{Option\-Asian}!strike\-\_\-@{strike\-\_\-}}
+\index{strike\-\_\-@{strike\-\_\-}!OptionAsian@{Option\-Asian}}
+\subsubsection[{strike\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}double Option\-Asian\-::strike\-\_\-\hspace{0.3cm}{\ttfamily [protected]}}}\label{classOptionAsian_a2b1952985f78ae8fd471275556fec724}
+
+
+Referenced by payoff(), and strike().
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/user/2/.\-base/margueed/home/pricer\-Monte\-Carlo/src/\hyperlink{OptionAsian_8hpp}{Option\-Asian.\-hpp}\item 
+/user/2/.\-base/margueed/home/pricer\-Monte\-Carlo/src/\hyperlink{OptionAsian_8cpp}{Option\-Asian.\-cpp}\end{DoxyCompactItemize}

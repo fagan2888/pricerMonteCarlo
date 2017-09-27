@@ -1,0 +1,160 @@
+\contentsline {chapter}{\numberline {1}Hierarchical Index}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Class Hierarchy}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}Data Structure Index}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Data Structures}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}File Index}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}File List}{5}{section.3.1}
+\contentsline {chapter}{\numberline {4}Data Structure Documentation}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}Black\discretionary {-}{}{}Scholes\discretionary {-}{}{}Model Class Reference}{7}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Detailed Description}{8}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Constructor \& Destructor Documentation}{8}{subsection.4.1.2}
+\contentsline {subsubsection}{\numberline {4.1.2.1}Black\discretionary {-}{}{}Scholes\discretionary {-}{}{}Model}{8}{subsubsection.4.1.2.1}
+\contentsline {subsubsection}{\numberline {4.1.2.2}$\sim $\discretionary {-}{}{}Black\discretionary {-}{}{}Scholes\discretionary {-}{}{}Model}{8}{subsubsection.4.1.2.2}
+\contentsline {subsection}{\numberline {4.1.3}Member Function Documentation}{8}{subsection.4.1.3}
+\contentsline {subsubsection}{\numberline {4.1.3.1}asset}{8}{subsubsection.4.1.3.1}
+\contentsline {subsubsection}{\numberline {4.1.3.2}asset}{8}{subsubsection.4.1.3.2}
+\contentsline {subsubsection}{\numberline {4.1.3.3}shift\discretionary {-}{}{}Asset}{9}{subsubsection.4.1.3.3}
+\contentsline {subsubsection}{\numberline {4.1.3.4}simul\discretionary {-}{}{}\_\discretionary {-}{}{}market}{9}{subsubsection.4.1.3.4}
+\contentsline {subsubsection}{\numberline {4.1.3.5}simul\discretionary {-}{}{}\_\discretionary {-}{}{}market}{9}{subsubsection.4.1.3.5}
+\contentsline {subsection}{\numberline {4.1.4}Field Documentation}{9}{subsection.4.1.4}
+\contentsline {subsubsection}{\numberline {4.1.4.1}cholesky}{9}{subsubsection.4.1.4.1}
+\contentsline {subsubsection}{\numberline {4.1.4.2}G\discretionary {-}{}{}\_\discretionary {-}{}{}i}{9}{subsubsection.4.1.4.2}
+\contentsline {subsubsection}{\numberline {4.1.4.3}L\discretionary {-}{}{}\_\discretionary {-}{}{}d}{10}{subsubsection.4.1.4.3}
+\contentsline {subsubsection}{\numberline {4.1.4.4}r\discretionary {-}{}{}\_\discretionary {-}{}{}}{10}{subsubsection.4.1.4.4}
+\contentsline {subsubsection}{\numberline {4.1.4.5}rho\discretionary {-}{}{}\_\discretionary {-}{}{}}{10}{subsubsection.4.1.4.5}
+\contentsline {subsubsection}{\numberline {4.1.4.6}sigma\discretionary {-}{}{}\_\discretionary {-}{}{}}{10}{subsubsection.4.1.4.6}
+\contentsline {subsubsection}{\numberline {4.1.4.7}size\discretionary {-}{}{}\_\discretionary {-}{}{}}{10}{subsubsection.4.1.4.7}
+\contentsline {subsubsection}{\numberline {4.1.4.8}spot\discretionary {-}{}{}\_\discretionary {-}{}{}}{10}{subsubsection.4.1.4.8}
+\contentsline {subsubsection}{\numberline {4.1.4.9}spots\discretionary {-}{}{}\_\discretionary {-}{}{}t}{10}{subsubsection.4.1.4.9}
+\contentsline {subsubsection}{\numberline {4.1.4.10}temp\discretionary {-}{}{}Row}{10}{subsubsection.4.1.4.10}
+\contentsline {subsubsection}{\numberline {4.1.4.11}trend\discretionary {-}{}{}\_\discretionary {-}{}{}}{10}{subsubsection.4.1.4.11}
+\contentsline {section}{\numberline {4.2}comp Struct Reference}{10}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Member Function Documentation}{10}{subsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.1.1}operator()}{10}{subsubsection.4.2.1.1}
+\contentsline {section}{\numberline {4.3}Monte\discretionary {-}{}{}Carlo Class Reference}{11}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Constructor \& Destructor Documentation}{12}{subsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.1.1}Monte\discretionary {-}{}{}Carlo}{12}{subsubsection.4.3.1.1}
+\contentsline {subsubsection}{\numberline {4.3.1.2}$\sim $\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo}{12}{subsubsection.4.3.1.2}
+\contentsline {subsection}{\numberline {4.3.2}Member Function Documentation}{12}{subsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2.1}delta}{12}{subsubsection.4.3.2.1}
+\contentsline {subsubsection}{\numberline {4.3.2.2}hedging\discretionary {-}{}{}P\discretionary {-}{}{}And\discretionary {-}{}{}L}{12}{subsubsection.4.3.2.2}
+\contentsline {subsubsection}{\numberline {4.3.2.3}price}{13}{subsubsection.4.3.2.3}
+\contentsline {subsubsection}{\numberline {4.3.2.4}price}{13}{subsubsection.4.3.2.4}
+\contentsline {subsection}{\numberline {4.3.3}Field Documentation}{13}{subsection.4.3.3}
+\contentsline {subsubsection}{\numberline {4.3.3.1}fd\discretionary {-}{}{}Step\discretionary {-}{}{}\_\discretionary {-}{}{}}{13}{subsubsection.4.3.3.1}
+\contentsline {subsubsection}{\numberline {4.3.3.2}mod\discretionary {-}{}{}\_\discretionary {-}{}{}}{13}{subsubsection.4.3.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3.3}nb\discretionary {-}{}{}Samples\discretionary {-}{}{}\_\discretionary {-}{}{}}{13}{subsubsection.4.3.3.3}
+\contentsline {subsubsection}{\numberline {4.3.3.4}opt\discretionary {-}{}{}\_\discretionary {-}{}{}}{14}{subsubsection.4.3.3.4}
+\contentsline {subsubsection}{\numberline {4.3.3.5}path}{14}{subsubsection.4.3.3.5}
+\contentsline {subsubsection}{\numberline {4.3.3.6}rng\discretionary {-}{}{}\_\discretionary {-}{}{}}{14}{subsubsection.4.3.3.6}
+\contentsline {subsubsection}{\numberline {4.3.3.7}shift\discretionary {-}{}{}\_\discretionary {-}{}{}path}{14}{subsubsection.4.3.3.7}
+\contentsline {subsubsection}{\numberline {4.3.3.8}spots\discretionary {-}{}{}Mat}{14}{subsubsection.4.3.3.8}
+\contentsline {section}{\numberline {4.4}Option Class Reference}{14}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Detailed Description}{15}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Constructor \& Destructor Documentation}{15}{subsection.4.4.2}
+\contentsline {subsubsection}{\numberline {4.4.2.1}Option}{15}{subsubsection.4.4.2.1}
+\contentsline {subsubsection}{\numberline {4.4.2.2}$\sim $\discretionary {-}{}{}Option}{15}{subsubsection.4.4.2.2}
+\contentsline {subsection}{\numberline {4.4.3}Member Function Documentation}{15}{subsection.4.4.3}
+\contentsline {subsubsection}{\numberline {4.4.3.1}maturity}{15}{subsubsection.4.4.3.1}
+\contentsline {subsubsection}{\numberline {4.4.3.2}nb\discretionary {-}{}{}Time\discretionary {-}{}{}Steps}{16}{subsubsection.4.4.3.2}
+\contentsline {subsubsection}{\numberline {4.4.3.3}payoff}{16}{subsubsection.4.4.3.3}
+\contentsline {subsubsection}{\numberline {4.4.3.4}payoff\discretionary {-}{}{}Coeff}{16}{subsubsection.4.4.3.4}
+\contentsline {subsubsection}{\numberline {4.4.3.5}payoff\discretionary {-}{}{}Coeff}{16}{subsubsection.4.4.3.5}
+\contentsline {subsubsection}{\numberline {4.4.3.6}size}{16}{subsubsection.4.4.3.6}
+\contentsline {subsection}{\numberline {4.4.4}Field Documentation}{16}{subsection.4.4.4}
+\contentsline {subsubsection}{\numberline {4.4.4.1}nb\discretionary {-}{}{}Time\discretionary {-}{}{}Steps\discretionary {-}{}{}\_\discretionary {-}{}{}}{16}{subsubsection.4.4.4.1}
+\contentsline {subsubsection}{\numberline {4.4.4.2}payoff\discretionary {-}{}{}Coeff\discretionary {-}{}{}\_\discretionary {-}{}{}}{16}{subsubsection.4.4.4.2}
+\contentsline {subsubsection}{\numberline {4.4.4.3}size\discretionary {-}{}{}\_\discretionary {-}{}{}}{16}{subsubsection.4.4.4.3}
+\contentsline {subsubsection}{\numberline {4.4.4.4}T\discretionary {-}{}{}\_\discretionary {-}{}{}}{17}{subsubsection.4.4.4.4}
+\contentsline {section}{\numberline {4.5}Option\discretionary {-}{}{}Asian Class Reference}{17}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Constructor \& Destructor Documentation}{18}{subsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.1.1}Option\discretionary {-}{}{}Asian}{18}{subsubsection.4.5.1.1}
+\contentsline {subsection}{\numberline {4.5.2}Member Function Documentation}{18}{subsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.2.1}payoff}{18}{subsubsection.4.5.2.1}
+\contentsline {subsubsection}{\numberline {4.5.2.2}strike}{18}{subsubsection.4.5.2.2}
+\contentsline {subsection}{\numberline {4.5.3}Field Documentation}{18}{subsection.4.5.3}
+\contentsline {subsubsection}{\numberline {4.5.3.1}strike\discretionary {-}{}{}\_\discretionary {-}{}{}}{18}{subsubsection.4.5.3.1}
+\contentsline {section}{\numberline {4.6}Option\discretionary {-}{}{}Basket Class Reference}{18}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Constructor \& Destructor Documentation}{19}{subsection.4.6.1}
+\contentsline {subsubsection}{\numberline {4.6.1.1}Option\discretionary {-}{}{}Basket}{19}{subsubsection.4.6.1.1}
+\contentsline {subsection}{\numberline {4.6.2}Member Function Documentation}{19}{subsection.4.6.2}
+\contentsline {subsubsection}{\numberline {4.6.2.1}payoff}{20}{subsubsection.4.6.2.1}
+\contentsline {subsubsection}{\numberline {4.6.2.2}strike}{21}{subsubsection.4.6.2.2}
+\contentsline {subsection}{\numberline {4.6.3}Field Documentation}{21}{subsection.4.6.3}
+\contentsline {subsubsection}{\numberline {4.6.3.1}strike\discretionary {-}{}{}\_\discretionary {-}{}{}}{21}{subsubsection.4.6.3.1}
+\contentsline {section}{\numberline {4.7}Option\discretionary {-}{}{}Performance Class Reference}{21}{section.4.7}
+\contentsline {subsection}{\numberline {4.7.1}Constructor \& Destructor Documentation}{22}{subsection.4.7.1}
+\contentsline {subsubsection}{\numberline {4.7.1.1}Option\discretionary {-}{}{}Performance}{22}{subsubsection.4.7.1.1}
+\contentsline {subsection}{\numberline {4.7.2}Member Function Documentation}{22}{subsection.4.7.2}
+\contentsline {subsubsection}{\numberline {4.7.2.1}payoff}{22}{subsubsection.4.7.2.1}
+\contentsline {section}{\numberline {4.8}Param Class Reference}{22}{section.4.8}
+\contentsline {subsection}{\numberline {4.8.1}Constructor \& Destructor Documentation}{23}{subsection.4.8.1}
+\contentsline {subsubsection}{\numberline {4.8.1.1}Param}{23}{subsubsection.4.8.1.1}
+\contentsline {subsubsection}{\numberline {4.8.1.2}Param}{24}{subsubsection.4.8.1.2}
+\contentsline {subsubsection}{\numberline {4.8.1.3}$\sim $\discretionary {-}{}{}Param}{24}{subsubsection.4.8.1.3}
+\contentsline {subsection}{\numberline {4.8.2}Member Function Documentation}{24}{subsection.4.8.2}
+\contentsline {subsubsection}{\numberline {4.8.2.1}check\discretionary {-}{}{}\_\discretionary {-}{}{}if\discretionary {-}{}{}\_\discretionary {-}{}{}key}{24}{subsubsection.4.8.2.1}
+\contentsline {subsubsection}{\numberline {4.8.2.2}extract}{24}{subsubsection.4.8.2.2}
+\contentsline {subsubsection}{\numberline {4.8.2.3}extract}{24}{subsubsection.4.8.2.3}
+\contentsline {subsubsection}{\numberline {4.8.2.4}insert}{24}{subsubsection.4.8.2.4}
+\contentsline {subsubsection}{\numberline {4.8.2.5}operator=}{24}{subsubsection.4.8.2.5}
+\contentsline {subsubsection}{\numberline {4.8.2.6}print}{25}{subsubsection.4.8.2.6}
+\contentsline {subsubsection}{\numberline {4.8.2.7}serialize}{25}{subsubsection.4.8.2.7}
+\contentsline {subsubsection}{\numberline {4.8.2.8}set}{25}{subsubsection.4.8.2.8}
+\contentsline {subsection}{\numberline {4.8.3}Friends And Related Function Documentation}{25}{subsection.4.8.3}
+\contentsline {subsubsection}{\numberline {4.8.3.1}boost\discretionary {-}{}{}::serialization\discretionary {-}{}{}::access}{25}{subsubsection.4.8.3.1}
+\contentsline {subsection}{\numberline {4.8.4}Field Documentation}{25}{subsection.4.8.4}
+\contentsline {subsubsection}{\numberline {4.8.4.1}M}{25}{subsubsection.4.8.4.1}
+\contentsline {section}{\numberline {4.9}Parser Class Reference}{25}{section.4.9}
+\contentsline {subsection}{\numberline {4.9.1}Constructor \& Destructor Documentation}{26}{subsection.4.9.1}
+\contentsline {subsubsection}{\numberline {4.9.1.1}Parser}{26}{subsubsection.4.9.1.1}
+\contentsline {subsubsection}{\numberline {4.9.1.2}Parser}{26}{subsubsection.4.9.1.2}
+\contentsline {subsubsection}{\numberline {4.9.1.3}$\sim $\discretionary {-}{}{}Parser}{26}{subsubsection.4.9.1.3}
+\contentsline {subsection}{\numberline {4.9.2}Member Function Documentation}{26}{subsection.4.9.2}
+\contentsline {subsubsection}{\numberline {4.9.2.1}add}{26}{subsubsection.4.9.2.1}
+\contentsline {subsubsection}{\numberline {4.9.2.2}Read\discretionary {-}{}{}Input\discretionary {-}{}{}File}{27}{subsubsection.4.9.2.2}
+\contentsline {subsection}{\numberline {4.9.3}Field Documentation}{27}{subsection.4.9.3}
+\contentsline {subsubsection}{\numberline {4.9.3.1}type\discretionary {-}{}{}\_\discretionary {-}{}{}ldelim}{27}{subsubsection.4.9.3.1}
+\contentsline {subsubsection}{\numberline {4.9.3.2}type\discretionary {-}{}{}\_\discretionary {-}{}{}rdelim}{27}{subsubsection.4.9.3.2}
+\contentsline {section}{\numberline {4.10}Type\discretionary {-}{}{}Val Class Reference}{27}{section.4.10}
+\contentsline {subsection}{\numberline {4.10.1}Constructor \& Destructor Documentation}{28}{subsection.4.10.1}
+\contentsline {subsubsection}{\numberline {4.10.1.1}Type\discretionary {-}{}{}Val}{28}{subsubsection.4.10.1.1}
+\contentsline {subsubsection}{\numberline {4.10.1.2}Type\discretionary {-}{}{}Val}{28}{subsubsection.4.10.1.2}
+\contentsline {subsubsection}{\numberline {4.10.1.3}$\sim $\discretionary {-}{}{}Type\discretionary {-}{}{}Val}{28}{subsubsection.4.10.1.3}
+\contentsline {subsection}{\numberline {4.10.2}Member Function Documentation}{28}{subsection.4.10.2}
+\contentsline {subsubsection}{\numberline {4.10.2.1}operator=}{28}{subsubsection.4.10.2.1}
+\contentsline {subsubsection}{\numberline {4.10.2.2}print}{28}{subsubsection.4.10.2.2}
+\contentsline {subsubsection}{\numberline {4.10.2.3}serialize}{28}{subsubsection.4.10.2.3}
+\contentsline {subsection}{\numberline {4.10.3}Friends And Related Function Documentation}{28}{subsection.4.10.3}
+\contentsline {subsubsection}{\numberline {4.10.3.1}boost\discretionary {-}{}{}::serialization\discretionary {-}{}{}::access}{28}{subsubsection.4.10.3.1}
+\contentsline {subsection}{\numberline {4.10.4}Field Documentation}{28}{subsection.4.10.4}
+\contentsline {subsubsection}{\numberline {4.10.4.1}type}{28}{subsubsection.4.10.4.1}
+\contentsline {subsubsection}{\numberline {4.10.4.2}Val}{28}{subsubsection.4.10.4.2}
+\contentsline {chapter}{\numberline {5}File Documentation}{29}{chapter.5}
+\contentsline {section}{\numberline {5.1}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Black\discretionary {-}{}{}Scholes\discretionary {-}{}{}Model.cpp File Reference}{29}{section.5.1}
+\contentsline {section}{\numberline {5.2}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Black\discretionary {-}{}{}Scholes\discretionary {-}{}{}Model.hpp File Reference}{29}{section.5.2}
+\contentsline {section}{\numberline {5.3}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo.cpp File Reference}{30}{section.5.3}
+\contentsline {section}{\numberline {5.4}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo.hpp File Reference}{31}{section.5.4}
+\contentsline {section}{\numberline {5.5}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Option.cpp File Reference}{32}{section.5.5}
+\contentsline {section}{\numberline {5.6}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Option.hpp File Reference}{32}{section.5.6}
+\contentsline {section}{\numberline {5.7}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Option\discretionary {-}{}{}Asian.cpp File Reference}{33}{section.5.7}
+\contentsline {section}{\numberline {5.8}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Option\discretionary {-}{}{}Asian.hpp File Reference}{34}{section.5.8}
+\contentsline {section}{\numberline {5.9}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Option\discretionary {-}{}{}Basket.cpp File Reference}{35}{section.5.9}
+\contentsline {section}{\numberline {5.10}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Option\discretionary {-}{}{}Basket.hpp File Reference}{36}{section.5.10}
+\contentsline {section}{\numberline {5.11}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Option\discretionary {-}{}{}Performance.cpp File Reference}{37}{section.5.11}
+\contentsline {section}{\numberline {5.12}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Option\discretionary {-}{}{}Performance.hpp File Reference}{37}{section.5.12}
+\contentsline {section}{\numberline {5.13}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/parser.cpp File Reference}{38}{section.5.13}
+\contentsline {subsection}{\numberline {5.13.1}Function Documentation}{39}{subsection.5.13.1}
+\contentsline {subsubsection}{\numberline {5.13.1.1}char\discretionary {-}{}{}Ptr\discretionary {-}{}{}Tovector}{39}{subsubsection.5.13.1.1}
+\contentsline {subsubsection}{\numberline {5.13.1.2}operator$<$$<$}{39}{subsubsection.5.13.1.2}
+\contentsline {section}{\numberline {5.14}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/parser.hpp File Reference}{39}{section.5.14}
+\contentsline {subsection}{\numberline {5.14.1}Macro Definition Documentation}{40}{subsection.5.14.1}
+\contentsline {subsubsection}{\numberline {5.14.1.1}M\discretionary {-}{}{}A\discretionary {-}{}{}X\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}C\discretionary {-}{}{}H\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}E}{40}{subsubsection.5.14.1.1}
+\contentsline {subsection}{\numberline {5.14.2}Typedef Documentation}{40}{subsection.5.14.2}
+\contentsline {subsubsection}{\numberline {5.14.2.1}Hash}{40}{subsubsection.5.14.2.1}
+\contentsline {subsection}{\numberline {5.14.3}Enumeration Type Documentation}{41}{subsection.5.14.3}
+\contentsline {subsubsection}{\numberline {5.14.3.1}T\discretionary {-}{}{}\_\discretionary {-}{}{}type}{41}{subsubsection.5.14.3.1}
+\contentsline {section}{\numberline {5.15}/user/2/.base/margueed/home/pricer\discretionary {-}{}{}Monte\discretionary {-}{}{}Carlo/src/\discretionary {-}{}{}Pricer.cpp File Reference}{41}{section.5.15}
+\contentsline {subsection}{\numberline {5.15.1}Function Documentation}{41}{subsection.5.15.1}
+\contentsline {subsubsection}{\numberline {5.15.1.1}main}{41}{subsubsection.5.15.1.1}
+\contentsline {part}{Index}{42}{section*.44}

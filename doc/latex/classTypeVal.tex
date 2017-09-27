@@ -1,0 +1,133 @@
+\hypertarget{classTypeVal}{\section{Type\-Val Class Reference}
+\label{classTypeVal}\index{Type\-Val@{Type\-Val}}
+}
+
+
+{\ttfamily \#include $<$parser.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classTypeVal_a584555ce9b88dfa20ab05d15980dcaf9}{Type\-Val} ()
+\item 
+\hyperlink{classTypeVal_a9678b5a8d9ad157f0a813aca8ddd565e}{Type\-Val} (const \hyperlink{classTypeVal}{Type\-Val} \&)
+\item 
+\hyperlink{classTypeVal_a99d6508946d07b5a4cc7b2419c838445}{$\sim$\-Type\-Val} ()
+\item 
+\hyperlink{classTypeVal}{Type\-Val} \& \hyperlink{classTypeVal_a001121d22f62c3c895760f23691666e6}{operator=} (const \hyperlink{classTypeVal}{Type\-Val} \&v)
+\item 
+void \hyperlink{classTypeVal_a5cc7b3e408b42f6ba0c0c6a339c4282e}{print} (const std\-::string \&s) const 
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{parser_8hpp_a90856b8fb3f1a65845ffec1ec2884c0f}{T\-\_\-type} \hyperlink{classTypeVal_abd5dd71d2a5e2ce2f3b1f018068108ff}{type}
+\item 
+boost\-::variant$<$ int, size\-\_\-t, \\*
+double, std\-::vector$<$ double $>$\\*
+, std\-::string $>$ \hyperlink{classTypeVal_abafd45e0ebbcb8129080cddbea3b3d7b}{Val}
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \hyperlink{classTypeVal_a2278bab9356abb527a4758f32645142d}{serialize} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classTypeVal_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\-::serialization\-::access}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classTypeVal_a584555ce9b88dfa20ab05d15980dcaf9}{\index{Type\-Val@{Type\-Val}!Type\-Val@{Type\-Val}}
+\index{Type\-Val@{Type\-Val}!TypeVal@{Type\-Val}}
+\subsubsection[{Type\-Val}]{\setlength{\rightskip}{0pt plus 5cm}Type\-Val\-::\-Type\-Val (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classTypeVal_a584555ce9b88dfa20ab05d15980dcaf9}
+\hypertarget{classTypeVal_a9678b5a8d9ad157f0a813aca8ddd565e}{\index{Type\-Val@{Type\-Val}!Type\-Val@{Type\-Val}}
+\index{Type\-Val@{Type\-Val}!TypeVal@{Type\-Val}}
+\subsubsection[{Type\-Val}]{\setlength{\rightskip}{0pt plus 5cm}Type\-Val\-::\-Type\-Val (
+\begin{DoxyParamCaption}
+\item[{const {\bf Type\-Val} \&}]{v}
+\end{DoxyParamCaption}
+)}}\label{classTypeVal_a9678b5a8d9ad157f0a813aca8ddd565e}
+
+
+References T\-\_\-\-D\-O\-U\-B\-L\-E, T\-\_\-\-I\-N\-T, T\-\_\-\-L\-O\-N\-G, T\-\_\-\-S\-T\-R\-I\-N\-G, T\-\_\-\-V\-E\-C\-T\-O\-R, type, and Val.
+
+\hypertarget{classTypeVal_a99d6508946d07b5a4cc7b2419c838445}{\index{Type\-Val@{Type\-Val}!$\sim$\-Type\-Val@{$\sim$\-Type\-Val}}
+\index{$\sim$\-Type\-Val@{$\sim$\-Type\-Val}!TypeVal@{Type\-Val}}
+\subsubsection[{$\sim$\-Type\-Val}]{\setlength{\rightskip}{0pt plus 5cm}Type\-Val\-::$\sim$\-Type\-Val (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classTypeVal_a99d6508946d07b5a4cc7b2419c838445}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classTypeVal_a001121d22f62c3c895760f23691666e6}{\index{Type\-Val@{Type\-Val}!operator=@{operator=}}
+\index{operator=@{operator=}!TypeVal@{Type\-Val}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Type\-Val} \& Type\-Val\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Type\-Val} \&}]{v}
+\end{DoxyParamCaption}
+)}}\label{classTypeVal_a001121d22f62c3c895760f23691666e6}
+
+
+References T\-\_\-\-D\-O\-U\-B\-L\-E, T\-\_\-\-I\-N\-T, T\-\_\-\-L\-O\-N\-G, T\-\_\-\-S\-T\-R\-I\-N\-G, T\-\_\-\-V\-E\-C\-T\-O\-R, type, and Val.
+
+\hypertarget{classTypeVal_a5cc7b3e408b42f6ba0c0c6a339c4282e}{\index{Type\-Val@{Type\-Val}!print@{print}}
+\index{print@{print}!TypeVal@{Type\-Val}}
+\subsubsection[{print}]{\setlength{\rightskip}{0pt plus 5cm}void Type\-Val\-::print (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{s}
+\end{DoxyParamCaption}
+) const}}\label{classTypeVal_a5cc7b3e408b42f6ba0c0c6a339c4282e}
+
+
+References T\-\_\-\-D\-O\-U\-B\-L\-E, T\-\_\-\-I\-N\-T, T\-\_\-\-L\-O\-N\-G, T\-\_\-\-S\-T\-R\-I\-N\-G, and T\-\_\-\-V\-E\-C\-T\-O\-R.
+
+\hypertarget{classTypeVal_a2278bab9356abb527a4758f32645142d}{\index{Type\-Val@{Type\-Val}!serialize@{serialize}}
+\index{serialize@{serialize}!TypeVal@{Type\-Val}}
+\subsubsection[{serialize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Archive $>$ void Type\-Val\-::serialize (
+\begin{DoxyParamCaption}
+\item[{Archive \&}]{ar, }
+\item[{const unsigned int}]{version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}}\label{classTypeVal_a2278bab9356abb527a4758f32645142d}
+
+
+References type, and Val.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classTypeVal_ac98d07dd8f7b70e16ccb9a01abf56b9c}{\index{Type\-Val@{Type\-Val}!boost\-::serialization\-::access@{boost\-::serialization\-::access}}
+\index{boost\-::serialization\-::access@{boost\-::serialization\-::access}!TypeVal@{Type\-Val}}
+\subsubsection[{boost\-::serialization\-::access}]{\setlength{\rightskip}{0pt plus 5cm}friend class boost\-::serialization\-::access\hspace{0.3cm}{\ttfamily [friend]}}}\label{classTypeVal_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+
+\subsection{Field Documentation}
+\hypertarget{classTypeVal_abd5dd71d2a5e2ce2f3b1f018068108ff}{\index{Type\-Val@{Type\-Val}!type@{type}}
+\index{type@{type}!TypeVal@{Type\-Val}}
+\subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T\-\_\-type} Type\-Val\-::type}}\label{classTypeVal_abd5dd71d2a5e2ce2f3b1f018068108ff}
+
+
+Referenced by Parser\-::add(), Param\-::insert(), operator=(), serialize(), and Type\-Val().
+
+\hypertarget{classTypeVal_abafd45e0ebbcb8129080cddbea3b3d7b}{\index{Type\-Val@{Type\-Val}!Val@{Val}}
+\index{Val@{Val}!TypeVal@{Type\-Val}}
+\subsubsection[{Val}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::variant$<$int, size\-\_\-t, double, std\-::vector$<$double$>$, std\-::string$>$ Type\-Val\-::\-Val}}\label{classTypeVal_abafd45e0ebbcb8129080cddbea3b3d7b}
+
+
+Referenced by Parser\-::add(), Param\-::insert(), operator=(), serialize(), and Type\-Val().
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/user/2/.\-base/margueed/home/pricer\-Monte\-Carlo/src/\hyperlink{parser_8hpp}{parser.\-hpp}\item 
+/user/2/.\-base/margueed/home/pricer\-Monte\-Carlo/src/\hyperlink{parser_8cpp}{parser.\-cpp}\end{DoxyCompactItemize}

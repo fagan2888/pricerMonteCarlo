@@ -1,0 +1,301 @@
+\hypertarget{classMonteCarlo}{\section{Monte\-Carlo Class Reference}
+\label{classMonteCarlo}\index{Monte\-Carlo@{Monte\-Carlo}}
+}
+
+
+{\ttfamily \#include $<$Monte\-Carlo.\-hpp$>$}
+
+
+
+Collaboration diagram for Monte\-Carlo\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{classMonteCarlo__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMonteCarlo_a01b66bd9e983f9adc235bd80c1c544bd}{Monte\-Carlo} (\hyperlink{classBlackScholesModel}{Black\-Scholes\-Model} $\ast$mod, \hyperlink{classOption}{Option} $\ast$opt, Pnl\-Rng $\ast$rng, double fd\-Step, int nb\-Samples)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe. \end{DoxyCompactList}\item 
+\hyperlink{classMonteCarlo_af53fc3a679af18b51a3002b4c1f6b6c2}{$\sim$\-Monte\-Carlo} ()
+\begin{DoxyCompactList}\small\item\em Destructeur de classe. \end{DoxyCompactList}\item 
+void \hyperlink{classMonteCarlo_a5979d4378e3f28878152a310d8a1f7bf}{price} (double \&prix, double \&ic)
+\begin{DoxyCompactList}\small\item\em Calcule le prix de l'option à la date 0. \end{DoxyCompactList}\item 
+void \hyperlink{classMonteCarlo_aa7bfce4384323c697d0b06840ad3140f}{price} (const Pnl\-Mat $\ast$past, double t, double \&prix, double \&ic)
+\begin{DoxyCompactList}\small\item\em Calcule le prix de l'option à la date t. \end{DoxyCompactList}\item 
+void \hyperlink{classMonteCarlo_a340cd456dbe44df20cbc44d40c4df5f5}{delta} (const Pnl\-Mat $\ast$past, double t, Pnl\-Vect $\ast$delta)
+\begin{DoxyCompactList}\small\item\em Calcule le delta de l'option à la date t. \end{DoxyCompactList}\item 
+double \hyperlink{classMonteCarlo_a24bfcbce4eabfc4382c194139cd7893b}{hedging\-P\-And\-L} (Pnl\-Vect $\ast$result, Pnl\-Mat $\ast$\hyperlink{classMonteCarlo_acf1971465a6503457dfacd397f29ee89}{path}, int H)
+\begin{DoxyCompactList}\small\item\em Calcule le profit\&loss du portefeuille de couverture. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBlackScholesModel}{Black\-Scholes\-Model} $\ast$ \hyperlink{classMonteCarlo_a704c29cd8aa027ab01cc556d37c9a764}{mod\-\_\-}
+\item 
+\hyperlink{classOption}{Option} $\ast$ \hyperlink{classMonteCarlo_af0ee580b0eb87f57c7a41cd2a9e6fc6a}{opt\-\_\-}
+\item 
+Pnl\-Rng $\ast$ \hyperlink{classMonteCarlo_aa41318b565311457e04383047d68936e}{rng\-\_\-}
+\item 
+double \hyperlink{classMonteCarlo_a87640dad0fffa3c38d70c8be6c8d61cb}{fd\-Step\-\_\-}
+\item 
+int \hyperlink{classMonteCarlo_a82f5bfded3f8b62f22afaa50f7e73ffe}{nb\-Samples\-\_\-}
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Pnl\-Mat $\ast$ \hyperlink{classMonteCarlo_a713c3dd7942f90fde1b0d9d115733580}{spots\-Mat}
+\item 
+Pnl\-Mat $\ast$ \hyperlink{classMonteCarlo_a07755948492ef0832d5e131c1f010565}{shift\-\_\-path}
+\item 
+Pnl\-Mat $\ast$ \hyperlink{classMonteCarlo_acf1971465a6503457dfacd397f29ee89}{path}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classMonteCarlo_a01b66bd9e983f9adc235bd80c1c544bd}{\index{Monte\-Carlo@{Monte\-Carlo}!Monte\-Carlo@{Monte\-Carlo}}
+\index{Monte\-Carlo@{Monte\-Carlo}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{Monte\-Carlo}]{\setlength{\rightskip}{0pt plus 5cm}Monte\-Carlo\-::\-Monte\-Carlo (
+\begin{DoxyParamCaption}
+\item[{{\bf Black\-Scholes\-Model} $\ast$}]{mod, }
+\item[{{\bf Option} $\ast$}]{opt, }
+\item[{Pnl\-Rng $\ast$}]{rng, }
+\item[{double}]{fd\-Step, }
+\item[{int}]{nb\-Samples}
+\end{DoxyParamCaption}
+)}}\label{classMonteCarlo_a01b66bd9e983f9adc235bd80c1c544bd}
+
+
+Constructeur de la classe. 
+
+nombre de tirages Monte Carlo
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em modele} & Black Scholes \\
+\hline
+\mbox{\tt in}  & {\em l'option} & \\
+\hline
+\mbox{\tt in}  & {\em le} & générateur \\
+\hline
+\mbox{\tt in}  & {\em pas} & de différence finie \\
+\hline
+\mbox{\tt in}  & {\em nombre} & de tirages Monte Carlo \\
+\hline
+\end{DoxyParams}
+Initialisation des variables temporaires 
+
+References fd\-Step\-\_\-, mod\-\_\-, nb\-Samples\-\_\-, Option\-::nb\-Time\-Steps\-\_\-, opt\-\_\-, path, rng\-\_\-, shift\-\_\-path, Black\-Scholes\-Model\-::size\-\_\-, and spots\-Mat.
+
+\hypertarget{classMonteCarlo_af53fc3a679af18b51a3002b4c1f6b6c2}{\index{Monte\-Carlo@{Monte\-Carlo}!$\sim$\-Monte\-Carlo@{$\sim$\-Monte\-Carlo}}
+\index{$\sim$\-Monte\-Carlo@{$\sim$\-Monte\-Carlo}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{$\sim$\-Monte\-Carlo}]{\setlength{\rightskip}{0pt plus 5cm}Monte\-Carlo\-::$\sim$\-Monte\-Carlo (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classMonteCarlo_af53fc3a679af18b51a3002b4c1f6b6c2}
+
+
+Destructeur de classe. 
+
+
+
+References path, shift\-\_\-path, and spots\-Mat.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classMonteCarlo_a340cd456dbe44df20cbc44d40c4df5f5}{\index{Monte\-Carlo@{Monte\-Carlo}!delta@{delta}}
+\index{delta@{delta}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{delta}]{\setlength{\rightskip}{0pt plus 5cm}void Monte\-Carlo\-::delta (
+\begin{DoxyParamCaption}
+\item[{const Pnl\-Mat $\ast$}]{past, }
+\item[{double}]{t, }
+\item[{Pnl\-Vect $\ast$}]{delta}
+\end{DoxyParamCaption}
+)}}\label{classMonteCarlo_a340cd456dbe44df20cbc44d40c4df5f5}
+
+
+Calcule le delta de l'option à la date t. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em past} & contient la trajectoire du sous-\/jacent jusqu'à l'instant t \\
+\hline
+\mbox{\tt in}  & {\em t} & date à laquelle le calcul est fait \\
+\hline
+\mbox{\tt out}  & {\em delta} & contient le vecteur de delta de confiance sur le calcul du delta \\
+\hline
+\end{DoxyParams}
+
+
+References Black\-Scholes\-Model\-::asset(), fd\-Step\-\_\-, mod\-\_\-, nb\-Samples\-\_\-, Option\-::nb\-Time\-Steps\-\_\-, opt\-\_\-, path, Option\-::payoff(), Black\-Scholes\-Model\-::r\-\_\-, rng\-\_\-, shift\-\_\-path, Black\-Scholes\-Model\-::shift\-Asset(), Black\-Scholes\-Model\-::size\-\_\-, and Option\-::\-T\-\_\-.
+
+
+
+Referenced by hedging\-P\-And\-L(), and main().
+
+\hypertarget{classMonteCarlo_a24bfcbce4eabfc4382c194139cd7893b}{\index{Monte\-Carlo@{Monte\-Carlo}!hedging\-P\-And\-L@{hedging\-P\-And\-L}}
+\index{hedging\-P\-And\-L@{hedging\-P\-And\-L}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{hedging\-P\-And\-L}]{\setlength{\rightskip}{0pt plus 5cm}double Monte\-Carlo\-::hedging\-P\-And\-L (
+\begin{DoxyParamCaption}
+\item[{Pnl\-Vect $\ast$}]{result, }
+\item[{Pnl\-Mat $\ast$}]{path, }
+\item[{int}]{H}
+\end{DoxyParamCaption}
+)}}\label{classMonteCarlo_a24bfcbce4eabfc4382c194139cd7893b}
+
+
+Calcule le profit\&loss du portefeuille de couverture. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em result} & contient les profit\&loss du portefeuille au cours de la trajectoire \\
+\hline
+\mbox{\tt in}  & {\em path} & contient la trajectoire des sous-\/jacents \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+le profit\&loss final du portefeuille de couverture 
+\end{DoxyReturn}
+Initialisation
+
+Calcul du prix initial de l'option
+
+Calcul des deltas initiaux
+
+Complétion de la matrice result
+
+Free the memory 
+
+References delta(), mod\-\_\-, Option\-::nb\-Time\-Steps\-\_\-, opt\-\_\-, Option\-::payoff(), price(), Black\-Scholes\-Model\-::r\-\_\-, Black\-Scholes\-Model\-::size\-\_\-, and Option\-::\-T\-\_\-.
+
+
+
+Referenced by main().
+
+\hypertarget{classMonteCarlo_a5979d4378e3f28878152a310d8a1f7bf}{\index{Monte\-Carlo@{Monte\-Carlo}!price@{price}}
+\index{price@{price}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{price}]{\setlength{\rightskip}{0pt plus 5cm}void Monte\-Carlo\-::price (
+\begin{DoxyParamCaption}
+\item[{double \&}]{prix, }
+\item[{double \&}]{ic}
+\end{DoxyParamCaption}
+)}}\label{classMonteCarlo_a5979d4378e3f28878152a310d8a1f7bf}
+
+
+Calcule le prix de l'option à la date 0. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em prix} & valeur de l'estimateur Monte Carlo \\
+\hline
+\mbox{\tt out}  & {\em ic} & largeur de l'intervalle de confiance \\
+\hline
+\end{DoxyParams}
+Calcul du prix
+
+Confidence interval in 95\% 
+
+References Black\-Scholes\-Model\-::asset(), mod\-\_\-, nb\-Samples\-\_\-, Option\-::nb\-Time\-Steps\-\_\-, opt\-\_\-, Option\-::payoff(), Black\-Scholes\-Model\-::r\-\_\-, rng\-\_\-, spots\-Mat, and Option\-::\-T\-\_\-.
+
+
+
+Referenced by hedging\-P\-And\-L(), and main().
+
+\hypertarget{classMonteCarlo_aa7bfce4384323c697d0b06840ad3140f}{\index{Monte\-Carlo@{Monte\-Carlo}!price@{price}}
+\index{price@{price}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{price}]{\setlength{\rightskip}{0pt plus 5cm}void Monte\-Carlo\-::price (
+\begin{DoxyParamCaption}
+\item[{const Pnl\-Mat $\ast$}]{past, }
+\item[{double}]{t, }
+\item[{double \&}]{prix, }
+\item[{double \&}]{ic}
+\end{DoxyParamCaption}
+)}}\label{classMonteCarlo_aa7bfce4384323c697d0b06840ad3140f}
+
+
+Calcule le prix de l'option à la date t. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em past} & contient la trajectoire du sous-\/jacent jusqu'à l'instant t \\
+\hline
+\mbox{\tt in}  & {\em t} & date à laquelle le calcul est fait \\
+\hline
+\mbox{\tt out}  & {\em prix} & contient le prix \\
+\hline
+\mbox{\tt out}  & {\em ic} & contient la largeur de l'intervalle de confiance sur le calcul du prix \\
+\hline
+\end{DoxyParams}
+Price computing
+
+Confidence interval in 95\% 
+
+References Black\-Scholes\-Model\-::asset(), mod\-\_\-, nb\-Samples\-\_\-, Option\-::nb\-Time\-Steps\-\_\-, opt\-\_\-, Option\-::payoff(), Black\-Scholes\-Model\-::r\-\_\-, rng\-\_\-, spots\-Mat, and Option\-::\-T\-\_\-.
+
+
+
+\subsection{Field Documentation}
+\hypertarget{classMonteCarlo_a87640dad0fffa3c38d70c8be6c8d61cb}{\index{Monte\-Carlo@{Monte\-Carlo}!fd\-Step\-\_\-@{fd\-Step\-\_\-}}
+\index{fd\-Step\-\_\-@{fd\-Step\-\_\-}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{fd\-Step\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}double Monte\-Carlo\-::fd\-Step\-\_\-}}\label{classMonteCarlo_a87640dad0fffa3c38d70c8be6c8d61cb}
+pointeur sur le générateur 
+
+Referenced by delta(), and Monte\-Carlo().
+
+\hypertarget{classMonteCarlo_a704c29cd8aa027ab01cc556d37c9a764}{\index{Monte\-Carlo@{Monte\-Carlo}!mod\-\_\-@{mod\-\_\-}}
+\index{mod\-\_\-@{mod\-\_\-}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{mod\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Black\-Scholes\-Model}$\ast$ Monte\-Carlo\-::mod\-\_\-}}\label{classMonteCarlo_a704c29cd8aa027ab01cc556d37c9a764}
+
+
+Referenced by delta(), hedging\-P\-And\-L(), Monte\-Carlo(), and price().
+
+\hypertarget{classMonteCarlo_a82f5bfded3f8b62f22afaa50f7e73ffe}{\index{Monte\-Carlo@{Monte\-Carlo}!nb\-Samples\-\_\-@{nb\-Samples\-\_\-}}
+\index{nb\-Samples\-\_\-@{nb\-Samples\-\_\-}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{nb\-Samples\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int Monte\-Carlo\-::nb\-Samples\-\_\-}}\label{classMonteCarlo_a82f5bfded3f8b62f22afaa50f7e73ffe}
+pas de différence finie 
+
+Referenced by delta(), Monte\-Carlo(), and price().
+
+\hypertarget{classMonteCarlo_af0ee580b0eb87f57c7a41cd2a9e6fc6a}{\index{Monte\-Carlo@{Monte\-Carlo}!opt\-\_\-@{opt\-\_\-}}
+\index{opt\-\_\-@{opt\-\_\-}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{opt\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Option}$\ast$ Monte\-Carlo\-::opt\-\_\-}}\label{classMonteCarlo_af0ee580b0eb87f57c7a41cd2a9e6fc6a}
+pointeur vers le modèle 
+
+Referenced by delta(), hedging\-P\-And\-L(), Monte\-Carlo(), and price().
+
+\hypertarget{classMonteCarlo_acf1971465a6503457dfacd397f29ee89}{\index{Monte\-Carlo@{Monte\-Carlo}!path@{path}}
+\index{path@{path}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{path}]{\setlength{\rightskip}{0pt plus 5cm}Pnl\-Mat$\ast$ Monte\-Carlo\-::path\hspace{0.3cm}{\ttfamily [private]}}}\label{classMonteCarlo_acf1971465a6503457dfacd397f29ee89}
+
+
+Referenced by delta(), Monte\-Carlo(), and $\sim$\-Monte\-Carlo().
+
+\hypertarget{classMonteCarlo_aa41318b565311457e04383047d68936e}{\index{Monte\-Carlo@{Monte\-Carlo}!rng\-\_\-@{rng\-\_\-}}
+\index{rng\-\_\-@{rng\-\_\-}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{rng\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}Pnl\-Rng$\ast$ Monte\-Carlo\-::rng\-\_\-}}\label{classMonteCarlo_aa41318b565311457e04383047d68936e}
+pointeur sur l'option 
+
+Referenced by delta(), Monte\-Carlo(), and price().
+
+\hypertarget{classMonteCarlo_a07755948492ef0832d5e131c1f010565}{\index{Monte\-Carlo@{Monte\-Carlo}!shift\-\_\-path@{shift\-\_\-path}}
+\index{shift\-\_\-path@{shift\-\_\-path}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{shift\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}Pnl\-Mat$\ast$ Monte\-Carlo\-::shift\-\_\-path\hspace{0.3cm}{\ttfamily [private]}}}\label{classMonteCarlo_a07755948492ef0832d5e131c1f010565}
+
+
+Referenced by delta(), Monte\-Carlo(), and $\sim$\-Monte\-Carlo().
+
+\hypertarget{classMonteCarlo_a713c3dd7942f90fde1b0d9d115733580}{\index{Monte\-Carlo@{Monte\-Carlo}!spots\-Mat@{spots\-Mat}}
+\index{spots\-Mat@{spots\-Mat}!MonteCarlo@{Monte\-Carlo}}
+\subsubsection[{spots\-Mat}]{\setlength{\rightskip}{0pt plus 5cm}Pnl\-Mat$\ast$ Monte\-Carlo\-::spots\-Mat\hspace{0.3cm}{\ttfamily [private]}}}\label{classMonteCarlo_a713c3dd7942f90fde1b0d9d115733580}
+
+
+Referenced by Monte\-Carlo(), price(), and $\sim$\-Monte\-Carlo().
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/user/2/.\-base/margueed/home/pricer\-Monte\-Carlo/src/\hyperlink{MonteCarlo_8hpp}{Monte\-Carlo.\-hpp}\item 
+/user/2/.\-base/margueed/home/pricer\-Monte\-Carlo/src/\hyperlink{MonteCarlo_8cpp}{Monte\-Carlo.\-cpp}\end{DoxyCompactItemize}
