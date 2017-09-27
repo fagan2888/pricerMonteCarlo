@@ -135,12 +135,12 @@ int main(int argc, char **argv)
     }
     if (argc == 3 || argc == 4) {
 
-        PnlMat* history = (argc==4)?pnl_mat_create_from_file(marketData) : bsmod->simul_market(H+1, T, rng);
+        PnlMat* history = (argc==4)?pnl_mat_create_from_file(marketData) : bsmod->simul_market(H, T, rng);
         std::cout << "taille de matrice = " << history->m << std::endl;
-        PnlVect* results = (argc==4)?pnl_vect_create_from_scalar( history->m, 0.0) : pnl_vect_create_from_scalar( H +1, 0.0);
+        PnlVect* results = pnl_vect_create_from_scalar( history->m, 0.0);
 
         clock_t startPL = startPL = clock();
-        double profitAndLoss = (argc==4)?monteCarlo.hedgingPAndL(results, history, history->m -1 ) : monteCarlo.hedgingPAndL(results, history, H );
+        double profitAndLoss = monteCarlo.hedgingPAndL(results, history, history->m -1 );
         clock_t timePL = (clock() - startPL) / (double)(CLOCKS_PER_SEC);
 
         cout << "P&L = " << profitAndLoss << endl;
