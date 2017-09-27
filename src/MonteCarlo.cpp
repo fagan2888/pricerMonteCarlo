@@ -128,23 +128,22 @@ double MonteCarlo::hedgingPAndL(PnlVect *result, PnlMat *path, int H) {
     for (int i = 1; i <= H; i++) {
         std::cout << " i = " << i << std::endl;
         //pnl_mat_extract_subblock(past_i, path, 0, i, 0, monteCarlo->mod_->size_);
+        pnl_mat_get_row(path_i, path, i);
         if (i % (H / opt_->nbTimeSteps()) == 0) {
             pnl_mat_add_row(past_i, past_i->m, path_i);
-            std::cout << "je suis là" << std::endl;
         }
 
         delta(past_i, i * opt_->maturity() / H, delta_current);
         pnl_vect_clone(delta_temp, delta_past);
         pnl_vect_clone(delta_past, delta_current);
         pnl_vect_minus_vect(delta_current, delta_temp);
-        pnl_mat_get_row(path_i, path, i);
         LET(result, i) = GET(result, i - 1) * exp(mod_->r_ * opt_->maturity() / H) -
                          (pnl_vect_scalar_prod(delta_current, path_i));
     }
 
     std::cout << "*** end ***" << std::endl;
-
-    double payoff = opt_->payoff(path);
+    pnl_mat_print(path);
+    double payoff = opt_->payoff(past_i);
     std::cout << "payoff : " << payoff << std::endl;
     double pAngLResult = GET(result, H) + pnl_vect_scalar_prod(delta_past, path_i) - payoff;
 
