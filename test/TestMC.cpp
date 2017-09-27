@@ -44,8 +44,9 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-	n_samples = 1000;
+    n_samples = 100;
     P->extract("timestep number", nbTimeSteps);
+    nbTimeSteps = 100;
 
     /* Création de l'option en fonction du type */
     Option *opt;
@@ -56,8 +57,8 @@ int main(int argc, char **argv) {
         opt = new OptionBasket(T, nbTimeSteps, size, payoffCoeff, strike);
     if (type.compare("performance") == 0)
         opt = new OptionPerformance(T, nbTimeSteps, size, payoffCoeff);
-	if (type.compare("asian") != 0 && type.compare("basket") != 0 && type.compare("performance") != 0) {
-		cout << "Bad option type !" << endl;
+    if (type.compare("asian") != 0 && type.compare("basket") != 0 && type.compare("performance") != 0) {
+        cout << "Bad option type !" << endl;
         exit(1);
     }
 
@@ -75,10 +76,11 @@ int main(int argc, char **argv) {
     double prix;
     double ic;
     //monteCarlo.price(prix, ic);
-    PnlVect* deltas=pnl_vect_create_from_zero(size);
-    PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 100.0);
-    monteCarlo.delta(history,0,deltas);
-    pnl_vect_print(deltas);
+    PnlVect *deltas = pnl_vect_create_from_zero(size);
+    //PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 100.0);
+    PnlMat *history = pnl_mat_create_from_file("../data/market-data/simul_basket.dat");
+    monteCarlo.delta(history, 0, deltas);
+    //pnl_vect_print(deltas);
     //monteCarlo.price(prix,ic);
     //monteCarlo.price(history,0,prix,ic);
 
@@ -86,7 +88,7 @@ int main(int argc, char **argv) {
     //cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
 
     HedgingPortfolio hedgingPortfolio(nbTimeSteps, &monteCarlo);
-    PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps+1, 0.0);
+    PnlVect *results = pnl_vect_create_from_scalar(nbTimeSteps + 1, 0.0);
     double profitAndLoss = hedgingPortfolio.hedgingPAndL(results, history);
     cout << "P&L = " << profitAndLoss << endl;
     //pnl_vect_print(results);

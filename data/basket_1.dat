@@ -14,6 +14,6 @@ correlation <float> 0.0
 option type <string> basket
 payoff coefficients <vector> 0.025
 
-timestep number <int> 10
-sample number <long> 500
+timestep number <int> 1
+sample number <long> 50000
 
