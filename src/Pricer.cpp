@@ -19,29 +19,11 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    /*int option,c;
-    while ((option = getopt(argc,argv,"c")) != EOF)
-        switch(option)
-        {
-            case 'c': c = 1; cout << "c is enabled" << c << endl;
-                if (argc > 4) {
-                    cout << "Multiple input files --> one input file" << endl;
-                    exit(1);
-                }
-                break;
-            //case '': cout << "nothing is enabled" << endl; break;
-            case '?': fprintf(stderr, "usuage is -c: <value> \n"); exit(1);
-            //default: cout << endl;
-        }
-    
-    if (argc < 2) {
-        cout << "No input file" << endl;
-    }*/
-    
     char *infile;
-    
+    char* marketData;
+
     //Vérifications sur les arguments
-    if ((argc != 2) && (argc != 4)){
+    if ((argc < 2) && (argc > 4)){
         cout << "Bad number arguments\n Tape --help for more information." << endl;
     }
     if (argc == 2){
@@ -53,45 +35,51 @@ int main(int argc, char **argv)
             infile = argv[1];
         }
     }
+    if (argc == 3){
+        if (strcmp(argv[1], "-s") == 0){
+            infile = argv[2];
+        }
+    }
     if (argc == 4){
         if (strcmp(argv[1], "-c") == 0){
             infile = argv[3];
+            marketData = argv[2];
         } else {
             cout << "Wrong way of calling the function: must be ./pricer -c market_file data_input \n Tape --help for more information." << endl;
         }
     }
-    
-    double T, r, strike, corr, mcPrice;
-    PnlVect *spot, *sigma, *divid, *payoffCoeff;
-    string type;
-    int size, nbTimeSteps;
-    size_t n_samples;
 
+    double T, r, strike, corr, mcPrice;
+    PnlVect *spot, *sigma, *divid, *payoffCoeff, *trend;
+
+    string type;
+
+    int H, size, nbTimeSteps;
+    size_t n_samples;
     Param *P = new Parser(infile);
-    
+
     P->extract("mc price", mcPrice);
     P->extract("option type", type);
     P->extract("maturity", T);
     P->extract("option size", size);
     P->extract("spot", spot, size);
     P->extract("volatility", sigma, size);
+    P->extract("trend", trend, size);
     P->extract("interest rate", r);
     P->extract("correlation", corr);
+    P->extract("hedging dates number", H);
     P->extract("payoff coefficients", payoffCoeff, size);
     if (P->extract("dividend rate", divid, size) == false) {
         divid = pnl_vect_create_from_zero(size);
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-    //n_samples = 1000;
     P->extract("timestep number", nbTimeSteps);
-    /*if (P->extract("fd step", fdStep) == false){
-        fdStep = 0.1;
-    }*/
-                         
+
+
     /* Création de l'option en fonction du type */
     Option *opt;
-    
+
     if (type.compare("asian") == 0)
         opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
     if (type.compare("basket") == 0)
@@ -102,35 +90,34 @@ int main(int argc, char **argv)
         cout << "Bad option type !" << endl;
         exit(1);
     }
-    
-    PnlVect *trend = pnl_vect_create_from_zero(size);
+
     BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
-    
+
     /* Pas de temps */
     double fdStep = 0.1;
     /* Générateur aléatoire */
     PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
     pnl_rng_sseed(rng, time(NULL));
-    
+
     MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples);
-    
+
     //Calcul du prix et des delta en zéro
     if (argc == 2){
-        
+
         double prix;
         double ic;
-        
+
         clock_t startPrice = clock();
         monteCarlo.price(prix, ic);
-        clock_t timePrice = (clock() - startPrice) / (double)(CLOCKS_PER_SEC/1000);
-        
+        clock_t timePrice = (clock() - startPrice) / (double)(CLOCKS_PER_SEC);
+
         PnlVect* deltas = pnl_vect_create_from_zero(size);
         PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 100.0);
-        
+
         clock_t startDelta = clock();
         monteCarlo.delta(history,0,deltas);
-        clock_t timeDelta = (clock() - startDelta) / (double)(CLOCKS_PER_SEC/1000);
-        
+        clock_t timeDelta = (clock() - startDelta) / (double)(CLOCKS_PER_SEC);
+
         cout << "En t = 0 :" << endl;
         cout << "Prix = " << prix << endl;
         cout << "ic = " << ic << endl;
@@ -139,44 +126,42 @@ int main(int argc, char **argv)
         cout << "Delta :" <<endl;
         pnl_vect_print_asrow(deltas);
         cout << "Temps de calcul des delta (méthode delta) T = " << timeDelta << "ms" << endl;
-        
+
         //Free memory
         pnl_vect_free(&deltas);
         pnl_mat_free(&history);
-        
-    }
-    if (argc == 4) {
 
-        PnlMat* history = pnl_mat_create_from_file(infile);
-        
-        PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps+1, 0.0);
-        
+    }
+    if (argc == 3 || argc == 4) {
+
+        PnlMat* history = (argc==4)?pnl_mat_create_from_file(marketData) : bsmod->simul_market(H+1, T, rng);
+        std::cout << "taille de matrice = " << history->m << std::endl;
+        PnlVect* results = (argc==4)?pnl_vect_create_from_scalar( history->m, 0.0) : pnl_vect_create_from_scalar( H +1, 0.0);
+
         clock_t startPL = startPL = clock();
-        double profitAndLoss = monteCarlo.hedgingPAndL(results, history, nbTimeSteps);
+        double profitAndLoss = (argc==4)?monteCarlo.hedgingPAndL(results, history, history->m -1 ) : monteCarlo.hedgingPAndL(results, history, H );
         clock_t timePL = (clock() - startPL) / (double)(CLOCKS_PER_SEC);
-        
+
         cout << "P&L = " << profitAndLoss << endl;
-        cout << "Temps de calcul de P&L (méthode ...) T = " << timePL << "ms" << endl;
-        
+        cout << "Temps de calcul de P&L (méthode ...) T = " << timePL << " s" << endl;
+
         //Free memory
         pnl_mat_free(&history);
         pnl_vect_free(&results);
-        //Deletion of hedgingPortfolio
-        //delete &hedgingPortfolio;
     }
-    
-    
+
+
     //PnlVect *trend = pnl_vect_create_from_zero(size);
     //BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
-    
+
     /* Pas de temps */
     //double fdStep = 0.1;
     /* Générateur aléatoire */
     //PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
     //pnl_rng_sseed(rng, time(NULL));
-    
+
     //MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples);
-    
+
     //double prix;
     //double ic;
     ////monteCarlo.price(prix, ic);
@@ -186,23 +171,23 @@ int main(int argc, char **argv)
     //pnl_vect_print(deltas);
     ////monteCarlo.price(prix,ic);
     ////monteCarlo.price(history,0,prix,ic);
-    
+
     //cout << "Prix attendu : " << mcPrice << endl;
     ////cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
-    
+
     //HedgingPortfolio hedgingPortfolio(nbTimeSteps, &monteCarlo);
     //PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps+1, 0.0);
     //double profitAndLoss = hedgingPortfolio.hedgingPAndL(results, history);
     //cout << "P&L = " << profitAndLoss << endl;
     //pnl_vect_print(results);
-    
+
     /*int nbtt = 10;
      PnlMat *pnlMat = pnl_mat_create_from_scalar(nbtt + 1, size, 10);
      bsmod->asset(pnlMat, T, nbtt, rng);
      PnlVect *deltas = pnl_vect_create_from_scalar(size, 1.0 / size);
      monteCarlo.delta(pnlMat, 0, deltas);
      pnl_vect_print(deltas);*/
-                         
+
     //Free memory
     //pnl_rng_free(&rng);
     pnl_vect_free(&spot);
@@ -213,7 +198,7 @@ int main(int argc, char **argv)
     //Deletion of monteCarlo
     //delete &monteCarlo;
     delete P;
-    
+
     /*if (abs(mcPrice - prix) / mcPrice < 5 * ic) {
         exit(0);
     } else {
@@ -222,4 +207,3 @@ int main(int argc, char **argv)
     */
     return 0;
 }
-
