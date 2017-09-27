@@ -31,8 +31,8 @@ int main() {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-    nbtt = 300;
     PnlRng *rng = pnl_rng_create(PNL_RNG_KNUTH);
+    pnl_rng_sseed(rng, time(NULL));
     pnlMat = pnl_mat_create_from_zero(nbtt + 1, size);
     PnlVect *trend = pnl_vect_create_from_zero(size);
     BlackScholesModel blackScholesModel(size, r, rho, sigma, spot, trend);
