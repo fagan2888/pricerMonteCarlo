@@ -6,7 +6,6 @@
 #include "../src/OptionAsian.hpp"
 #include "../src/OptionBasket.hpp"
 #include "../src/OptionPerformance.hpp"
-#include "../src/HedgingPortfolio.hpp"
 
 using namespace std;
 
@@ -44,7 +43,7 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-    n_samples = 200;
+    n_samples = 1000;
     P->extract("timestep number", nbTimeSteps);
     nbTimeSteps = 10;
 
@@ -77,8 +76,8 @@ int main(int argc, char **argv) {
     double ic;
     //monteCarlo.price(prix, ic);
     PnlVect *deltas = pnl_vect_create_from_zero(size);
-    //PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 100.0);
-    PnlMat *history = pnl_mat_create_from_file("../data/market-data/simul_basket.dat");
+    //PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 120.0);
+    PnlMat *history = pnl_mat_create_from_file("../data/market-data/simul_basket_1.dat");
     monteCarlo.delta(history, 0, deltas);
     //pnl_vect_print(deltas);
     //monteCarlo.price(prix,ic);
@@ -87,9 +86,8 @@ int main(int argc, char **argv) {
     cout << "Prix attendu : " << mcPrice << endl;
     //cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
 
-    HedgingPortfolio hedgingPortfolio(nbTimeSteps, &monteCarlo);
     PnlVect *results = pnl_vect_create_from_scalar(nbTimeSteps + 1, 0.0);
-    double profitAndLoss = hedgingPortfolio.hedgingPAndL(results, history);
+    double profitAndLoss = monteCarlo.hedgingPAndL(results, history, nbTimeSteps);
     cout << "P&L = " << profitAndLoss << endl;
     //pnl_vect_print(results);
 

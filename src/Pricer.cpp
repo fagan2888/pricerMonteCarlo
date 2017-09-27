@@ -14,7 +14,6 @@
 #include "OptionAsian.hpp"
 #include "OptionBasket.hpp"
 #include "OptionPerformance.hpp"
-#include "HedgingPortfolio.hpp"
 
 using namespace std;
 
@@ -162,11 +161,10 @@ int main(int argc, char **argv)
 
         PnlMat* history = pnl_mat_create_from_file(infile);
         
-        HedgingPortfolio hedgingPortfolio(nbTimeSteps, &monteCarlo);
         PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps+1, 0.0);
         
         clock_t startPL = startPL = clock();
-        double profitAndLoss = hedgingPortfolio.hedgingPAndL(results, history);
+        double profitAndLoss = monteCarlo.hedgingPAndL(results, history, nbTimeSteps);
         //mc.profitLoss(past, past->m - 1, pl);
         clock_t timePL = (clock() - startPL) / (double)(CLOCKS_PER_SEC);
         

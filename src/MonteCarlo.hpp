@@ -58,4 +58,13 @@ public:
      * de confiance sur le calcul du delta
      */
     void delta(const PnlMat *past, double t, PnlVect *delta);
+
+    /**
+     * Calcule le profit&loss du portefeuille de couverture
+     *
+     * @param[out] result contient les profit&loss du portefeuille au cours de la trajectoire
+     * @param[in] path contient la trajectoire des sous-jacents
+     * @return le profit&loss final du portefeuille de couverture
+     */
+    double hedgingPAndL(PnlVect *result, PnlMat *path, int H);
 };

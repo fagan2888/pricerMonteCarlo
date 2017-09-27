@@ -55,7 +55,7 @@ target_link_libraries(testBlackScholes ${LIBS})
 add_test(testBlackScholes testBlackScholes)
 
 # Test MC
-add_executable(testMC src/parser.cpp test/TestMC.cpp src/HedgingPortfolio.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
+add_executable(testMC src/parser.cpp test/TestMC.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
 target_link_libraries(testMC ${LIBS})
 #add_test(testMC_basket testMC ../data/basket.dat)
 #add_test(testMC_basket_1 testMC ../data/basket_1.dat)
@@ -64,7 +64,7 @@ target_link_libraries(testMC ${LIBS})
 #add_test(testMC_perf testMC ../data/perf.dat)
 
 # Test PricerHistory (t > 0)
-add_executable(testPricerHistory src/parser.cpp test/TestPricerHistory.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp src/HedgingPortfolio.cpp)
+add_executable(testPricerHistory src/parser.cpp test/TestPricerHistory.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
 target_link_libraries(testPricerHistory ${LIBS})
 add_test(testPricerHistory_basket testPricerHistory ../data/market-data/simul_basket.dat)
 add_test(testPricerHistory_basket_1 testPricerHistory ../data/market-data/simul_basket_1.dat)
@@ -78,12 +78,12 @@ target_link_libraries(testBlackScholesModel_simul_market ${LIBS})
 add_test(testBlackScholesModel_simul_market testBlackScholesModel_simul_market)
 
 # Test HedgingPortfolio
-add_executable(testHedgingPortfolio test/TestHedgingPortfolio.cpp src/parser.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/Option.cpp src/OptionBasket.cpp src/HedgingPortfolio.cpp)
+add_executable(testHedgingPortfolio test/TestHedgingPortfolio.cpp src/parser.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/Option.cpp src/OptionBasket.cpp)
 target_link_libraries(testHedgingPortfolio ${LIBS})
 add_test(testHedgingPortfolio testHedgingPortfolio)
 
 # Pricer
-add_executable(pricer src/pricer.cpp src/parser.cpp src/HedgingPortfolio.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
+add_executable(pricer src/Pricer.cpp src/parser.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
 target_link_libraries(pricer ${LIBS})
 
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)

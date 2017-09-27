@@ -6,8 +6,6 @@
 #include "../src/OptionAsian.hpp"
 #include "../src/OptionBasket.hpp"
 #include "../src/OptionPerformance.hpp"
-#include "../src/HedgingPortfolio.hpp"
-
 #include "pnl/pnl_matrix.h"
 
 using namespace std;
@@ -103,9 +101,8 @@ int main(int argc, char **argv) {
     monteCarlo.price(prix, ic);
     std::cout << prix << " | " << ic << std::endl;
 
-    HedgingPortfolio hedgingPortfolio(nbTimeSteps, &monteCarlo);
     PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps, 0.0);
-    hedgingPortfolio.hedgingPAndL(results, history);
+    monteCarlo.hedgingPAndL(results, history, nbTimeSteps);
     pnl_vect_print(results);
     //monteCarlo.delta(history, t, delta);
     //pnl_vect_print(delta);
