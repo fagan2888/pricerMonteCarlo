@@ -24,12 +24,17 @@ BlackScholesModel::BlackScholesModel(int size, double r, double rho, PnlVect *si
     /// Création des vecteurs temporaires
     G_i = pnl_vect_create_from_zero(size_);
     L_d = pnl_vect_create_from_zero(size_);
+    tempRow = pnl_vect_create_from_zero(size_);
+    spots_t = pnl_vect_create_from_zero(size_);
 }
 
 BlackScholesModel::~BlackScholesModel() {
+    /// Suppression des vecteurs temporaires
     pnl_mat_free(&cholesky);
     pnl_vect_free(&G_i);
     pnl_vect_free(&L_d);
+    pnl_vect_free(&tempRow);
+    pnl_vect_free(&spots_t);
 }
 
 void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *rng) {
@@ -51,15 +56,12 @@ void BlackScholesModel::asset(PnlMat *path, double T, int nbTimeSteps, PnlRng *r
 void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps, PnlRng *rng, const PnlMat *past) {
     /// Copie de la trajectoire passée dans la trajectoire totale
     int lastDatePast = (int) floor(t * (double) nbTimeSteps / T);
-    PnlVect *tempRow = pnl_vect_create(size_);
     for (int i = 0; i <= lastDatePast; i++) {
         pnl_mat_get_row(tempRow, past, i);
         pnl_mat_set_row(path, tempRow, i);
     }
 
-    pnl_vect_free(&tempRow);
-    /// Get the spot value
-    PnlVect *spots_t = pnl_vect_create(size_);
+    /// Sauvegarde des spots
     pnl_mat_get_row(spots_t, past, past->m - 1);
 
     /// Simulation de la trajectoire
@@ -77,9 +79,6 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
         }
         timeInterval = T / nbTimeSteps;
     }
-
-    /// Libération de la mémoire
-    pnl_vect_free(&spots_t);
 }
 
 void BlackScholesModel::shiftAsset(PnlMat *shift_path, const PnlMat *path, int d, double h, double t, double timestep) {
