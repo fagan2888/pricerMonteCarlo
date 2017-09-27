@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
     //pnl_mat_print(history);
 
     /* Création de l'option en fonction du type */
-    Option *opt;
+    Option *opt = NULL;
 
     if (type.compare("asian") == 0)
         opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
