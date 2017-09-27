@@ -67,4 +67,9 @@ public:
      * @return le profit&loss final du portefeuille de couverture
      */
     double hedgingPAndL(PnlVect *result, PnlMat *path, int H);
+
+private:
+    PnlMat *spotsMat;
+    PnlMat *shift_path;
+    PnlMat *path;
 };

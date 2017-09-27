@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     P->extract("sample number", n_samples);
     n_samples = 1000;
     P->extract("timestep number", nbTimeSteps);
-    nbTimeSteps = 10;
+    //nbTimeSteps = 10;
 
     /* Création de l'option en fonction du type */
     Option *opt;
@@ -74,29 +74,16 @@ int main(int argc, char **argv) {
 
     double prix;
     double ic;
-    //monteCarlo.price(prix, ic);
     PnlVect *deltas = pnl_vect_create_from_zero(size);
-    //PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 120.0);
-    PnlMat *history = pnl_mat_create_from_file("../data/market-data/simul_basket_1.dat");
+    PnlMat *history = pnl_mat_create_from_file("../data/market-data/simul_basket.dat");
     monteCarlo.delta(history, 0, deltas);
-    //pnl_vect_print(deltas);
-    //monteCarlo.price(prix,ic);
-    //monteCarlo.price(history,0,prix,ic);
 
-    cout << "Prix attendu : " << mcPrice << endl;
+    //cout << "Prix attendu : " << mcPrice << endl;
     //cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
 
-    PnlVect *results = pnl_vect_create_from_scalar(nbTimeSteps + 1, 0.0);
-    double profitAndLoss = monteCarlo.hedgingPAndL(results, history, nbTimeSteps);
+    PnlVect *results = pnl_vect_create_from_scalar(history->m, 0.0);
+    double profitAndLoss = monteCarlo.hedgingPAndL(results, history, history->m -1);
     cout << "P&L = " << profitAndLoss << endl;
-    //pnl_vect_print(results);
-
-    /*int nbtt = 10;
-    PnlMat *pnlMat = pnl_mat_create_from_scalar(nbtt + 1, size, 10);
-    bsmod->asset(pnlMat, T, nbtt, rng);
-    PnlVect *deltas = pnl_vect_create_from_scalar(size, 1.0 / size);
-    monteCarlo.delta(pnlMat, 0, deltas);
-    pnl_vect_print(deltas);*/
 
     pnl_rng_free(&rng);
     pnl_vect_free(&spot);
