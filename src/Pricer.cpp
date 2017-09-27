@@ -131,12 +131,6 @@ int main(int argc, char **argv)
         monteCarlo.delta(history,0,deltas);
         clock_t timeDelta = (clock() - startDelta) / (double)(CLOCKS_PER_SEC/1000);
         
-        //monteCarlo.price(prix,ic);
-        //monteCarlo.price(history,0,prix,ic);
-        
-        //cout << "Prix attendu : " << mcPrice << endl;
-        //cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
-        
         cout << "En t = 0 :" << endl;
         cout << "Prix = " << prix << endl;
         cout << "ic = " << ic << endl;
@@ -145,12 +139,6 @@ int main(int argc, char **argv)
         cout << "Delta :" <<endl;
         pnl_vect_print_asrow(deltas);
         cout << "Temps de calcul des delta (méthode delta) T = " << timeDelta << "ms" << endl;
-        
-        //if (abs(mcPrice - prix) / mcPrice < 5 * ic) {
-        //    exit(0);
-        //} else {
-        //    exit(1);
-        //}
         
         //Free memory
         pnl_vect_free(&deltas);
@@ -165,7 +153,6 @@ int main(int argc, char **argv)
         
         clock_t startPL = startPL = clock();
         double profitAndLoss = monteCarlo.hedgingPAndL(results, history, nbTimeSteps);
-        //mc.profitLoss(past, past->m - 1, pl);
         clock_t timePL = (clock() - startPL) / (double)(CLOCKS_PER_SEC);
         
         cout << "P&L = " << profitAndLoss << endl;
