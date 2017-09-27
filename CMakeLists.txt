@@ -83,7 +83,7 @@ target_link_libraries(testHedgingPortfolio ${LIBS})
 add_test(testHedgingPortfolio testHedgingPortfolio)
 
 # Pricer
-add_executable(pricer src/pricer.cpp)
+add_executable(pricer src/pricer.cpp src/parser.cpp src/HedgingPortfolio.cpp src/BlackScholesModel.cpp src/MonteCarlo.cpp src/OptionAsian.cpp src/OptionBasket.cpp src/Option.cpp src/OptionPerformance.cpp)
 target_link_libraries(pricer ${LIBS})
 
 # add_executable(mc-pricer src/parser.cpp src/pricer.cpp)

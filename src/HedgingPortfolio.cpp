@@ -43,7 +43,7 @@ double HedgingPortfolio::hedgingPAndL(PnlVect *result, PnlMat *path) {
     for (int i = 1; i <= H; i++) {
         std::cout << " i = " << i << std::endl;
         //pnl_mat_extract_subblock(past_i, path, 0, i, 0, monteCarlo->mod_->size_);
-	if ( i%(H/monteCarlo->opt_->nbTimeSteps()) ==0 ){
+	if ( i%(H/monteCarlo->opt_->nbTimeSteps()) == 0 ){
 	  pnl_mat_add_row(past_i,past_i->m,path_i);
 	  std::cout<<"je suis là"<<std::endl;
 	}
