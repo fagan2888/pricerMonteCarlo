@@ -42,7 +42,7 @@ int main(int argc, char **argv)
     
     //Vérifications sur les arguments
     if ((argc != 2) && (argc != 4)){
-        cout << "Bad number arguments\n Tape --help for more information." << endl;
+        cout << "Bad number arguments \nTape --help for more information." << endl;
     }
     if (argc == 2){
         if (strcmp(argv[1], "--help") == 0){
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
         if (strcmp(argv[1], "-c") == 0){
             infile = argv[3];
         } else {
-            cout << "Wrong way of calling the function: must be ./pricer -c market_file data_input \n Tape --help for more information." << endl;
+            cout << "Wrong way of calling the function: must be ./pricer -c market_file data_input \nTape --help for more information." << endl;
         }
     }
     
@@ -83,7 +83,6 @@ int main(int argc, char **argv)
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-    //n_samples = 1000;
     P->extract("timestep number", nbTimeSteps);
     /*if (P->extract("fd step", fdStep) == false){
         fdStep = 0.1;
@@ -156,7 +155,7 @@ int main(int argc, char **argv)
         clock_t timePL = (clock() - startPL) / (double)(CLOCKS_PER_SEC);
         
         cout << "P&L = " << profitAndLoss << endl;
-        cout << "Temps de calcul de P&L (méthode ...) T = " << timePL << "ms" << endl;
+        cout << "Temps de calcul de P&L (méthode hedgingPAndL) T = " << timePL << "ms" << endl;
         
         //Free memory
         pnl_mat_free(&history);
@@ -164,62 +163,18 @@ int main(int argc, char **argv)
         //Deletion of hedgingPortfolio
         //delete &hedgingPortfolio;
     }
-    
-    
-    //PnlVect *trend = pnl_vect_create_from_zero(size);
-    //BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
-    
-    /* Pas de temps */
-    //double fdStep = 0.1;
-    /* Générateur aléatoire */
-    //PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
-    //pnl_rng_sseed(rng, time(NULL));
-    
-    //MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples);
-    
-    //double prix;
-    //double ic;
-    ////monteCarlo.price(prix, ic);
-    //PnlVect* deltas=pnl_vect_create_from_zero(size);
-    //PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 100.0);
-    //monteCarlo.delta(history,0,deltas);
-    //pnl_vect_print(deltas);
-    ////monteCarlo.price(prix,ic);
-    ////monteCarlo.price(history,0,prix,ic);
-    
-    //cout << "Prix attendu : " << mcPrice << endl;
-    ////cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
-    
-    //HedgingPortfolio hedgingPortfolio(nbTimeSteps, &monteCarlo);
-    //PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps+1, 0.0);
-    //double profitAndLoss = hedgingPortfolio.hedgingPAndL(results, history);
-    //cout << "P&L = " << profitAndLoss << endl;
-    //pnl_vect_print(results);
-    
-    /*int nbtt = 10;
-     PnlMat *pnlMat = pnl_mat_create_from_scalar(nbtt + 1, size, 10);
-     bsmod->asset(pnlMat, T, nbtt, rng);
-     PnlVect *deltas = pnl_vect_create_from_scalar(size, 1.0 / size);
-     monteCarlo.delta(pnlMat, 0, deltas);
-     pnl_vect_print(deltas);*/
                          
     //Free memory
-    //pnl_rng_free(&rng);
+    pnl_rng_free(&rng);
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
     pnl_vect_free(&divid);
-    //pnl_vect_free(&payoffCoeff);
+    pnl_vect_free(&payoffCoeff);
     pnl_vect_free(&trend);
     //Deletion of monteCarlo
     //delete &monteCarlo;
     delete P;
     
-    /*if (abs(mcPrice - prix) / mcPrice < 5 * ic) {
-        exit(0);
-    } else {
-        exit(1);
-    }
-    */
     return 0;
 }
 
