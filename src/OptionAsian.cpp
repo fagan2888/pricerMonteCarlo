@@ -13,7 +13,7 @@ double OptionAsian::payoff(const PnlMat *path) {
 		    {
             payoffTempo += MGET(path, j, d);
         }
-        payoff += payoffCoeff(d) * payoffTempo / (nbTimeSteps_ + 1);
+        payoff += GET(payoffCoeff_,d) * payoffTempo / (nbTimeSteps_ + 1);
     }
     payoff = payoff - strike_;
     payoff = (payoff < 0) ? 0 : payoff;

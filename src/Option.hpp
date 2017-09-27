@@ -6,6 +6,11 @@
 /// \brief Classe Option abstraite
 class Option {
 public:
+    double T_; /// maturité
+    int nbTimeSteps_; /// nombre de pas de temps de discrétisation
+    int size_; /// dimension du modèle, redondant avec BlackScholesModel::size_
+    PnlVect *payoffCoeff_; /// coefficient permettant le calcul du payoff
+
     /**
     * Constructeur de la classe
     *
@@ -41,11 +46,6 @@ public:
 
     double payoffCoeff(int i);
 
-protected:
-    double T_; /// maturité
-    int nbTimeSteps_; /// nombre de pas de temps de discrétisation
-    int size_; /// dimension du modèle, redondant avec BlackScholesModel::size_
-    PnlVect *payoffCoeff_; /// coefficient permettant le calcul du payoff
 };
 
 

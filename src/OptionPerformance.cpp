@@ -13,8 +13,8 @@ double OptionPerformance::payoff(const PnlMat *path) {
         before = 0;
         now = 0;
         for (int d = 0; d < size_; d++) {
-            before += payoffCoeff(d) * MGET(path, i - 1, d);
-            now += payoffCoeff(d) * MGET(path, i, d);
+            before += GET(payoffCoeff_,d) * MGET(path, i - 1, d);
+            now += GET(payoffCoeff_,d) * MGET(path, i, d);
         }
         payoff += (now / before - 1 < 0) ? 0 : now / before - 1;
     }
