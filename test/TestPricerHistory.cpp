@@ -23,8 +23,8 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    double T, t, r, strike, corr, fdStep;
-    PnlVect *spot, *sigma, *payoffCoeff, *delta;
+    double T, r, strike, corr, fdStep;
+    PnlVect *spot, *sigma, *payoffCoeff;
     string type;
     int size, nbTimeSteps;
     size_t n_samples;
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     pnl_vect_print(results);
 	*/
     double prix;
-	double ic;
+    double ic;
     std::cout << "_____MonteCarlo Computation_____"<< std::endl;
     monteCarlo.price(prix, ic);
     std::cout << prix << " | " << ic << std::endl;

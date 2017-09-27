@@ -57,18 +57,21 @@ void BlackScholesModel::asset(PnlMat *path, double t, double T, int nbTimeSteps,
 
     /// Copy the past matrix on the path matrix
     int lastDatePast = (int) floor(t * (double) nbTimeSteps / T);
+
     PnlVect *tempRow = pnl_vect_create(size_);
     for (int i = 0; i <= lastDatePast; i++) {
         pnl_mat_get_row(tempRow, past, i);
         pnl_mat_set_row(path, tempRow, i);
     }
     /// Get the spot value
+
     PnlVect *spots_t = pnl_vect_create(size_);
     pnl_mat_get_row(spots_t, past, past->m - 1);
 
     /// Simulate the end of path
     PnlVect *G_i = pnl_vect_create(size_);
     PnlVect *L_d = pnl_vect_create(size_);
+
     double timeInterval = (lastDatePast + 1) * T / (double) nbTimeSteps - t;
     for (int i = lastDatePast + 1; i <= nbTimeSteps; i++) {
         pnl_vect_rng_normal(G_i, size_, rng);
@@ -151,13 +154,13 @@ PnlMat *BlackScholesModel::simul_market(int H, double T, PnlRng *rng) {
     for (int i = 0; i < H; i++){
         pnl_vect_rng_normal(G, size_, rng);
         for (int j = 0; j < size_; j++){
-            PnlVect *viewCorr = pnl_vect_wrap_mat_row(corr, j);
-            double prod = pnl_vect_scalar_prod(viewCorr,G);
+            PnlVect viewCorr = pnl_vect_wrap_mat_row(corr, j);
+            double prod = pnl_vect_scalar_prod(&viewCorr,G);
             double sigmaS = GET(sigma_, j);
-            double bs = GET(&pastPrices,j) * exp( ( GET(trends_,j)- (pow(sigmaS,2)/2))*(T/H) + sigmaS*sqrt(T/H)*prod) ;
+            double bs = GET(pastPrices,j) * exp( ( GET(trend_,j)- (pow(sigmaS,2)/2))*(T/H) + sigmaS*sqrt(T/H)*prod) ;
             pnl_mat_set(path, i+1, j, bs);
         }
-        pastPrices = pnl_vect_wrap_mat_row(path, i+1);
+        *pastPrices = pnl_vect_wrap_mat_row(path, i+1);
     }
 }*/
 
@@ -184,5 +187,5 @@ PnlMat *BlackScholesModel::simul_market(int H, double T, PnlRng *rng) {
     }
     pnl_vect_free(&pastPrices);
 }
- */
+*/
 

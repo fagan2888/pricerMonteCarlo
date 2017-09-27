@@ -20,11 +20,13 @@ double HedgingPortfolio::hedgingPAndL(PnlVect *result, PnlMat *path) {
 
     PnlVect *path_i = pnl_vect_create_from_zero(monteCarlo->mod_->size_);
     double prix, ic;
-    PnlMat *past_0 = pnl_mat_create(1, monteCarlo->mod_->size_);
+    // PnlMat *past_0 = pnl_mat_create(1, monteCarlo->mod_->size_);
     PnlMat *past_i = pnl_mat_create(1, monteCarlo->mod_->size_);
-    pnl_mat_extract_subblock(past_0, path, 0, 1, 0, monteCarlo->mod_->size_);
-    pnl_mat_extract_subblock(past_i, path, 0, 1, 0, monteCarlo->mod_->size_);
+    //pnl_mat_extract_subblock(past_0, path, 0, 1, 0, monteCarlo->mod_->size_);
+
+    //pnl_mat_extract_subblock(past_i, path, 0, 1, 0, monteCarlo->mod_->size_);
     pnl_mat_get_row(path_i, path, 0);
+    pnl_mat_set_row(past_i,path_i,0);
 
     std::cout << "*** start init ***" << std::endl;
 
@@ -32,7 +34,7 @@ double HedgingPortfolio::hedgingPAndL(PnlVect *result, PnlMat *path) {
     monteCarlo->price(prix, ic);
 
     /// Calcul des deltas initiaux
-    monteCarlo->delta(past_0, 0, delta_past);
+    monteCarlo->delta(past_i, 0, delta_past);
 
     std::cout << "*** start calcul ***" << std::endl;
 
@@ -40,15 +42,12 @@ double HedgingPortfolio::hedgingPAndL(PnlVect *result, PnlMat *path) {
     pnl_vect_set(result, 0, prix - pnl_vect_scalar_prod(delta_past, path_i));
     for (int i = 1; i <= H; i++) {
         std::cout << " i = " << i << std::endl;
-        //pnl_mat_extract_subblock(past_0, path, 0, i, 0, monteCarlo->mod_->size_);
-        pnl_mat_extract_subblock(past_i, path, 0, i, 0, monteCarlo->mod_->size_);
-        //monteCarlo->price(past_0, i * monteCarlo->opt_->maturity() / H, prix, ic);
-        //std::cout << " prix(" << i << ")= " << prix << std::endl;
-        //std::cout << " haha(" << i << ")= " << (i + 1) * monteCarlo->opt_->maturity() / H << std::endl;
-        //monteCarlo->price(past_i, (i + 1) * monteCarlo->opt_->maturity() / H, prix, ic);
-        //std::cout << " prix(" << i + 1 << ")= " << prix << std::endl;
-
-        //monteCarlo->delta(past_0, (i - 1) * monteCarlo->opt_->maturity() / H, delta_0);
+        //pnl_mat_extract_subblock(past_i, path, 0, i, 0, monteCarlo->mod_->size_);
+	if ( i%(H/monteCarlo->opt_->nbTimeSteps()) == 0 ){
+	  pnl_mat_add_row(past_i,past_i->m,path_i);
+	  std::cout<<"je suis là"<<std::endl;
+	}
+	
         monteCarlo->delta(past_i, i * monteCarlo->opt_->maturity() / H, delta_current);
         pnl_vect_clone(delta_temp, delta_past);
         pnl_vect_clone(delta_past, delta_current);

@@ -68,6 +68,8 @@ public:
      */
     PnlMat *simul_market(int H, double T, PnlRng *rng);
 
+    void simul_market(PnlMat *path, double T, int H, PnlRng *rng);
+
 protected:
     PnlVect *trend_; /// Tendance du modèle
 };
