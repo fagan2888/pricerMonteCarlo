@@ -5,11 +5,8 @@
 #include "../src/OptionPerformance.hpp"
 #include "../src/MonteCarlo.hpp"
 #include <string>
-<<<<<<< HEAD
 
 using namespace std;
-=======
->>>>>>> a8fe16314dfebac5d9e581efa8daf029e563e7ad
 
 int main() {
 
