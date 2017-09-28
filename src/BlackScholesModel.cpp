@@ -1,6 +1,5 @@
 #include "BlackScholesModel.hpp"
 #include <cmath>
-#include <iostream>
 
 using namespace std;
 

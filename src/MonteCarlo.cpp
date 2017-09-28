@@ -52,8 +52,6 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
         std::cerr << "le temps t est supérieur à la maturité  !!" << std::endl;
         exit(1);
     }
-    std::cout << "_____MonteCarlo Computation______" << std::endl;
-    std::cout << "________________________________" << std::endl;
     double tempPayoff = 0.0;
     double squareSum = 0.0;
     double sum = 0.0;

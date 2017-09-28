@@ -5,7 +5,6 @@
 #include "../src/OptionPerformance.hpp"
 #include "../src/MonteCarlo.hpp"
 #include <string>
-#include <iostream>
 
 using namespace std;
 
