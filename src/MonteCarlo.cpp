@@ -1,7 +1,5 @@
 #include "MonteCarlo.hpp"
-
 #include <iostream>
-#include <ctime>
 #include <cmath>
 
 #include "pnl/pnl_random.h"
@@ -42,7 +40,7 @@ void MonteCarlo::price(double &prix, double &ic) {
     /// Calcul du prix
     prix = exp(-(mod_->r_) * (opt_->T_)) * sum;
 
-    /// Confidence interval in 95%
+    /// Intervalle de confiance à 95%
     double varianceEstimator = exp(-2 * (mod_->r_) * (opt_->T_)) * (squareSum - pow(sum, 2));
     ic = 1.96 * sqrt(varianceEstimator) / sqrt(nbSamples_);
 };
@@ -64,10 +62,10 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
     sum /= nbSamples_;
     squareSum /= nbSamples_;
 
-    /// Price computing
+    /// Calcul du prix
     prix = exp(-(mod_->r_) * (opt_->T_ - t)) * sum;
 
-    /// Confidence interval in 95%
+    /// Intervalle de confiance à 95%
     double varianceEstimator = exp(-2 * (mod_->r_) * (opt_->T_ - t)) * (squareSum - pow(sum, 2));
     ic = 1.96 * sqrt(varianceEstimator) / sqrt(nbSamples_);
 }
@@ -93,8 +91,9 @@ void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta) {
     }
 }
 
-double MonteCarlo::hedgingPAndL(PnlVect *result, PnlMat *path, int H) {
+double MonteCarlo::hedgingPAndL(PnlMat *path, int H) {
     /// Initialisation
+    PnlVect *result = pnl_vect_create_from_zero(H+1);
     PnlVect *delta_past = pnl_vect_create_from_zero(mod_->size_);
     PnlVect *delta_current = pnl_vect_create_from_zero(mod_->size_);
     PnlVect *delta_temp = pnl_vect_create_from_zero(mod_->size_);

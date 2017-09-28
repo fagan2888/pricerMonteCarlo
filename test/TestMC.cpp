@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-    n_samples = 1000;
+    //n_samples = 1000;
     P->extract("timestep number", nbTimeSteps);
     //nbTimeSteps = 10;
 
@@ -82,8 +82,7 @@ int main(int argc, char **argv) {
     cout << "Prix attendu : " << mcPrice << endl;
     cout << "Prix et ic obtenu : " << prix << " | " << ic << endl;
 
-    PnlVect *results = pnl_vect_create_from_scalar(history->m, 0.0);
-    double profitAndLoss = monteCarlo.hedgingPAndL(results, history, history->m -1);
+    double profitAndLoss = monteCarlo.hedgingPAndL(history, history->m -1);
     cout << "P&L = " << profitAndLoss << endl;
 
     pnl_rng_free(&rng);
