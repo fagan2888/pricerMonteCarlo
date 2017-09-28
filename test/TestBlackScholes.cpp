@@ -5,9 +5,6 @@
 #include "../src/OptionPerformance.hpp"
 #include "../src/MonteCarlo.hpp"
 #include <string>
-#include <iostream>
-
-using namespace std;
 
 int main() {
 
@@ -25,7 +22,7 @@ int main() {
     P->extract("spot", spot, size);
     P->extract("volatility", sigma, size);
     P->extract("interest rate", r);
-	P->extract("correlation", rho);
+    P->extract("correlation", rho);
     if (P->extract("dividend rate", divid, size) == false) {
         divid = pnl_vect_create_from_zero(size);
     }

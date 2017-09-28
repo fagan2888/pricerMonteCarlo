@@ -41,11 +41,10 @@ int main() {
     pnl_rng_sseed(rng, time(NULL));
     PnlVect *trend = pnl_vect_create_from_zero(size);
     BlackScholesModel *bsmodel = new BlackScholesModel(size, r, corr, sigma, spot, trend);
-    MonteCarlo *monteCarlo = new MonteCarlo(bsmodel, opt, rng, 0.1, (int)n_samples);
-    PnlVect *results = pnl_vect_create(nbTimeSteps + 1);
-    PnlMat *path = pnl_mat_create(nbTimeSteps + 1,size);
+    MonteCarlo *monteCarlo = new MonteCarlo(bsmodel, opt, rng, 0.1, (int) n_samples);
+    PnlMat *path = pnl_mat_create(nbTimeSteps + 1, size);
     bsmodel->asset(path, T, nbTimeSteps, rng);
-    cout << "P&L : " << monteCarlo->hedgingPAndL(results, path, (int)n_samples) << endl;
+    cout << "P&L : " << monteCarlo->hedgingPAndL(path, (int) n_samples) << endl;
 
     /// Libération de la mémoire
     delete P;

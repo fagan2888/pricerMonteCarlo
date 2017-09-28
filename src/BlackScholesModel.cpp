@@ -1,8 +1,5 @@
 #include "BlackScholesModel.hpp"
 #include <cmath>
-#include <iostream>
-
-using namespace std;
 
 BlackScholesModel::BlackScholesModel(int size, double r, double rho, PnlVect *sigma, PnlVect *spot, PnlVect *trend) {
     size_ = size;

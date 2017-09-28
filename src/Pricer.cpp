@@ -4,16 +4,16 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "pnl/pnl_matrix.h"
-#include "pnl/pnl_random.h"
-#include "pnl/pnl_vector.h"
-
 #include "parser.hpp"
 #include "BlackScholesModel.hpp"
 #include "MonteCarlo.hpp"
 #include "OptionAsian.hpp"
 #include "OptionBasket.hpp"
 #include "OptionPerformance.hpp"
+
+#include "pnl/pnl_matrix.h"
+#include "pnl/pnl_random.h"
+#include "pnl/pnl_vector.h"
 
 using namespace std;
 
@@ -57,6 +57,7 @@ int main(int argc, char **argv)
 
     int H, size, nbTimeSteps;
     size_t n_samples;
+
     Param *P = new Parser(infile);
 
     P->extract("mc price", mcPrice);
@@ -102,7 +103,7 @@ int main(int argc, char **argv)
 
     MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples);
 
-    /// Calcul du prix et des delta en zéro
+    /// Calcul du prix et des deltas en zéro
     if (argc == 2){
 
         double prix;
@@ -128,7 +129,7 @@ int main(int argc, char **argv)
         pnl_vect_print_asrow(deltas);
         cout << "Temps de calcul des delta (méthode delta) T = " << timeDelta << "ms" << endl;
 
-        /// Libération mémoire des éléments alloués
+        /// Libération de la mémoire
         pnl_vect_free(&deltas);
         pnl_mat_free(&history);
 
@@ -137,7 +138,6 @@ int main(int argc, char **argv)
 
         PnlMat* history = (argc==4)?pnl_mat_create_from_file(marketData) : bsmod->simul_market(H, T, rng);
         std::cout << "taille de matrice = " << history->m << std::endl;
-        PnlVect* results = pnl_vect_create_from_scalar( history->m, 0.0);
 
         clock_t startPL = clock();
         double profitAndLoss = monteCarlo.hedgingPAndL(results, history, history->m - 1);
@@ -146,12 +146,11 @@ int main(int argc, char **argv)
         cout << "P&L = " << profitAndLoss << endl;
         cout << "Temps de calcul de P&L (méthode hedgingPAndL) T = " << timePL << "s" << endl;
 
-        /// Libération mémoire des éléments alloués
+        /// Libération de la mémoire
         pnl_mat_free(&history);
-        pnl_vect_free(&results);
     }
 
-    /// Libération mémoire des éléments alloués
+    /// Libération de la mémoire
     pnl_rng_free(&rng);
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);

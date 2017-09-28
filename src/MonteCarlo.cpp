@@ -1,6 +1,5 @@
 #include "MonteCarlo.hpp"
 #include <iostream>
-#include <ctime>
 #include <cmath>
 
 #include "pnl/pnl_random.h"
@@ -51,8 +50,6 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic) {
         std::cerr << "le temps t est supérieur à la maturité  !!" << std::endl;
         exit(1);
     }
-    std::cout << "_____MonteCarlo Computation______" << std::endl;
-    std::cout << "________________________________" << std::endl;
     double tempPayoff = 0.0;
     double squareSum = 0.0;
     double sum = 0.0;
@@ -94,8 +91,9 @@ void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta) {
     }
 }
 
-double MonteCarlo::hedgingPAndL(PnlVect *result, PnlMat *path, int H) {
+double MonteCarlo::hedgingPAndL(PnlMat *path, int H) {
     /// Initialisation
+    PnlVect *result = pnl_vect_create_from_zero(H+1);
     PnlVect *delta_past = pnl_vect_create_from_zero(mod_->size_);
     PnlVect *delta_current = pnl_vect_create_from_zero(mod_->size_);
     PnlVect *delta_temp = pnl_vect_create_from_zero(mod_->size_);
@@ -134,7 +132,7 @@ double MonteCarlo::hedgingPAndL(PnlVect *result, PnlMat *path, int H) {
     std::cout << "payoff : " << payoff << std::endl;
     double pAngLResult = GET(result, H) + pnl_vect_scalar_prod(delta_past, path_i) - payoff;
 
-    /// Free the memory
+    /// Libération de la mémoire
     pnl_vect_free(&delta_current);
     pnl_vect_free(&delta_past);
     pnl_vect_free(&delta_temp);
