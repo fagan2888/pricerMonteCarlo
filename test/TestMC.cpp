@@ -43,9 +43,7 @@ int main(int argc, char **argv) {
     }
     P->extract("strike", strike);
     P->extract("sample number", n_samples);
-    //n_samples = 1000;
     P->extract("timestep number", nbTimeSteps);
-    //nbTimeSteps = 10;
 
     /* Création de l'option en fonction du type */
     Option *opt;
