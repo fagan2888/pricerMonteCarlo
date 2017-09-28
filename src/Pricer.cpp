@@ -138,7 +138,6 @@ int main(int argc, char **argv)
     if (argc == 3 || argc == 4) {
 
         PnlMat* history = (argc==4)?pnl_mat_create_from_file(marketData) : bsmod->simul_market(H, T, rng);
-        std::cout << "taille de matrice = " << history->m << std::endl;
 
         clock_t startPL = clock();
         double profitAndLoss = monteCarlo.hedgingPAndL(history, history->m - 1);
