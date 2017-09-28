@@ -28,26 +28,6 @@ int main(int argc, char **argv) {
     size_t n_samples;
 
     char *infile = argv[1];
-    //Param *P = new Parser(infile);
-
-    //P->extract("option type", type);
-    //P->extract("maturity", T);
-    //P->extract("option size", size);
-    //P->extract("spot", spot, size);
-    //P->extract("volatility", sigma, size);
-    //P->extract("interest rate", r);
-    //P->extract("correlation", corr);
-    //P->extract("payoff coefficients", payoffCoeff,size);
-
-    //if (P->extract("dividend rate", divid, size) == false)
-    //{
-    //    divid = pnl_vect_create_from_zero(size);
-    //}
-    //P->extract("strike", strike);
-    //P->extract("sample number", n_samples);
-    //P->extract("timestep number", nbTimeSteps);
-
-    //P->print();
 
     type = "basket";
     strike =100;
