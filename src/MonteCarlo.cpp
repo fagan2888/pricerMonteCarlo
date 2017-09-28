@@ -132,7 +132,7 @@ double MonteCarlo::hedgingPAndL(PnlMat *path, int H) {
     std::cout << "payoff : " << payoff << std::endl;
     double pAngLResult = GET(result, H) + pnl_vect_scalar_prod(delta_past, path_i) - payoff;
 
-    /// Free the memory
+    /// Libération de la mémoire
     pnl_vect_free(&delta_current);
     pnl_vect_free(&delta_past);
     pnl_vect_free(&delta_temp);
