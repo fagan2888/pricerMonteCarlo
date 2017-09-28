@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     char *infile = NULL;
     char* marketData = NULL;
 
-    //Vérifications sur les arguments
+    /// Vérifications sur les arguments
     if ((argc < 2) && (argc > 4)){
         cout << "Bad number arguments\n Tape --help for more information." << endl;
 
@@ -78,8 +78,8 @@ int main(int argc, char **argv)
     P->extract("timestep number", nbTimeSteps);
 
 
-    /* Création de l'option en fonction du type */
-    Option *opt;
+    /// Création de l'option en fonction du type
+    Option *opt = NULL;
 
     if (type.compare("asian") == 0)
         opt = new OptionAsian(T, nbTimeSteps, size, payoffCoeff, strike);
@@ -94,15 +94,15 @@ int main(int argc, char **argv)
 
     BlackScholesModel *bsmod = new BlackScholesModel(size, r, corr, sigma, spot, trend);
 
-    /* Pas de temps */
+    /// Pas de temps
     double fdStep = 0.1;
-    /* Générateur aléatoire */
+    /// Générateur aléatoire
     PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
     pnl_rng_sseed(rng, time(NULL));
 
     MonteCarlo monteCarlo(bsmod, opt, rng, fdStep, (int) n_samples);
 
-    //Calcul du prix et des delta en zéro
+    /// Calcul du prix et des delta en zéro
     if (argc == 2){
 
         double prix;
@@ -110,14 +110,14 @@ int main(int argc, char **argv)
 
         clock_t startPrice = clock();
         monteCarlo.price(prix, ic);
-        clock_t timePrice = (clock() - startPrice) / (double)(CLOCKS_PER_SEC);
+        clock_t timePrice = (clock() - startPrice) / (double)(CLOCKS_PER_SEC/1000);
 
         PnlVect* deltas = pnl_vect_create_from_zero(size);
         PnlMat* history = pnl_mat_create_from_scalar(nbTimeSteps + 1, size, 100.0);
 
         clock_t startDelta = clock();
         monteCarlo.delta(history,0,deltas);
-        clock_t timeDelta = (clock() - startDelta) / (double)(CLOCKS_PER_SEC);
+        clock_t timeDelta = (clock() - startDelta) / (double)(CLOCKS_PER_SEC/1000);
 
         cout << "En t = 0 :" << endl;
         cout << "Prix = " << prix << endl;
@@ -128,7 +128,7 @@ int main(int argc, char **argv)
         pnl_vect_print_asrow(deltas);
         cout << "Temps de calcul des delta (méthode delta) T = " << timeDelta << "ms" << endl;
 
-        //Free memory
+        /// Libération mémoire des éléments alloués
         pnl_vect_free(&deltas);
         pnl_mat_free(&history);
 
@@ -139,19 +139,19 @@ int main(int argc, char **argv)
         std::cout << "taille de matrice = " << history->m << std::endl;
         PnlVect* results = pnl_vect_create_from_scalar( history->m, 0.0);
 
-        clock_t startPL = startPL = clock();
-        double profitAndLoss = monteCarlo.hedgingPAndL(results, history, history->m -1 );
+        clock_t startPL = clock();
+        double profitAndLoss = monteCarlo.hedgingPAndL(results, history, history->m - 1);
         clock_t timePL = (clock() - startPL) / (double)(CLOCKS_PER_SEC);
 
         cout << "P&L = " << profitAndLoss << endl;
-        cout << "Temps de calcul de P&L (méthode ...) T = " << timePL << " s" << endl;
+        cout << "Temps de calcul de P&L (méthode hedgingPAndL) T = " << timePL << "s" << endl;
 
-        //Free memory
+        /// Libération mémoire des éléments alloués
         pnl_mat_free(&history);
         pnl_vect_free(&results);
     }
 
-    //Free memory
+    /// Libération mémoire des éléments alloués
     pnl_rng_free(&rng);
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);
@@ -160,6 +160,7 @@ int main(int argc, char **argv)
     pnl_vect_free(&trend);
     //Deletion of monteCarlo
     //delete &monteCarlo;
+    //delete &opt;
     delete P;
 
 
