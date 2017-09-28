@@ -128,7 +128,7 @@ int main(int argc, char **argv)
         pnl_vect_print_asrow(deltas);
         cout << "Temps de calcul des delta (méthode delta) T = " << timeDelta << "ms" << endl;
 
-        //Free memory
+        /// Libération de la mémoire
         pnl_vect_free(&deltas);
         pnl_mat_free(&history);
 
@@ -137,21 +137,19 @@ int main(int argc, char **argv)
 
         PnlMat* history = (argc==4)?pnl_mat_create_from_file(marketData) : bsmod->simul_market(H, T, rng);
         std::cout << "taille de matrice = " << history->m << std::endl;
-        PnlVect* results = pnl_vect_create_from_scalar( history->m, 0.0);
 
         clock_t startPL = startPL = clock();
-        double profitAndLoss = monteCarlo.hedgingPAndL(results, history, history->m -1 );
+        double profitAndLoss = monteCarlo.hedgingPAndL(history, history->m -1 );
         clock_t timePL = (clock() - startPL) / (double)(CLOCKS_PER_SEC);
 
         cout << "P&L = " << profitAndLoss << endl;
         cout << "Temps de calcul de P&L (méthode ...) T = " << timePL << " s" << endl;
 
-        //Free memory
+        /// Libération de la mémoire
         pnl_mat_free(&history);
-        pnl_vect_free(&results);
     }
 
-    //Free memory
+    /// Libération de la mémoire
     pnl_rng_free(&rng);
     pnl_vect_free(&spot);
     pnl_vect_free(&sigma);

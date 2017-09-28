@@ -101,9 +101,7 @@ int main(int argc, char **argv) {
     monteCarlo.price(prix, ic);
     std::cout << prix << " | " << ic << std::endl;
 
-    PnlVect* results = pnl_vect_create_from_scalar(nbTimeSteps, 0.0);
-    monteCarlo.hedgingPAndL(results, history, nbTimeSteps);
-    pnl_vect_print(results);
+    monteCarlo.hedgingPAndL(history, nbTimeSteps);
     //monteCarlo.delta(history, t, delta);
     //pnl_vect_print(delta);
 
