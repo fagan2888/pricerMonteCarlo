@@ -118,13 +118,13 @@ double MonteCarlo::hedgingPAndL(PnlVect *result, PnlMat *path, int H) {
     for (int i = 1; i <= H; i++) {
         pnl_mat_get_row(path_i, path, i);
         //if (i % (H / opt_->nbTimeSteps_) == 0) {
-	pnl_mat_add_row(past_i, past_i->m, path_i);
-	    //}
+        pnl_mat_add_row(past_i, past_i->m, path_i);
+        //}
 
         delta(past_i, i * opt_->T_ / H, delta_current);
-	if (i % (H / opt_->nbTimeSteps_) != 0)
-	  pnl_mat_del_row(past_i,past_i->m-1);
-	pnl_vect_clone(delta_temp, delta_past);
+        if (i % (H / opt_->nbTimeSteps_) != 0)
+            pnl_mat_del_row(past_i, past_i->m - 1);
+        pnl_vect_clone(delta_temp, delta_past);
         pnl_vect_clone(delta_past, delta_current);
         pnl_vect_minus_vect(delta_current, delta_temp);
         LET(result, i) = GET(result, i - 1) * exp(mod_->r_ * opt_->T_ / H) -
