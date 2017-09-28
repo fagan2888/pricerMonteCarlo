@@ -46,3 +46,7 @@ cmake-build-debug/
 
 # Temporal files
 *#
+
+# Docs
+/doc/html
+/doc/latex

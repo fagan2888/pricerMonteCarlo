@@ -105,9 +105,9 @@ PnlMat *BlackScholesModel::simul_market(int H, double T, PnlRng *rng) {
             double trend_d = pnl_vect_get(trend_, d);
             double sigma_d = pnl_vect_get(sigma_, d);
             pnl_mat_get_row(L_d, cholesky, d);
-            double path_t_d = MGET(path, 0, d) * exp((trend_d - pow(sigma_d, 2) / 2) * timeInterval +
-                                                     sigma_d * sqrt(timeInterval) *
-                                                     pnl_vect_scalar_prod(L_d, G_i));
+            double path_t_d = MGET(path, i - 1, d) * exp((trend_d - pow(sigma_d, 2) / 2) * timeInterval +
+                                                         sigma_d * sqrt(timeInterval) *
+                                                         pnl_vect_scalar_prod(L_d, G_i));
             pnl_mat_set(path, i, d, path_t_d);
         }
     }
