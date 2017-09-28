@@ -140,7 +140,7 @@ int main(int argc, char **argv)
         std::cout << "taille de matrice = " << history->m << std::endl;
 
         clock_t startPL = clock();
-        double profitAndLoss = monteCarlo.hedgingPAndL(results, history, history->m - 1);
+        double profitAndLoss = monteCarlo.hedgingPAndL(history, history->m - 1);
         clock_t timePL = (clock() - startPL) / (double)(CLOCKS_PER_SEC);
 
         cout << "P&L = " << profitAndLoss << endl;
@@ -161,7 +161,6 @@ int main(int argc, char **argv)
     //delete &monteCarlo;
     //delete &opt;
     delete P;
-
 
     return 0;
 }
