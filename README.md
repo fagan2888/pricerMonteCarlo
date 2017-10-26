@@ -1,5 +1,5 @@
 # pricerMonteCarlo
-Pricer Monte Carlo pour options dans le cadre d'un projet Ensimag
+Outil de valorisation et de couverture de produits financiers par une méthode de Monte Carlo dans le modèle de Black-Scholes multidimensionnel. Le travail a été réalisé dans le cadre d'un projet de groupe de l'Ensimag avec Mohammed, Edouard, Ayoub et moi-même.
 
 Pour obtenir les exécutables:  
 mkdir build  
